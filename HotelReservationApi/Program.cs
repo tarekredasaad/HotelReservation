@@ -1,6 +1,10 @@
-
 using HotelReservationApi.Data;
+using HotelReservationApi.MapperProfile;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using HotelReservationApi.Helper;
+
+
 
 namespace HotelReservationApi
 {
@@ -20,12 +24,18 @@ namespace HotelReservationApi
 
             });
 
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+            //builder.Services.AddAutoMapper(typeof(UserProfile).Assembly);
+            //builder.Services.AddAutoMapper(typeof(UserProfile));
+            builder.Services.AddLogging(builder => builder.AddDebug());
+
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+            MapperHelper.Mapper = app.Services.GetService<IMapper>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

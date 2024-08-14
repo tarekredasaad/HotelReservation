@@ -5,7 +5,7 @@ namespace HotelReservationApi.Services.AuthService
 {
     public interface IAuthService
     {
-        public Task<ResultViewModel> RegisterUserAsync(User dto);
-        public Task<ResultViewModel> LoginUserAsync(User dto);
+        public Task<ResultViewModel> RegisterUserAsync(UserViewModel use);
+        public Task<ResultViewModel> LoginUserAsync(UserLoginViewModel use);
     }
 }
