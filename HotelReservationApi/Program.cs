@@ -1,4 +1,7 @@
 
+using HotelReservationApi.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace HotelReservationApi
 {
     public class Program
@@ -8,6 +11,14 @@ namespace HotelReservationApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddDbContext<Context>(option =>
+            {
+                option.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+                //.LogTo(log => Debug.WriteLine(log), LogLevel.Information)
+                //.EnableSensitiveDataLogging();
+
+            });
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
