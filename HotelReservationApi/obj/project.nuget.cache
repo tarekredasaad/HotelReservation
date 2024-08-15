@@ -1,13 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "JKTSobMcF4fE02JxEZ9E8dw7IDomqgsr15/z1n4cgfezFO62//00TgFRL1nfiTxj8douKcSuluPWpaSzCIokMA==",
+  "dgSpecHash": "8ntKDatv6hV6kf8wx3iPf83b8AM4xgciXiWhCa7ANFC/SxppOSkrH2BcxQrTXn51PBmCZfSuoH+i0t5geFe0mg==",
   "success": true,
   "projectFilePath": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tarek Reda\\.nuget\\packages\\autofac\\8.0.0\\autofac.8.0.0.nupkg.sha512",
     "C:\\Users\\Tarek Reda\\.nuget\\packages\\autofac.extensions.dependencyinjection\\9.0.0\\autofac.extensions.dependencyinjection.9.0.0.nupkg.sha512",
     "C:\\Users\\Tarek Reda\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
-    "C:\\Users\\Tarek Reda\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Tarek Reda\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Tarek Reda\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\Tarek Reda\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -91,16 +90,5 @@
     "C:\\Users\\Tarek Reda\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\Tarek Reda\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1608",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 13.0.1 was resolved.",
-      "libraryId": "AutoMapper",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }

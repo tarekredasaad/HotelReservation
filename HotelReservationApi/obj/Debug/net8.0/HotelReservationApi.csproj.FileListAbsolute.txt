@@ -287,7 +287,6 @@ G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservatio
 G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Autofac.dll
 G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Autofac.Extensions.DependencyInjection.dll
 G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\AutoMapper.dll
-G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Azure.Core.dll
 G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Azure.Identity.dll
 G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Humanizer.dll
