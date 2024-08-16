@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using HotelReservationApi.Data;
 using HotelReservationApi.Repository;
+using HotelReservationApi.Services.FacilitiesSrv;
+using HotelReservationApi.Services.RoomsSrv;
 
 namespace HotelReservationApi
 {
@@ -10,8 +12,8 @@ namespace HotelReservationApi
         {
             builder.RegisterType<Context>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
-            //builder.RegisterAssemblyTypes(typeof(IExamService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
-            //builder.RegisterAssemblyTypes(typeof(IExamQuestionService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(IRoomService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(IFacilitiesService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
 
         }
     }
