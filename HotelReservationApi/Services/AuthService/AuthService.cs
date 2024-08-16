@@ -24,12 +24,12 @@ namespace HotelReservationApi.Services.AuthService
             user = dto.MapOne<User>();
             user = await _userRepository.Add(user);
             
-            Staff staff = new Staff();
-            if(dto.GroupId == 1)
-            {
-                staff.User = user;
+            //Staff staff = new Staff();
+            //if(dto.GroupId == 1)
+            //{
+            //    staff.User = user;
                 
-            }
+            //}
             
             return ResultViewModel.Sucess(user);
 

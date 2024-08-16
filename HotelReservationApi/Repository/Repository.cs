@@ -19,8 +19,11 @@ namespace HotelReservationApi.Repository
         }
         public async Task<T> Add(T entity)
         {
-            astracking();
-            await _context.Set<T>().AddAsync(entity);
+            
+             _context.Set<T>().Add(entity);
+            var entry = _context.ChangeTracker.Entries<User>();
+            var entry2 = _context.Entry(entity);
+            //entry2.State
             return entity;
         }
 

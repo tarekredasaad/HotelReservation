@@ -16,19 +16,19 @@ namespace HotelReservationApi.Controllers
         }
 
         [HttpPost("RegisterUser")]
-        public ActionResult<ResultViewModel> Register(UserViewModel user)
+        public async Task<ActionResult<ResultViewModel>> Register(UserViewModel user)
         {
             if (!ModelState.IsValid) { return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState }); };
 
-            return Ok(_authService.RegisterUserAsync(user));
+            return Ok(await _authService.RegisterUserAsync(user));
         }
         [HttpPost("LoginUser")]
 
-        public ActionResult<ResultViewModel> Login(UserLoginViewModel user)
+        public async Task<ActionResult<ResultViewModel>> Login(UserLoginViewModel user)
         {
             if (!ModelState.IsValid) { return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState }); };
 
-            return Ok(_authService.LoginUserAsync(user));
+            return Ok(await _authService.LoginUserAsync(user));
         }
 
     }

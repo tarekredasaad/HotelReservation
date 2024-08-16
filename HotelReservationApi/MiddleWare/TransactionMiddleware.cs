@@ -1,4 +1,5 @@
 ﻿using HotelReservationApi.Data;
+using HotelReservationApi.Models;
 
 namespace HotelReservationApi.MiddleWare
 {
@@ -19,11 +20,12 @@ namespace HotelReservationApi.MiddleWare
             if (method == "POST" || method == "PUT" || method == "DELETE")
             {
                 var transaction = _context.Database.BeginTransaction();
-
+               
                 try
                 {
-                    await _next(httpContext);
-                    await _context.SaveChangesAsync();
+                    
+                     await _next(httpContext);
+                     _context.SaveChanges();
                     await transaction.CommitAsync();
                 }
                 catch (Exception ex)
