@@ -6,7 +6,7 @@ namespace HotelReservationApi.Repository
     {
         IQueryable<T> GetAll();
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
-        
+        void astracking();
         T GetByID(int id);
         T GetWithTrackinByID(int id);
         Task<T> Add(T entity);

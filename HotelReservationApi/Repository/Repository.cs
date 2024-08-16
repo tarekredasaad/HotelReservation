@@ -1,6 +1,7 @@
 ﻿using HotelReservationApi.Data;
 using HotelReservationApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 namespace HotelReservationApi.Repository
@@ -12,10 +13,17 @@ namespace HotelReservationApi.Repository
         {
             _context = context;
         }
-
+        public void astracking()
+        {
+           _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
+        }
         public async Task<T> Add(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
+            
+             _context.Set<T>().Add(entity);
+            var entry = _context.ChangeTracker.Entries<User>();
+            var entry2 = _context.Entry(entity);
+            //entry2.State
             return entity;
         }
 
