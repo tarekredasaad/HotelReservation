@@ -1,4 +1,5 @@
-﻿using HotelReservationApi.DTOs.Facilities;
+﻿using HotelReservationApi.Constant;
+using HotelReservationApi.DTOs.Facilities;
 using HotelReservationApi.DTOs.Pictures;
 using HotelReservationApi.Models;
 
@@ -12,6 +13,7 @@ namespace HotelReservationApi.DTOs.Rooms
         public Types Type { get; set; }
         public double Price { get; set; }
         public List<IFormFile> Pictures { get; set; }
+       
         public HashSet<int> Facilities { get; set; }
 
     }

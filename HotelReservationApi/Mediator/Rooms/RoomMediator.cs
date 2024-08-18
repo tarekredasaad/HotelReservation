@@ -13,13 +13,16 @@ namespace HotelReservationApi.Mediator.Rooms
         IPictureService _pictureService;
         IFacilitiesService _facilitiesService;
         IRepository<Room> _roomsRepository;
+        IRepository<RoomFacilities> _RoomFacilitRepo;
 
         public RoomMediator(IPictureService pictureService, IFacilitiesService facilitiesService 
-            ,IRepository<Room> repository)
+            ,IRepository<Room> repository 
+            , IRepository<RoomFacilities> repository1)
         {
             _pictureService = pictureService;
             _facilitiesService = facilitiesService;
             _roomsRepository = repository;
+            _RoomFacilitRepo = repository1;
         }
 
         public async Task<ResultViewModel> AddRoom(RoomDTO roomDTO)
@@ -28,14 +31,22 @@ namespace HotelReservationApi.Mediator.Rooms
             {
                 return ResultViewModel.Faliure(); 
             }
-
             Room room = new Room();
 
             room = roomDTO.MapOne<Room>();
 
             room.Pictures = await _pictureService.pictureSRV(roomDTO.Pictures);
-                room.Facilities =(List<Facilities>) await _facilitiesService.GetFacilities(roomDTO.Facilities);
+            List<RoomFacilities> roomFacilitiesList = new List<RoomFacilities>();
+            foreach (var id in roomDTO.Facilities)
+            {
+                RoomFacilities roomFacilities = new RoomFacilities();
+                roomFacilities.FacilityId = id;
+                roomFacilities.Room = room;
+                roomFacilitiesList.Add(roomFacilities);
+            }
+
             room = await _roomsRepository.Add(room);
+            await _RoomFacilitRepo.AddRange(roomFacilitiesList);
             return ResultViewModel.Sucess(room);
         }
     }

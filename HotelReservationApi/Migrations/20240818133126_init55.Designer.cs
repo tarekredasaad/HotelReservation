@@ -4,6 +4,7 @@ using HotelReservationApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelReservationApi.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240818133126_init55")]
+    partial class init55
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -293,6 +296,9 @@ namespace HotelReservationApi.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("FacilitiesId")
+                        .HasColumnType("int");
+
                     b.Property<int>("FacilityId")
                         .HasColumnType("int");
 
@@ -301,7 +307,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FacilityId");
+                    b.HasIndex("FacilitiesId");
 
                     b.HasIndex("RoomId");
 
@@ -485,7 +491,7 @@ namespace HotelReservationApi.Migrations
                 {
                     b.HasOne("HotelReservationApi.Models.Facilities", "Facilities")
                         .WithMany()
-                        .HasForeignKey("FacilityId")
+                        .HasForeignKey("FacilitiesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -47,9 +47,11 @@ namespace HotelReservationApi.Services.FacilitiesSrv
             
         }
 
-        public FacilitiesDTO GetFacilitiesById(int id)
+        public async Task<Facilities> GetFacilitiesById(int id)
         {
-            throw new NotImplementedException();
+            Facilities facilities =  _repository.GetByID(id);
+            return facilities;
+            
         }
 
         public void RemoveFacility(int id)
