@@ -34,9 +34,17 @@ namespace HotelReservationApi.Services.FacilitiesSrv
             
         }
 
-        public IEnumerable<FacilitiesDTO> GetFacilities()
+        public async Task<IEnumerable<Facilities>> GetFacilities(HashSet<int> ints)
         {
-            throw new NotImplementedException();
+            List<Facilities> facilities = new List<Facilities> { };
+            foreach (var id in ints) 
+            {
+                Facilities facility = new Facilities();
+                facility = _repository.GetByID(id);
+                facilities.Add(facility);
+            }
+            return facilities;
+            
         }
 
         public FacilitiesDTO GetFacilitiesById(int id)

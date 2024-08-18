@@ -6,13 +6,13 @@ namespace HotelReservationApi.DTOs.Rooms
 {
     public class RoomDTO
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public byte Status { get; set; }
-        public byte Type { get; set; }
+        //public int Id { get; set; }
+        public string name { get; set; }
+        public Status Status { get; set; }
+        public Types Type { get; set; }
         public double Price { get; set; }
-        public HashSet<PicturesCreateDTO> Pictures { get; set; }
-        public HashSet<FacilitiesCreateDTO> Facilities { get; set; }
+        public List<IFormFile> Pictures { get; set; }
+        public HashSet<int> Facilities { get; set; }
 
     }
 }

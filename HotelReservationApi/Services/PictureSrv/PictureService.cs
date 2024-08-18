@@ -15,9 +15,9 @@ namespace HotelReservationApi.Services.PictureSrv
             _repository = repository;
         }
 
-        public async Task<ResultViewModel> AddPicture(PicturesCreateDTO pictureDTO) 
+        public async Task<ResultViewModel> AddPicture(PicturesCreateDTO pictureDTO)
         {
-            if (pictureDTO == null) 
+            if (pictureDTO == null)
             {
                 return ResultViewModel.Faliure();
             }
@@ -31,9 +31,28 @@ namespace HotelReservationApi.Services.PictureSrv
                 picturesList.Add(pictures);
                 //pictures = await _repository.Add(pictures);
             }
-             await _repository.AddRange(picturesList);
+            await _repository.AddRange(picturesList);
             return ResultViewModel.Sucess(picturesList);
         }
 
+        public async Task<List<Pictures>> pictureSRV(List<IFormFile> pictureDTO)
+        {
+            if (pictureDTO == null)
+            {
+                return null;
+            }
+            List<Pictures> picturesList = new List<Pictures>();
+            foreach (var file in pictureDTO)
+            {
+                Pictures pictures = new Pictures();
+                pictures.name = file.FileName;
+                pictures.ContentType = file.ContentType;
+                pictures.Data = await FileHelper.ConvertToBytesAsync(file);
+                picturesList.Add(pictures);
+                //pictures = await _repository.Add(pictures);
+            }
+           
+            return (picturesList);
+        }
     }
 }

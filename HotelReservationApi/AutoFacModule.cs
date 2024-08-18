@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using HotelReservationApi.Data;
+using HotelReservationApi.Mediator.Rooms;
 using HotelReservationApi.Repository;
 using HotelReservationApi.Services.FacilitiesSrv;
 using HotelReservationApi.Services.PictureSrv;
@@ -16,6 +17,7 @@ namespace HotelReservationApi
             builder.RegisterAssemblyTypes(typeof(IRoomService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(IFacilitiesService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(IPictureService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(IRoomMediator).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
 
         }
     }

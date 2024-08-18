@@ -39,6 +39,7 @@ namespace HotelReservationApi
             builder.Services.AddEndpointsApiExplorer();
             //builder.Services.AddAutoMapper(typeof(UserProfile).Assembly);
             builder.Services.AddAutoMapper(typeof(UserProfile).Assembly);
+            builder.Services.AddAutoMapper(typeof(RoomProfiler).Assembly);
             //builder.Services.ConfigureAutoMappers();
 
             builder.Services.AddLogging(builder => builder.AddDebug());
