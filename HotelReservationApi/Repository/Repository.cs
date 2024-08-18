@@ -13,10 +13,7 @@ namespace HotelReservationApi.Repository
         {
             _context = context;
         }
-        public void astracking()
-        {
-           _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
-        }
+        
         public async Task<T> Add(T entity)
         {
             
@@ -26,7 +23,10 @@ namespace HotelReservationApi.Repository
             //entry2.State
             return entity;
         }
-
+        public async Task AddRange(List<T> list)
+        {
+           await  _context.Set<T>().AddRangeAsync(list);
+        }
         public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
