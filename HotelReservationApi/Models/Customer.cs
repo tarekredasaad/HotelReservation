@@ -5,6 +5,6 @@
         public int UserId {  get; set; }
         public User User { get; set; }
 
-        public List<Booking> Bookings { get; set; }
+        public List<Reservation> Reservations { get; set; }
     }
 }

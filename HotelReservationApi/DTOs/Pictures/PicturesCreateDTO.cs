@@ -2,5 +2,6 @@
 {
     public class PicturesCreateDTO
     {
+        public List<IFormFile> files { get; set; }
     }
 }

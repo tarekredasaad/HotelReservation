@@ -1,41 +1,68 @@
 ﻿using HotelReservationApi.DTOs.Rooms;
+using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repository;
+using HotelReservationApi.Services.FacilitiesSrv;
 
 namespace HotelReservationApi.Services.RoomsSrv
 {
     public class RoomService : IRoomService
     {
         private readonly IRepository<Room> _repository;
-
+        //IFacilitiesService facilitiesService;
         public RoomService(IRepository<Room> repository)
         {
             _repository = repository;
         }
 
-        public int AddRoom(RoomCreateDTO roomCreateDTO)
+        public Room AddRoom(RoomCreateDTO roomCreateDTO)
         {
-            throw new NotImplementedException();
-        }
+            Room room = new Room();
 
-        public void deleteRoom(int roomId)
+            room = roomCreateDTO.MapOne<Room>();
+
+
+            return room;
+            
+        }
+        public async Task SaveChange() 
         {
-            throw new NotImplementedException();
+           await _repository.SaveChange();
         }
-
         public RoomDTO GetRoomById(int id)
         {
-            throw new NotImplementedException();
+            var room = _repository.GetWithTrackinByID(id);
+
+            return room.MapOne<RoomDTO>();
         }
 
         public IEnumerable<RoomDTO> GetRooms()
         {
-            throw new NotImplementedException();
+            var rooms = _repository.GetAll();
+
+            return rooms.Map<RoomDTO>();
         }
+
+        //public int AddRoom(RoomCreateDTO roomCreateDTO)
+        //{
+        //    var room = roomCreateDTO.MapOne<Room>();
+
+        //    _repository.Add(room);
+
+        //    return room.Id;
+        //}
+
+        public void deleteRoom(int roomId)
+        {
+            _repository.Delete(roomId);
+        }
+
 
         public void updateRoom(RoomDTO roomDTO)
         {
-            throw new NotImplementedException();
+            var room = roomDTO.MapOne<Room>();
+
+            _repository.Update(room);
         }
     }
 }

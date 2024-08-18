@@ -2,7 +2,11 @@
 {
     public class FacilitiesCreateDTO
     {
-        public string name { get; set; }
+        public List<FacilityCreateDTO> Facilities { get; set; }
+    }
+    public class FacilityCreateDTO
+    {
+        public string Name { get; set; }
         public double Cost { get; set; }
     }
 }

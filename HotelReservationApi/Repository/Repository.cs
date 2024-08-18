@@ -8,28 +8,30 @@ namespace HotelReservationApi.Repository
 {
     public class Repository<T> : IRepository<T> where T : BaseModel
     {
-        Context _context;
+        private readonly Context _context;
         public Repository(Context context)
         {
             _context = context;
         }
-        public void astracking()
-        {
-           _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
-        }
+        
         public async Task<T> Add(T entity)
         {
             
-             _context.Set<T>().Add(entity);
-            var entry = _context.ChangeTracker.Entries<User>();
+            await _context.Set<T>().AddAsync(entity);
+            
+           
             var entry2 = _context.Entry(entity);
             //entry2.State
             return entity;
         }
-
-        public void Update(T entity)
+        public async Task AddRange(List<T> list)
+        {
+           await  _context.Set<T>().AddRangeAsync(list);
+        }
+        public async Task<T> Update(T entity)
         {
             _context.Set<T>().Update(entity);
+            return entity;
         }
 
         public void Delete(T entity)
@@ -75,7 +77,10 @@ namespace HotelReservationApi.Repository
         {
             return Get(predicate).FirstOrDefault();
         }
-
+        public async Task SaveChange()
+        {
+           await _context.SaveChangesAsync();
+        }
 
     }
 }

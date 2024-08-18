@@ -1,6 +1,6 @@
 ﻿namespace HotelReservationApi.Models
 {
-    public class Booking :BaseModel
+    public class Reservation :BaseModel
     {
         
         public int CustomerId { get; set; }

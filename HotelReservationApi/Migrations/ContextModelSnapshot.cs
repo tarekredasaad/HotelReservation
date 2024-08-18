@@ -22,53 +22,6 @@ namespace HotelReservationApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FacilitiesRoom", b =>
-                {
-                    b.Property<int>("FacilitiesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("roomsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FacilitiesId", "roomsId");
-
-                    b.HasIndex("roomsId");
-
-                    b.ToTable("FacilitiesRoom");
-                });
-
-            modelBuilder.Entity("HotelReservationApi.Models.Booking", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("From")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("To")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("Bookings");
-                });
-
             modelBuilder.Entity("HotelReservationApi.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -90,7 +43,7 @@ namespace HotelReservationApi.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("HotelReservationApi.Models.Facilities", b =>
+            modelBuilder.Entity("HotelReservationApi.Models.Facility", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,10 +51,13 @@ namespace HotelReservationApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
+
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -184,15 +140,18 @@ namespace HotelReservationApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int?>("RoomId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("name")
                         .IsRequired()
@@ -203,6 +162,38 @@ namespace HotelReservationApi.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("Pictures");
+                });
+
+            modelBuilder.Entity("HotelReservationApi.Models.Reservation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("To")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Room", b =>
@@ -216,10 +207,7 @@ namespace HotelReservationApi.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("FeedbackId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OfferId")
+                    b.Property<int?>("FeedbackId")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
@@ -239,44 +227,10 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("FeedbackId");
 
-                    b.HasIndex("OfferId");
-
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("HotelReservationApi.Models.RoomBooking", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("NumberDays")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookingId");
-
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("RoomBookings");
-                });
-
-            modelBuilder.Entity("HotelReservationApi.Models.RoomFacilities", b =>
+            modelBuilder.Entity("HotelReservationApi.Models.RoomFacility", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -286,9 +240,6 @@ namespace HotelReservationApi.Migrations
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("FacilitiesId")
-                        .HasColumnType("int");
 
                     b.Property<int>("FacilityId")
                         .HasColumnType("int");
@@ -298,7 +249,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FacilitiesId");
+                    b.HasIndex("FacilityId");
 
                     b.HasIndex("RoomId");
 
@@ -324,7 +275,43 @@ namespace HotelReservationApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OfferId");
+
+                    b.HasIndex("RoomId");
+
                     b.ToTable("RoomOffers");
+                });
+
+            modelBuilder.Entity("HotelReservationApi.Models.RoomReservation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("NumberDays")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("RoomBookings");
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Staff", b =>
@@ -377,46 +364,12 @@ namespace HotelReservationApi.Migrations
                     b.ToTable("users");
                 });
 
-            modelBuilder.Entity("FacilitiesRoom", b =>
-                {
-                    b.HasOne("HotelReservationApi.Models.Facilities", null)
-                        .WithMany()
-                        .HasForeignKey("FacilitiesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HotelReservationApi.Models.Room", null)
-                        .WithMany()
-                        .HasForeignKey("roomsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("HotelReservationApi.Models.Booking", b =>
-                {
-                    b.HasOne("HotelReservationApi.Models.Customer", "Customer")
-                        .WithMany("Bookings")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HotelReservationApi.Models.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Room");
-                });
-
             modelBuilder.Entity("HotelReservationApi.Models.Customer", b =>
                 {
                     b.HasOne("HotelReservationApi.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -427,7 +380,7 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.Staff", "Staff")
                         .WithMany()
                         .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Staff");
@@ -437,9 +390,26 @@ namespace HotelReservationApi.Migrations
                 {
                     b.HasOne("HotelReservationApi.Models.Room", "Room")
                         .WithMany("Pictures")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("RoomId");
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("HotelReservationApi.Models.Reservation", b =>
+                {
+                    b.HasOne("HotelReservationApi.Models.Customer", "Customer")
+                        .WithMany("Reservations")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.HasOne("HotelReservationApi.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Room");
                 });
@@ -448,51 +418,64 @@ namespace HotelReservationApi.Migrations
                 {
                     b.HasOne("HotelReservationApi.Models.Feedback", "Feedback")
                         .WithMany()
-                        .HasForeignKey("FeedbackId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HotelReservationApi.Models.Offer", null)
-                        .WithMany("Rooms")
-                        .HasForeignKey("OfferId");
+                        .HasForeignKey("FeedbackId");
 
                     b.Navigation("Feedback");
                 });
 
-            modelBuilder.Entity("HotelReservationApi.Models.RoomBooking", b =>
+            modelBuilder.Entity("HotelReservationApi.Models.RoomFacility", b =>
                 {
-                    b.HasOne("HotelReservationApi.Models.Booking", "Booking")
-                        .WithMany()
-                        .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("HotelReservationApi.Models.Facility", "Facilities")
+                        .WithMany("RoomFacilities")
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("HotelReservationApi.Models.Room", "Room")
-                        .WithMany()
+                        .WithMany("RoomFacilities")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Booking");
+                    b.Navigation("Facilities");
 
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("HotelReservationApi.Models.RoomFacilities", b =>
+            modelBuilder.Entity("HotelReservationApi.Models.RoomOffer", b =>
                 {
-                    b.HasOne("HotelReservationApi.Models.Facilities", "Facilities")
+                    b.HasOne("HotelReservationApi.Models.Offer", "offer")
+                        .WithMany("RoomOffers")
+                        .HasForeignKey("OfferId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("HotelReservationApi.Models.Room", "Room")
+                        .WithMany("RoomOffers")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+
+                    b.Navigation("offer");
+                });
+
+            modelBuilder.Entity("HotelReservationApi.Models.RoomReservation", b =>
+                {
+                    b.HasOne("HotelReservationApi.Models.Reservation", "Reservation")
                         .WithMany()
-                        .HasForeignKey("FacilitiesId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("HotelReservationApi.Models.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Facilities");
+                    b.Navigation("Reservation");
 
                     b.Navigation("Room");
                 });
@@ -502,7 +485,7 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -513,7 +496,7 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Group");
@@ -521,17 +504,26 @@ namespace HotelReservationApi.Migrations
 
             modelBuilder.Entity("HotelReservationApi.Models.Customer", b =>
                 {
-                    b.Navigation("Bookings");
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("HotelReservationApi.Models.Facility", b =>
+                {
+                    b.Navigation("RoomFacilities");
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Offer", b =>
                 {
-                    b.Navigation("Rooms");
+                    b.Navigation("RoomOffers");
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Room", b =>
                 {
                     b.Navigation("Pictures");
+
+                    b.Navigation("RoomFacilities");
+
+                    b.Navigation("RoomOffers");
                 });
 #pragma warning restore 612, 618
         }

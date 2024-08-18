@@ -6,13 +6,14 @@ namespace HotelReservationApi.Repository
     {
         IQueryable<T> GetAll();
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
-        void astracking();
+        Task AddRange(List<T> list);
         T GetByID(int id);
         T GetWithTrackinByID(int id);
         Task<T> Add(T entity);
-        void Update(T entity);
+        Task<T> Update(T entity);
         void Delete(T entity);
         void Delete(int id);
         T First(Expression<Func<T, bool>> predicate);
+        Task SaveChange();
     }
 }
