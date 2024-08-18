@@ -4,6 +4,7 @@ using HotelReservationApi.Mediator.Rooms;
 using HotelReservationApi.Repository;
 using HotelReservationApi.Services.FacilitiesSrv;
 using HotelReservationApi.Services.PictureSrv;
+using HotelReservationApi.Services.RoomFacilitySrv;
 using HotelReservationApi.Services.RoomsSrv;
 
 namespace HotelReservationApi
@@ -15,8 +16,10 @@ namespace HotelReservationApi
             builder.RegisterType<Context>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(IRoomService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(IPictureService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(IFacilitiesService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(IPictureService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(IRoomFacilityService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(IRoomMediator).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
 
         }

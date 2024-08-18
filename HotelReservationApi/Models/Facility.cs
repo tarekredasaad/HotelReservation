@@ -2,11 +2,11 @@
 
 namespace HotelReservationApi.Models
 {
-    public class Facilities:BaseModel
+    public class Facility:BaseModel
     {
-        public string name { get; set; }
+        public string Name { get; set; }
         public double Cost { get; set; }
         [JsonIgnore]
-        public List<Room> rooms { get; set; }
+        public List<RoomFacility> RoomFacilities { get; set; }
     }
 }

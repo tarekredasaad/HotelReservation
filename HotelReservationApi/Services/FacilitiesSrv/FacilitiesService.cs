@@ -8,9 +8,9 @@ namespace HotelReservationApi.Services.FacilitiesSrv
 {
     public class FacilitiesService : IFacilitiesService
     {
-        private readonly IRepository<Facilities> _repository;
+        private readonly IRepository<Facility> _repository;
 
-        public FacilitiesService(IRepository<Facilities> repository)
+        public FacilitiesService(IRepository<Facility> repository)
         {
             _repository = repository;
         }
@@ -21,11 +21,11 @@ namespace HotelReservationApi.Services.FacilitiesSrv
             {
                 return ResultViewModel.Faliure();
             }
-            List<Facilities> facilities = new List<Facilities>();
+            List<Facility> facilities = new List<Facility>();
             foreach (var facility in facilitiesCreateDTO.Facilities)
             {
-                Facilities Facility = new Facilities();
-                Facility = facility.MapOne<Facilities>();
+                Facility Facility = new Facility();
+                Facility = facility.MapOne<Facility>();
                 facilities.Add(Facility);
             }
             await _repository.AddRange(facilities);
@@ -34,12 +34,12 @@ namespace HotelReservationApi.Services.FacilitiesSrv
             
         }
 
-        public async Task<IEnumerable<Facilities>> GetFacilities(HashSet<int> ints)
+        public async Task<IEnumerable<Facility>> GetFacilities(HashSet<int> ints)
         {
-            List<Facilities> facilities = new List<Facilities> { };
+            List<Facility> facilities = new List<Facility> { };
             foreach (var id in ints) 
             {
-                Facilities facility = new Facilities();
+                Facility facility = new Facility();
                 facility = _repository.GetByID(id);
                 facilities.Add(facility);
             }
@@ -47,9 +47,9 @@ namespace HotelReservationApi.Services.FacilitiesSrv
             
         }
 
-        public async Task<Facilities> GetFacilitiesById(int id)
+        public async Task<Facility> GetFacilitiesById(int id)
         {
-            Facilities facilities =  _repository.GetByID(id);
+            Facility facilities =  _repository.GetByID(id);
             return facilities;
             
         }

@@ -6,7 +6,7 @@
     }
     public class FacilityCreateDTO
     {
-        public string name { get; set; }
+        public string Name { get; set; }
         public double Cost { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace HotelReservationApi.Repository
 {
     public class Repository<T> : IRepository<T> where T : BaseModel
     {
-        Context _context;
+        private readonly Context _context;
         public Repository(Context context)
         {
             _context = context;
@@ -17,8 +17,9 @@ namespace HotelReservationApi.Repository
         public async Task<T> Add(T entity)
         {
             
-             _context.Set<T>().Add(entity);
-            var entry = _context.ChangeTracker.Entries<User>();
+            await _context.Set<T>().AddAsync(entity);
+            
+           
             var entry2 = _context.Entry(entity);
             //entry2.State
             return entity;
@@ -76,7 +77,10 @@ namespace HotelReservationApi.Repository
         {
             return Get(predicate).FirstOrDefault();
         }
-
+        public async Task SaveChange()
+        {
+           await _context.SaveChangesAsync();
+        }
 
     }
 }

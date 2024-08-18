@@ -6,8 +6,8 @@ namespace HotelReservationApi.Services.FacilitiesSrv
 {
     public interface IFacilitiesService
     {
-        Task<IEnumerable<Facilities>> GetFacilities(HashSet<int> ints);
-        Task<Facilities> GetFacilitiesById(int id);
+        Task<IEnumerable<Facility>> GetFacilities(HashSet<int> ints);
+        Task<Facility> GetFacilitiesById(int id);
         Task<ResultViewModel> AddFacility(FacilitiesCreateDTO facilitiesCreateDTO);
         void UpdateFacility(FacilitiesDTO facilitiesDTO);
         void RemoveFacility(int id);

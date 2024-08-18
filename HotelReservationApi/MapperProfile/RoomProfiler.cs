@@ -8,8 +8,10 @@ namespace HotelReservationApi.MapperProfile
     {
         public RoomProfiler() 
         {
+            CreateMap<RoomCreateDTO,RoomDTO>().ReverseMap();
+            CreateMap<RoomCreateDTO,Room>().ReverseMap();
             CreateMap<RoomDTO, Room>()
-                .ForMember(e => e.Facilities, opt => opt.Ignore())
+                .ForMember(e => e.RoomFacilities, opt => opt.Ignore())
                 .ForMember(e => e.Pictures, opt => opt.Ignore())
                 .ReverseMap();
         }

@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+using HotelReservationApi.Constant.Enum;
+using System.Text.Json.Serialization;
+
 
 namespace HotelReservationApi.Models
 {
@@ -13,24 +15,15 @@ namespace HotelReservationApi.Models
         [JsonIgnore]
         public List<Pictures>? Pictures { get; set; }
         [JsonIgnore]
-        public List<Facilities>? Facilities { get; set; }
+       
+        public List<RoomFacility> RoomFacilities { get; set; }
 
+        public List<RoomOffer> RoomOffers { get; set; }
 
-    }
-
-    public enum Status
-    {
-        Available,
-        pending,
-        Reserved
         
     }
 
-    public enum Types
-    {
-       
-        singleRoom,
-        DoubleRoom,
-
-    }
+   
+    
 }
+

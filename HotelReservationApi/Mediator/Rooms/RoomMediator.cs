@@ -1,9 +1,12 @@
-﻿using HotelReservationApi.DTOs.Rooms;
+﻿using HotelReservationApi.DTOs;
+using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repository;
 using HotelReservationApi.Services.FacilitiesSrv;
 using HotelReservationApi.Services.PictureSrv;
+using HotelReservationApi.Services.RoomFacilitySrv;
+using HotelReservationApi.Services.RoomsSrv;
 using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Mediator.Rooms
@@ -12,17 +15,23 @@ namespace HotelReservationApi.Mediator.Rooms
     {
         IPictureService _pictureService;
         IFacilitiesService _facilitiesService;
+        IRoomService _roomService;
         IRepository<Room> _roomsRepository;
-        IRepository<RoomFacilities> _RoomFacilitRepo;
+        IRepository<RoomFacility> _RoomFacilitRepo;
+        IRoomFacilityService _roomFacilityService;
 
         public RoomMediator(IPictureService pictureService, IFacilitiesService facilitiesService 
             ,IRepository<Room> repository 
-            , IRepository<RoomFacilities> repository1)
+            ,IRoomService roomService,
+            IRoomFacilityService roomFacilityService
+            , IRepository<RoomFacility> repository1)
         {
             _pictureService = pictureService;
             _facilitiesService = facilitiesService;
             _roomsRepository = repository;
             _RoomFacilitRepo = repository1;
+            _roomFacilityService = roomFacilityService;
+            _roomService = roomService;
         }
 
         public async Task<ResultViewModel> AddRoom(RoomDTO roomDTO)
@@ -32,21 +41,23 @@ namespace HotelReservationApi.Mediator.Rooms
                 return ResultViewModel.Faliure(); 
             }
             Room room = new Room();
-
-            room = roomDTO.MapOne<Room>();
+            RoomCreateDTO roomCreateDTO = new RoomCreateDTO();
+            roomCreateDTO = roomDTO.MapOne<RoomCreateDTO>();
+            room = _roomService.AddRoom(roomCreateDTO);
+          
+            
 
             room.Pictures = await _pictureService.pictureSRV(roomDTO.Pictures);
-            List<RoomFacilities> roomFacilitiesList = new List<RoomFacilities>();
-            foreach (var id in roomDTO.Facilities)
-            {
-                RoomFacilities roomFacilities = new RoomFacilities();
-                roomFacilities.FacilityId = id;
-                roomFacilities.Room = room;
-                roomFacilitiesList.Add(roomFacilities);
-            }
-
             room = await _roomsRepository.Add(room);
-            await _RoomFacilitRepo.AddRange(roomFacilitiesList);
+            await _roomsRepository.SaveChange();
+            RoomFacilityDTO roomFacilityDTO = new RoomFacilityDTO();
+            roomFacilityDTO.FacilityIds = roomDTO.Facilities.ToList();
+            roomFacilityDTO.RoomId = room.Id;
+
+            await _roomFacilityService.GetRoomFacilities(roomFacilityDTO);
+
+            
+
             return ResultViewModel.Sucess(room);
         }
     }

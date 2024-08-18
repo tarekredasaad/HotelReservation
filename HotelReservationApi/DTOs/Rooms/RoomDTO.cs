@@ -1,4 +1,4 @@
-﻿using HotelReservationApi.Constant;
+﻿using HotelReservationApi.Constant.Enum;
 using HotelReservationApi.DTOs.Facilities;
 using HotelReservationApi.DTOs.Pictures;
 using HotelReservationApi.Models;

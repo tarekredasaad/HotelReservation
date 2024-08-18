@@ -5,7 +5,8 @@ namespace HotelReservationApi.MiddleWare
 {
     public class TransactionMiddleware
     {
-        //Context _context;
+
+        //private readonly Context _context;
         RequestDelegate _next;
 
         public TransactionMiddleware(
@@ -28,6 +29,7 @@ namespace HotelReservationApi.MiddleWare
                     
                      await _next(httpContext);
                     await context.SaveChangesAsync();
+                   
                     await transaction.CommitAsync();
                 }
                 catch (Exception ex)

@@ -24,7 +24,7 @@ namespace HotelReservationApi.Constant
                 // Define literals in the enum for each facility
                 foreach (var facility in facilities)
                 {
-                    enumBuilder.DefineLiteral(facility.name.Replace(" ", "_"), facility.Id);
+                    enumBuilder.DefineLiteral(facility.Name.Replace(" ", "_"), facility.Id);
                 }
             }
 
