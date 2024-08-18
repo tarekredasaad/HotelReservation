@@ -1,4 +1,5 @@
 ﻿using HotelReservationApi.DTOs.Facilities;
+using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Services.FacilitiesSrv
 {
@@ -6,7 +7,7 @@ namespace HotelReservationApi.Services.FacilitiesSrv
     {
         IEnumerable<FacilitiesDTO> GetFacilities();
         FacilitiesDTO GetFacilitiesById(int id);
-        void AddFacility(FacilitiesCreateDTO facilitiesCreateDTO);
+        Task<ResultViewModel> AddFacility(FacilitiesCreateDTO facilitiesCreateDTO);
         void UpdateFacility(FacilitiesDTO facilitiesDTO);
         void RemoveFacility(int id);
     }

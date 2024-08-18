@@ -1,6 +1,8 @@
 ﻿using HotelReservationApi.DTOs.Facilities;
+using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repository;
+using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Services.FacilitiesSrv
 {
@@ -13,9 +15,23 @@ namespace HotelReservationApi.Services.FacilitiesSrv
             _repository = repository;
         }
 
-        public void AddFacility(FacilitiesCreateDTO facilitiesCreateDTO)
+        public async Task<ResultViewModel> AddFacility(FacilitiesCreateDTO facilitiesCreateDTO)
         {
-            throw new NotImplementedException();
+            if (facilitiesCreateDTO.Facilities == null)
+            {
+                return ResultViewModel.Faliure();
+            }
+            List<Facilities> facilities = new List<Facilities>();
+            foreach (var facility in facilitiesCreateDTO.Facilities)
+            {
+                Facilities Facility = new Facilities();
+                Facility = facility.MapOne<Facilities>();
+                facilities.Add(Facility);
+            }
+            await _repository.AddRange(facilities);
+
+            return ResultViewModel.Sucess(facilities);
+            
         }
 
         public IEnumerable<FacilitiesDTO> GetFacilities()
