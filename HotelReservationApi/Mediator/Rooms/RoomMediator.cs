@@ -14,22 +14,21 @@ namespace HotelReservationApi.Mediator.Rooms
     public class RoomMediator : IRoomMediator
     {
         IPictureService _pictureService;
-        IFacilitiesService _facilitiesService;
+      
         IRoomService _roomService;
-        IRepository<Room> _roomsRepository;
-        IRepository<RoomFacility> _RoomFacilitRepo;
+      
         IRoomFacilityService _roomFacilityService;
 
-        public RoomMediator(IPictureService pictureService, IFacilitiesService facilitiesService 
-            ,IRepository<Room> repository 
+        public RoomMediator(IPictureService pictureService 
+             
             ,IRoomService roomService,
             IRoomFacilityService roomFacilityService
-            , IRepository<RoomFacility> repository1)
+            )
         {
             _pictureService = pictureService;
-            _facilitiesService = facilitiesService;
-            _roomsRepository = repository;
-            _RoomFacilitRepo = repository1;
+          
+         
+           
             _roomFacilityService = roomFacilityService;
             _roomService = roomService;
         }
