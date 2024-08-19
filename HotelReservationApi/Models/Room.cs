@@ -15,10 +15,13 @@ namespace HotelReservationApi.Models
         [JsonIgnore]
         public List<Pictures>? Pictures { get; set; }
         [JsonIgnore]
-       
+       public List<RoomReservation> RoomReservations { get; set; }
+        [JsonIgnore]
         public List<RoomFacility> RoomFacilities { get; set; }
-
+        [JsonIgnore]
         public List<RoomOffer> RoomOffers { get; set; }
+
+
 
         
     }
