@@ -15,12 +15,12 @@ namespace HotelReservationApi.Services.RoomsSrv
             _repository = repository;
         }
 
-        public Room AddRoom(RoomCreateDTO roomCreateDTO)
+        public async Task<Room> AddRoom(RoomCreateDTO roomCreateDTO)
         {
             Room room = new Room();
 
             room = roomCreateDTO.MapOne<Room>();
-
+            room = await _repository.Add(room);
 
             return room;
             

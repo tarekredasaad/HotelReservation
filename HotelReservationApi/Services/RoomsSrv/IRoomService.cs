@@ -7,7 +7,7 @@ namespace HotelReservationApi.Services.RoomsSrv
     {
         IEnumerable<RoomDTO> GetRooms();
         RoomDTO GetRoomById(int id);
-        Room AddRoom(RoomCreateDTO roomCreateDTO);
+        Task<Room> AddRoom(RoomCreateDTO roomCreateDTO);
         void updateRoom(RoomDTO roomDTO);
         Task SaveChange();
         void deleteRoom(int roomId);

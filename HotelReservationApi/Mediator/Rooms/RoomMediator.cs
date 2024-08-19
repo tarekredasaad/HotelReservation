@@ -41,15 +41,14 @@ namespace HotelReservationApi.Mediator.Rooms
                 return ResultViewModel.Faliure(); 
             }
             Room room = new Room();
-            RoomCreateDTO roomCreateDTO = new RoomCreateDTO();
-            roomCreateDTO = roomDTO.MapOne<RoomCreateDTO>();
-            room = _roomService.AddRoom(roomCreateDTO);
-          
-            
-
+            RoomCreateDTO roomCreateDTO = roomDTO.MapOne<RoomCreateDTO>();
+           
             room.Pictures = await _pictureService.pictureSRV(roomDTO.Pictures);
-            room = await _roomsRepository.Add(room);
-            await _roomsRepository.SaveChange();
+            room = await _roomService.AddRoom(roomCreateDTO);
+
+            await _roomService.SaveChange();
+
+            
             RoomFacilityDTO roomFacilityDTO = new RoomFacilityDTO();
             roomFacilityDTO.FacilityIds = roomDTO.Facilities.ToList();
             roomFacilityDTO.RoomId = room.Id;
