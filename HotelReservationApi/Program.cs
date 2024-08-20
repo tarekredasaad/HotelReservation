@@ -1,11 +1,10 @@
-using HotelReservationApi.Data;
-using HotelReservationApi.MapperProfile;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using HotelReservationApi.Helper;
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
-using HotelReservationApi.MiddleWare;
+using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
+using HotelReservationApi.Data;
+using HotelReservationApi.Helper;
+using HotelReservationApi.Middlewares;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 
@@ -18,14 +17,13 @@ namespace HotelReservationApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddDbContext<Context>(option =>
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
                 .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
                 .EnableSensitiveDataLogging();
-
             });
+
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
                 builder.RegisterModule(new AutoFacModule()));
@@ -35,20 +33,17 @@ namespace HotelReservationApi
             builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddControllers();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            //builder.Services.AddAutoMapper(typeof(UserProfile).Assembly);
-            builder.Services.AddAutoMapper(typeof(UserProfile).Assembly);
-            builder.Services.AddAutoMapper(typeof(RoomProfiler).Assembly);
-            //builder.Services.ConfigureAutoMappers();
 
             builder.Services.AddLogging(builder => builder.AddDebug());
 
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-            MapperHelper.Mapper = app.Services.GetService<IMapper>();
 
+            MapperHelper.Mapper = app.Services.GetService<IMapper>();
 
             app.UseMiddleware<GlobalErrorHandlerMiddleware>();
             app.UseMiddleware<TransactionMiddleware>();
@@ -64,7 +59,6 @@ namespace HotelReservationApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

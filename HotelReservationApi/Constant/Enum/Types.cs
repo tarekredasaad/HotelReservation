@@ -3,9 +3,8 @@
     public enum Types
     {
         Sweat,
-        singleRoom,
+        SingleRoom,
         DoubleRoom,
-
     }
     
 }
