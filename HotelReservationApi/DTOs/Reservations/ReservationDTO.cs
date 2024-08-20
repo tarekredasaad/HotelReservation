@@ -2,7 +2,7 @@
 {
     public class ReservationDTO
     {
-        public HashSet<int> RoomIds { get; set; }
+        public HashSet<int> Rooms { get; set; }
 
         public DateTime From { get; set; }
         public DateTime To { get; set; }

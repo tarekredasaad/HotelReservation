@@ -1,4 +1,6 @@
-﻿namespace HotelReservationApi.Models
+﻿using System.Text.Json.Serialization;
+
+namespace HotelReservationApi.Models
 {
     public class Reservation :BaseModel
     {
@@ -8,6 +10,7 @@
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         public bool IsConfirmed { get; set; }
+        [JsonIgnore]
         public List<RoomReservation> RoomReservations { get; set; }
 
     }

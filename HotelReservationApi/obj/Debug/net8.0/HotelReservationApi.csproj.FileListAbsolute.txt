@@ -560,3 +560,7 @@ G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservatio
 G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\obj\Debug\net8.0\HotelReservationApi.pdb
 G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\obj\Debug\net8.0\HotelReservationApi.genruntimeconfig.cache
 G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\obj\Debug\net8.0\ref\HotelReservationApi.dll
+G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Newtonsoft.Json.dll
+G:\UpSkilling\HotelReservationApi-master\HotelReservation - Copy\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

@@ -5,6 +5,7 @@ namespace HotelReservationApi.Repository
     public interface IRepository<T>
     {
         IQueryable<T> GetAll();
+        IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes);
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
         Task AddRange(List<T> list);
         T GetByID(int id);

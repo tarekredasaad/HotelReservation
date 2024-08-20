@@ -8,6 +8,9 @@ using Autofac;
 using HotelReservationApi.MiddleWare;
 using System.Diagnostics;
 
+using Autofac.Core;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 
 namespace HotelReservationApi
 {
@@ -33,6 +36,8 @@ namespace HotelReservationApi
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddHttpContextAccessor();
+            builder.Services.AddControllers()
+                    .AddNewtonsoftJson();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

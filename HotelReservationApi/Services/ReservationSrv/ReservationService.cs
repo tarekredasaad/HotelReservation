@@ -6,7 +6,7 @@ using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Services.ReservationSrv
 {
-    public class ReservationService
+    public class ReservationService : IReservationService
     {
         IRepository<Reservation> _repository;
 
@@ -15,12 +15,9 @@ namespace HotelReservationApi.Services.ReservationSrv
             _repository = repository;
         }
 
-        public async Task<ResultViewModel> AddReservation(CreateReservationDTO ReservationDTO)
+        public async Task<Reservation> AddReservation(ReservationDTO ReservationDTO)
         {
-            if(ReservationDTO == null)
-            {
-                return ResultViewModel.Faliure();
-            }
+            
 
             Reservation reservation = new Reservation();
             reservation = ReservationDTO.MapOne<Reservation>();
@@ -29,7 +26,7 @@ namespace HotelReservationApi.Services.ReservationSrv
 
             await _repository.SaveChange();
 
-            return ResultViewModel.Sucess(reservation);
+            return reservation;
         }
     }
 }

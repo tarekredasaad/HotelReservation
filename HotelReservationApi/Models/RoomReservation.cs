@@ -8,7 +8,7 @@ namespace HotelReservationApi.Models
         public Room Room { get; set; }
         public int ReservationId { get; set; }
         public Reservation Reservation { get; set; }
-        public ReservationStatus Status { get; set; }
+        //public ReservationStatus Status { get; set; }
         public bool IsReserved { get; set; }
         public int NumberDays { get; set; }
         public double TotalPrice { get; set; }

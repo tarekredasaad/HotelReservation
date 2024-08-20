@@ -52,13 +52,24 @@ namespace HotelReservationApi.Repository
         {
             return GetAll().Where(predicate);
         }
+        public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>().Where(x => !x.Deleted).AsNoTracking();
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query;
+        }
 
         public IQueryable<T> GetAll()
         {
             return _context.Set<T>().Where(x => !x.Deleted).AsNoTracking();
             //return _context.Set<T>().Where(x => !x.Deleted).AsNoTrackingWithIdentityResolution();
         }
-
+        
         public T GetByID(int id)
         {
             //return _context.Find<T>(id);
