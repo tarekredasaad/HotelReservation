@@ -1,8 +1,7 @@
-﻿using HotelReservationApi.Constant.Enum;
-using HotelReservationApi.DTOs.Rooms;
+﻿using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
+using HotelReservationApi.Repositories;
 
 namespace HotelReservationApi.Services.RoomReservations
 {
@@ -15,15 +14,24 @@ namespace HotelReservationApi.Services.RoomReservations
             _roomReservationRepository = roomReservationRepository;
         }
 
-        public async Task<RoomReservationDTO> AddRoomReservation(RoomReservationDTO roomReservationDTO)
+        public async Task AddRoomReservation(RoomReservationDTO roomReservationDTO)
         {
             RoomReservation roomReservation = roomReservationDTO.MapOne<RoomReservation>();
 
             roomReservation = await _roomReservationRepository.Add(roomReservation);
 
-            var result = roomReservation.MapOne<RoomReservationDTO>();
+            await _roomReservationRepository.SaveChangesAsync();
+        }
 
-            return result;
+        public async Task AddRange(List<RoomReservationDTO> roomReservationDTOs)
+        {
+            foreach(var roomReservationDTO in roomReservationDTOs)
+            {
+                var roomReservation = roomReservationDTO.MapOne<RoomReservation>();
+                await _roomReservationRepository.Add(roomReservation);
+            }
+
+            await _roomReservationRepository.SaveChangesAsync();
         }
     }
 }

@@ -3,6 +3,6 @@
     public class RoomFacilityDTO
     {
         public int RoomId { get; set; }
-        public List<int> FacilityIds { get; set; }
+        public int FacilityId { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace HotelReservationApi.Repository
+namespace HotelReservationApi.Repositories
 {
     public interface IRepository<T>
     {

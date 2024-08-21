@@ -1,4 +1,5 @@
 ﻿using HotelReservationApi.Constant.Enum;
+using HotelReservationApi.DTOs.Facilities;
 
 namespace HotelReservationApi.DTOs.Rooms
 {
@@ -9,8 +10,8 @@ namespace HotelReservationApi.DTOs.Rooms
         public Status Status { get; set; }
         public Types Type { get; set; }
         public double Price { get; set; }
-        public List<IFormFile> Pictures { get; set; }
-       
-        public HashSet<int> Facilities { get; set; }
+
+        public List<PictureDTO> Pictures { get; set; }
+        public HashSet<FacilityDTO> Facilities { get; set; }
     }
 }

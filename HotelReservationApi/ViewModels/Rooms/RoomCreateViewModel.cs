@@ -1,8 +1,9 @@
 ﻿using HotelReservationApi.Constant.Enum;
+using HotelReservationApi.DTOs;
 
-namespace HotelReservationApi.DTOs.Rooms
+namespace HotelReservationApi.ViewModels.Rooms
 {
-    public class RoomCreateDTO
+    public class RoomCreateViewModel
     {
         public string Name { get; set; }
         public Status Status { get; set; }

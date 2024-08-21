@@ -1,6 +1,5 @@
 ﻿using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
-using HotelReservationApi.Models;
 using HotelReservationApi.Services.Pictures;
 using HotelReservationApi.Services.RoomFacilities;
 using HotelReservationApi.Services.Rooms;
@@ -20,42 +19,45 @@ namespace HotelReservationApi.Mediators.Rooms
             _roomService = roomService;
         }
 
-        public async Task<RoomDTO> AddRoom(RoomCreateDTO roomCreateDTO)
+        public IEnumerable<RoomDTO> GetRooms()
         {
-            var room = await _roomService.AddRoom(roomCreateDTO);
-            
-            await _roomService.SaveChangesAsync();
-
-            var roomDTO = room.MapOne<RoomDTO>();
-
-            return roomDTO;
-
-            //room.Pictures = await _pictureService.pictureSRV(roomCreateDTO.Pictures);
-
-            //RoomFacilityDTO roomFacilityDTO = new RoomFacilityDTO();
-            //roomFacilityDTO.FacilityIds = roomCreateDTO.Facilities.ToList();
-            //roomFacilityDTO.RoomId = room.Id;
-
-            //await _roomFacilityService.GetRoomFacilities(roomFacilityDTO);
-
-            //return ResultViewModel.Sucess(room);
-        }
-
-        public List<RoomDTO> GetRooms()
-        {
-            var roomDTOs = _roomService.GetRooms().ToList();
+            var roomDTOs = _roomService.GetRooms();
 
             return roomDTOs;
         }
 
-        public void RemoveRoom(int id)
+        public async Task<RoomDTO> AddRoomAsync(RoomCreateDTO roomCreateDTO)
         {
-            _roomService.DeleteRoom(id);
+            var room = await _roomService.AddRoom(roomCreateDTO);
+            await _roomService.SaveChangesAsync();
+
+            await _roomFacilityService.AddRange(room.Id, roomCreateDTO.FacilityIDs);
+            await _roomFacilityService.SaveChangesAsync();
+
+            await _pictureService.AddRange(roomCreateDTO.Pictures);
+            await _pictureService.SaveChangesAsync();
+
+            var roomDTO = room.MapOne<RoomDTO>();
+
+            return roomDTO;
         }
 
-        public void UpdateRoom(RoomDTO roomDTO)
+        public RoomDTO GetRoomById(int id)
+        {
+            var roomDTO = _roomService.GetRoomById(id);
+            return roomDTO;
+        }
+
+        public async Task DeleteRoomAsync(int id)
+        {
+            _roomService.DeleteRoom(id);
+            await _roomService.SaveChangesAsync();
+        }
+
+        public async Task UpdateRoomAsync(RoomDTO roomDTO)
         {
             _roomService.UpdateRoom(roomDTO);
+            await _roomService.SaveChangesAsync();
         }
     }
 }

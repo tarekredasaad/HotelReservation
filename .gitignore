@@ -1,3 +1,5 @@
 .vs
 HotelReservationApi/obj
 HotelReservationApi/bin
+bin
+obj

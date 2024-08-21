@@ -8,10 +8,11 @@ namespace HotelReservationApi.Models
     {
         public string Name { get; set; }
         public Status Status { get; set; }
-        public int? FeedbackId { get; set; }
-        public Feedback? Feedback { get; set; }
         public Types Type { get; set; }
         public double Price { get; set; }
+
+        public int? FeedbackId { get; set; }
+        public Feedback? Feedback { get; set; }
 
         public List<Offer> Offers { get; set; }
         public List<Picture>? Pictures { get; set; }

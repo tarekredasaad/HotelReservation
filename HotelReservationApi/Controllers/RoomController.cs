@@ -1,6 +1,8 @@
 ﻿using HotelReservationApi.DTOs.Rooms;
+using HotelReservationApi.Helper;
 using HotelReservationApi.Mediators.Rooms;
 using HotelReservationApi.ViewModel;
+using HotelReservationApi.ViewModels.Rooms;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApi.Controllers
@@ -16,16 +18,68 @@ namespace HotelReservationApi.Controllers
             _roomMediator = roomMediator;
         }
 
-        [HttpPost]
-
-        public async Task<ActionResult<ResultViewModel>> AddRoom(RoomCreateDTO roomDTO)
+        [HttpGet]
+        public async Task<ResultViewModel> GetRooms()
         {
-            if (!ModelState.IsValid) 
-            { 
-                return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState }); 
+            var roomDTOs = _roomMediator.GetRooms();
+            var roomViewModels = roomDTOs.AsQueryable().Map<RoomViewModel>();
+            
+            return new ResultViewModel()
+            {
+                StatusCode = 200,
+                Data = roomViewModels,
             };
+        }
 
-            return Ok(await _roomMediator.AddRoom(roomDTO));
+        [HttpGet("{id}")]
+        public async Task<ResultViewModel> GetRoomById(int id)
+        {
+            var roomDTO = _roomMediator.GetRoomById(id);
+            var roomViewModel = roomDTO.MapOne<RoomViewModel>();
+
+            return new ResultViewModel()
+            {
+                StatusCode = 200,
+                Data = roomViewModel,
+            };
+        }
+
+        [HttpPost]
+        public async Task<ResultViewModel> AddRoom(RoomCreateViewModel roomCreateVM)
+        {
+            var roomCreateDTO = roomCreateVM.MapOne<RoomCreateDTO>();
+            var roomDTO = await _roomMediator.AddRoomAsync(roomCreateDTO);
+            var roomVM = roomDTO.MapOne<RoomViewModel>();
+
+            return new ResultViewModel()
+            {
+                StatusCode = 200,
+                Data = roomVM,
+            };
+        }
+
+        [HttpPut]
+        public async Task<ResultViewModel> UpdateRoom(RoomViewModel roomVM)
+        {
+            var roomDTO = roomVM.MapOne<RoomDTO>();
+
+            await _roomMediator.UpdateRoomAsync(roomDTO);
+
+            return new ResultViewModel()
+            {
+                StatusCode = 200,
+            };
+        }
+
+        [HttpDelete]
+        public async Task<ResultViewModel> DeleteRoom(int id)
+        {
+            await _roomMediator.DeleteRoomAsync(id);
+
+            return new ResultViewModel()
+            {
+                StatusCode = 200,
+            };
         }
     }
 }

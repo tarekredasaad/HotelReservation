@@ -3,7 +3,7 @@ using HotelReservationApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace HotelReservationApi.Repository
+namespace HotelReservationApi.Repositories
 {
     public class Repository<T> : IRepository<T> where T : BaseModel
     {

@@ -4,7 +4,7 @@ using HotelReservationApi.Data;
 using HotelReservationApi.MapperProfile;
 using HotelReservationApi.Mediators.Facilities;
 using HotelReservationApi.Mediators.Rooms;
-using HotelReservationApi.Repository;
+using HotelReservationApi.Repositories;
 using HotelReservationApi.Services.AuthService;
 using HotelReservationApi.Services.Facilities;
 using HotelReservationApi.Services.Pictures;
@@ -34,7 +34,7 @@ namespace HotelReservationApi
             builder.Register(context => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<UserProfile>();
-                cfg.AddProfile<RoomProfiler>();
+                cfg.AddProfile<RoomProfile>();
             }).CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
         }
     }

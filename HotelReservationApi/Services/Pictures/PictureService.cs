@@ -1,60 +1,41 @@
-﻿using HotelReservationApi.DTOs.Pictures;
+﻿using HotelReservationApi.DTOs;
+using HotelReservationApi.DTOs.Pictures;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
-using HotelReservationApi.ViewModel;
+using HotelReservationApi.Repositories;
 
 namespace HotelReservationApi.Services.Pictures
 {
     public class PictureService : IPictureService
     {
-        IRepository<Picture> _repository;
+        IRepository<Picture> _pictureRepository;
 
         public PictureService(IRepository<Picture> repository)
         {
-            _repository = repository;
+            _pictureRepository = repository;
         }
 
-        public Task<PictureDTO> AddPicture(PictureCreateDTO pictureCreateDTO)
+        public async Task AddPicture(PictureCreateDTO pictureCreateDTO)
         {
-            throw new NotImplementedException();
+            var picture = pictureCreateDTO.MapOne<Picture>();
+            await _pictureRepository.Add(picture);
+            await _pictureRepository.SaveChangesAsync();
         }
 
-        //public async Task<PictureDTO> AddPicture(PictureCreateDTO pictureCreateDTO)
-        //{
-        //    Picture picture = pictureCreateDTO.MapOne<PictureCreateDTO>();
-
-        //    picture.name = picture.FileName;
-        //    picture.ContentType = picture.ContentType;
-        //    picture.Data = await FileHelper.ConvertToBytesAsync(picture);
-
-        //    picture = await _repository.Add(picture);
-
-        //    var pictureDTO = picture.MapOne<PictureDTO>();
-
-        //    return pictureDTO;
-        //}
-
-        public async Task<List<Picture>> pictureSRV(List<IFormFile> pictureDTO)
+        public async Task AddRange(List<PictureDTO> pictures)
         {
-            if (pictureDTO == null)
+            foreach(var pictureDTO in pictures)
             {
-                return null;
+                var picture = pictureDTO.MapOne<Picture>();
+                await _pictureRepository.Add(picture);
             }
 
-            List<Picture> picturesList = new List<Picture>();
+            await _pictureRepository.SaveChangesAsync();
+        }
 
-            foreach (var file in pictureDTO)
-            {
-                Picture picture = new Picture();
-                picture.name = file.FileName;
-                picture.ContentType = file.ContentType;
-                picture.Data = await FileHelper.ConvertToBytesAsync(file);
-                picturesList.Add(picture);
-                //pictures = await _repository.Add(pictures);
-            }
-           
-            return (picturesList);
+        public async Task SaveChangesAsync()
+        {
+            await _pictureRepository.SaveChangesAsync();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
+using HotelReservationApi.Repositories;
 using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Services.AuthService

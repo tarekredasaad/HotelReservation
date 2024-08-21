@@ -1,6 +1,7 @@
 ﻿using HotelReservationApi.DTOs.Rooms;
+using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
+using HotelReservationApi.Repositories;
 
 namespace HotelReservationApi.Services.RoomFacilities
 {
@@ -13,24 +14,30 @@ namespace HotelReservationApi.Services.RoomFacilities
             _roomFacilityRepository = roomFacilityRepository;
         }
 
-        public async Task GetRoomFacilities(RoomFacilityDTO roomFacilityDTO)
+        public async Task AddRoomFacility(RoomFacilityDTO roomFacilityDTO)
         {
-            if (roomFacilityDTO == null)
+            RoomFacility roomFacility = roomFacilityDTO.MapOne<RoomFacility>();
+
+            roomFacility = await _roomFacilityRepository.Add(roomFacility);
+        }
+
+        public async Task AddRange(int roomId, HashSet<int> FacilityIDs)
+        {
+            foreach (var facilityId in FacilityIDs)
             {
-                return;
+                RoomFacility roomFacility = new RoomFacility()
+                {
+                    RoomId = roomId,
+                    FacilityId = facilityId
+                };
+
+                await _roomFacilityRepository.Add(roomFacility);
             }
+        }
 
-            List<RoomFacility> roomFacilitiesList = new List<RoomFacility>();
-
-            foreach (var id in roomFacilityDTO.FacilityIds)
-            {
-                RoomFacility roomFacilities = new RoomFacility();
-                roomFacilities.FacilityId = id;
-                roomFacilities.RoomId = roomFacilityDTO.RoomId;
-                roomFacilitiesList.Add(roomFacilities);
-            }
-
-            await _roomFacilityRepository.AddRange(roomFacilitiesList);
+        public async Task SaveChangesAsync()
+        {
+            await _roomFacilityRepository.SaveChangesAsync();
         }
     }
 }

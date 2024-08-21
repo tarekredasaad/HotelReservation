@@ -1,7 +1,7 @@
 ﻿using HotelReservationApi.DTOs.Reservations;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
+using HotelReservationApi.Repositories;
 using HotelReservationApi.Services.ReservationSrv;
 using HotelReservationApi.ViewModel;
 

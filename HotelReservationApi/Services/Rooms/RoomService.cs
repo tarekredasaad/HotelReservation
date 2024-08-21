@@ -1,7 +1,7 @@
 ﻿using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
+using HotelReservationApi.Repositories;
 
 namespace HotelReservationApi.Services.Rooms
 {

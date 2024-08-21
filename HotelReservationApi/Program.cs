@@ -16,13 +16,13 @@ namespace HotelReservationApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddDbContext<Context>(option =>
-            {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
-                .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
-                .EnableSensitiveDataLogging();
-            });
+            Add services to the container.
+           builder.Services.AddDbContext<Context>(option =>
+           {
+               option.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
+               .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
+               .EnableSensitiveDataLogging();
+           });
 
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             builder.Host.ConfigureContainer<ContainerBuilder>(builder =>

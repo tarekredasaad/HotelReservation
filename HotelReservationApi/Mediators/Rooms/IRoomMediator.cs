@@ -4,9 +4,10 @@ namespace HotelReservationApi.Mediators.Rooms
 {
     public interface IRoomMediator
     {
-        List<RoomDTO> GetRooms();
-        Task<RoomDTO> AddRoom(RoomCreateDTO roomCreateDTO);
-        void UpdateRoom(RoomDTO roomDTO);
-        void RemoveRoom(int id);
+        IEnumerable<RoomDTO> GetRooms();
+        RoomDTO GetRoomById(int id);
+        Task<RoomDTO> AddRoomAsync(RoomCreateDTO roomCreateDTO);
+        Task UpdateRoomAsync(RoomDTO roomDTO);
+        Task DeleteRoomAsync(int id);
     }
 }

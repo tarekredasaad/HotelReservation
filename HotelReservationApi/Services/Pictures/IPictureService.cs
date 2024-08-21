@@ -1,12 +1,14 @@
-﻿using HotelReservationApi.DTOs.Pictures;
+﻿using HotelReservationApi.DTOs;
+using HotelReservationApi.DTOs.Pictures;
+using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Models;
-using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Services.Pictures
 {
     public interface IPictureService
     {
-        Task<PictureDTO> AddPicture(PictureCreateDTO pictureCreateDTO);
-        Task<List<Picture>> pictureSRV(List<IFormFile> pictureDTO) ;
+        Task AddPicture(PictureCreateDTO pictureCreateDTO);
+        Task AddRange(List<PictureDTO> pictures);
+        Task SaveChangesAsync();
     }
 }
