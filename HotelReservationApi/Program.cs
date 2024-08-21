@@ -16,7 +16,7 @@ namespace HotelReservationApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            Add services to the container.
+            //Add services to the container.
            builder.Services.AddDbContext<Context>(option =>
            {
                option.UseSqlServer(builder.Configuration.GetConnectionString("Default"))

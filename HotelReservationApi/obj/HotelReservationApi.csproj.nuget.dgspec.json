@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {}
+    "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {}
   },
   "projects": {
-    "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {
+    "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+        "projectUniqueName": "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
         "projectName": "HotelReservationApi",
-        "projectPath": "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
-        "packagesPath": "C:\\Users\\Taha\\.nuget\\packages\\",
-        "outputPath": "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\obj\\",
+        "projectPath": "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+        "packagesPath": "C:\\Users\\Ahmed Taha\\.nuget\\packages\\",
+        "outputPath": "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Taha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ahmed Taha\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,10 +61,6 @@
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.8, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",

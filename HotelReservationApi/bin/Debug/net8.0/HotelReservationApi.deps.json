@@ -12,7 +12,6 @@
           "Autofac": "8.0.0",
           "Autofac.Extensions.DependencyInjection": "9.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
-          "Microsoft.EntityFrameworkCore": "8.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.7",
           "Microsoft.IdentityModel.Tokens": "8.0.1",
