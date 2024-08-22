@@ -4,10 +4,11 @@ namespace HotelReservationApi.Models
 {
     public class RoomReservation : BaseModel
     {
-        public int NumberDays { get; set; }
-        public bool IsReserved { get; set; }
         public double TotalPrice { get; set; }
         public ReservationStatus Status { get; set; }
+     
+        public DateTime CheckInDate { get; set; }
+        public DateTime CheckOutDate { get; set; }
 
         public int RoomId { get; set; } 
         public Room Room { get; set; }
