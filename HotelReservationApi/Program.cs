@@ -19,7 +19,7 @@ namespace HotelReservationApi
             //Add services to the container.
            builder.Services.AddDbContext<Context>(option =>
            {
-               option.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
+               option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
                .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
                .EnableSensitiveDataLogging();
            });
