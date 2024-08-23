@@ -52,7 +52,7 @@ namespace HotelReservationApi.Mediator.Rooms
             roomFacilityDTO.FacilityIds = roomDTO.Facilities.ToList();
             roomFacilityDTO.RoomId = room.Id;
 
-            await _roomFacilityService.GetRoomFacilities(roomFacilityDTO);
+            await _roomFacilityService.AddRoomFacilities(roomFacilityDTO);
 
             
 

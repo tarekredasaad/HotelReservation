@@ -14,7 +14,7 @@ namespace HotelReservationApi.Services.RoomFacilitySrv
             _RoomFacilitRepo = RoomsFacilitRepo;
         }
 
-        public async Task GetRoomFacilities(RoomFacilityDTO roomFacilityDTO)
+        public async Task AddRoomFacilities(RoomFacilityDTO roomFacilityDTO)
         {
             if(roomFacilityDTO == null)
             {
@@ -32,6 +32,17 @@ namespace HotelReservationApi.Services.RoomFacilitySrv
             await _RoomFacilitRepo.AddRange(roomFacilitiesList);
 
             
+        }
+
+        public async  Task<double> costRoom(int roomId)
+        {
+            var roomFacility = await _RoomFacilitRepo.
+                GetAll(r => r.RoomId == roomId, r => r.Facilities, r => r.Room);
+            var facilityCost = roomFacility.Sum(f => f.Facilities.Cost);
+            var roomCost = roomFacility.FirstOrDefault().Room.Price;
+            return facilityCost + roomCost;
+
+           
         }
     }
 }

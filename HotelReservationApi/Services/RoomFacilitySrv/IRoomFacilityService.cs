@@ -6,6 +6,7 @@ namespace HotelReservationApi.Services.RoomFacilitySrv
     public interface IRoomFacilityService
     {
 
-        Task GetRoomFacilities(RoomFacilityDTO roomFacilityDTO);
+        Task AddRoomFacilities(RoomFacilityDTO roomFacilityDTO);
+        Task<double> costRoom(int roomId);
     }
 }
