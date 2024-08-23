@@ -35,7 +35,7 @@ namespace HotelReservationApi.MiddleWare
                 catch (Exception ex)
                 {
                     await transaction?.RollbackAsync();
-                    throw;
+                    throw ex;
                 }
             }
             else

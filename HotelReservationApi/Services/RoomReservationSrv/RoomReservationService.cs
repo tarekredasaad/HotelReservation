@@ -10,12 +10,15 @@ namespace HotelReservationApi.Services.RoomReservationSrv
     public class RoomReservationService : IRoomReservationService
     {
         IRepository<RoomReservation> _roomReservationRepository;
-        IRepository<Room> _roomReposatory;
+        IRepository<RoomFacility> _roomFacilityReposatory;
+        IRepository<Facility> _facilityRepository;
         public RoomReservationService(IRepository<RoomReservation> roomReservationRepository
-            , IRepository<Room> roomReposatory)
+            , IRepository<RoomFacility> roomReposatory
+            ,IRepository<Facility> facilityRepository)
         {
             _roomReservationRepository = roomReservationRepository;
-            _roomReposatory = roomReposatory;
+            _roomFacilityReposatory = roomReposatory;
+            _facilityRepository = facilityRepository;
         }
 
         public async Task<List<RoomReservation>> AddRoomReservation(RoomReservationDTO reservationDTO)
@@ -34,11 +37,15 @@ namespace HotelReservationApi.Services.RoomReservationSrv
                 roomReservation.RoomId = id;
                 roomReservation.ReservationId = reservationDTO.ReservationId;
                 roomReservation.IsReserved = true;
-                var cost = _roomReposatory
-                    .Get(r=>r.Id == id)
-                     .Select(rr => rr.Price + rr.RoomFacilities.Sum(rf => rf.Facilities.Cost))
-                     .FirstOrDefault();
-                roomReservation.TotalPrice = cost;
+                var roomFacilities = await _roomFacilityReposatory
+                    .GetAll(r => r.RoomId == id, r=>r.Facilities , r=>r.Room);
+                  //var price =  cost.ToList();
+                //var facilities = cost.FirstOrDefault();
+                double sum = roomFacilities.Sum(r=>r.Room.Price + r.Facilities.Cost);
+
+                roomReservation.NumberDays = 5;
+                     
+                roomReservation.TotalPrice =  sum - roomFacilities.FirstOrDefault().Room.Price;
 
                 //var cost = _roomReservationRepository.Include(RoomFacility);
                 roomReservations.Add(roomReservation);
