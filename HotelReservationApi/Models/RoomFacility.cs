@@ -7,10 +7,12 @@ namespace HotelReservationApi.Models
         [ForeignKey("Room")]
         public int RoomId { get; set; }
         public Room Room { get; set; }
-        [ForeignKey("Facilities")]
 
+        [ForeignKey("Facilities")]
         public int FacilityId { get;set; }
         public Facility Facilities { get; set; }
-    
+       
+
     }
+
 }

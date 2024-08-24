@@ -60,7 +60,7 @@ namespace HotelReservationApi.Repository
         }
         public async Task<List<T>> GetAll(Expression<Func<T, bool>> predicate,params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>();//.Include(model).Where( predicate).AsNoTracking();
+            IQueryable<T> query = _context.Set<T>();
             foreach (var include in includes)
             {
                 query = query.Include(include);
@@ -76,6 +76,7 @@ namespace HotelReservationApi.Repository
             var result =  await query.ToListAsync();
             return result;
         }
+        
         public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>();

@@ -35,8 +35,8 @@ namespace HotelReservationApi.Services.RoomReservationSrv
                 RoomReservation roomReservation = new RoomReservation();
                 roomReservation.RoomId = id;
                 roomReservation.ReservationId = reservationDTO.ReservationId;
-                roomReservation.IsReserved = true;
-                roomReservation.TotalPrice = await _roomFacilityService.costRoom(id);
+                //roomReservation.IsReserved = true;
+                //roomReservation.TotalPrice = await _roomFacilityService.costRoom(id);
                
                 roomReservations.Add(roomReservation);
             }

@@ -3,6 +3,8 @@
     public enum ReservationStatus
     {
         Available,
+        pending,
         Reserved
+
     }
 }

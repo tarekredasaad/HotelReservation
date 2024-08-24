@@ -26,7 +26,8 @@ namespace HotelReservationApi.Mediator.Reservations
                 return ResultViewModel.Faliure();
             }
 
-            Reservation reservation = await _reservationService.AddReservation(reservationDTO);
+            //Reservation reservation = await _reservationService.AddReservation(reservationDTO);
+            Reservation reservation = new Reservation();
             RoomReservationDTO roomReservationDTO = new RoomReservationDTO();
             //roomReservationDTO = reservation.MapOne<RoomReservationDTO>();
             roomReservationDTO = reservationDTO.MapOne<RoomReservationDTO>();
