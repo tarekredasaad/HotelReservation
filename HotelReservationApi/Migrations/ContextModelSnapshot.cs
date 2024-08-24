@@ -40,7 +40,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Facility", b =>
@@ -63,7 +63,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Facilities");
+                    b.ToTable("Facilities", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Feedback", b =>
@@ -79,7 +79,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Feedbacks");
+                    b.ToTable("Feedbacks", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Group", b =>
@@ -95,7 +95,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Invoice", b =>
@@ -128,7 +128,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoices", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Offer", b =>
@@ -167,7 +167,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("StaffId");
 
-                    b.ToTable("Offers");
+                    b.ToTable("Offers", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Picture", b =>
@@ -196,7 +196,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Pictures");
+                    b.ToTable("Pictures", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Reservation", b =>
@@ -226,7 +226,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Room", b =>
@@ -260,7 +260,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("FeedbackId");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.RoomFacility", b =>
@@ -286,7 +286,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("RoomFacilities");
+                    b.ToTable("RoomFacilities", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.RoomReservation", b =>
@@ -324,7 +324,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("RoomBookings");
+                    b.ToTable("RoomBookings", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Staff", b =>
@@ -345,7 +345,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Staff");
+                    b.ToTable("Staff", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.User", b =>
@@ -374,7 +374,7 @@ namespace HotelReservationApi.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Customer", b =>

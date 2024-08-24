@@ -35,6 +35,8 @@ namespace HotelReservationApi
             {
                 cfg.AddProfile<UserProfile>();
                 cfg.AddProfile<RoomProfile>();
+                cfg.AddProfile<FacilityProfile>();
+                cfg.AddProfile<PictureProfile>();
             }).CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
         }
     }

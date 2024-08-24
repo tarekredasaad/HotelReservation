@@ -14,6 +14,15 @@ namespace HotelReservationApi.Services.Facilities
             _facilityRepository = facilityRepository;
         }
 
+        public IEnumerable<FacilityDTO> GetFacilities()
+        {
+            var facilities = _facilityRepository.GetAll();
+
+            var facilityDTOs = facilities.Map<FacilityDTO>();
+
+            return facilityDTOs;
+        }
+
         public async Task<IEnumerable<FacilityDTO>> GetFacilities(HashSet<int> ints)
         {
             List<FacilityDTO> facilityDTOs = new List<FacilityDTO>();
@@ -41,7 +50,7 @@ namespace HotelReservationApi.Services.Facilities
         {
             var facility = facilityCreateDTO.MapOne<Facility>();
 
-            var result = await _facilityRepository.Add(facility);
+            var result = await _facilityRepository.AddAsync(facility);
 
             var facilityDTO = result.MapOne<FacilityDTO>();
 
@@ -57,6 +66,11 @@ namespace HotelReservationApi.Services.Facilities
         public void RemoveFacility(int id)
         {
             _facilityRepository.Delete(id);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _facilityRepository.SaveChangesAsync();
         }
     }
 }

@@ -3,7 +3,6 @@
     public enum Status
     {
         Available,
-        Pending,
-        Reserved
+        Maintenance
     }
 }

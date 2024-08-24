@@ -11,7 +11,7 @@ namespace HotelReservationApi.Data
         }
         public Context(DbContextOptions options) : base(options)
         {
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<User> users { get; set; }

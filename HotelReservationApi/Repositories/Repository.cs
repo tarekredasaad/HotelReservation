@@ -13,19 +13,22 @@ namespace HotelReservationApi.Repositories
         {
             _context = context;
         }
-        
-        public async Task<T> Add(T entity)
+
+        public T Add(T entity)
+        {
+            _context.Set<T>().Add(entity);
+            return entity;
+        }
+
+        public async Task<T> AddAsync(T entity)
         {  
             await _context.Set<T>().AddAsync(entity);
-            
-            var entry2 = _context.Entry(entity);
-
             return entity;
         }
 
         public async Task AddRange(List<T> list)
         {
-           await  _context.Set<T>().AddRangeAsync(list);
+           await _context.Set<T>().AddRangeAsync(list);
         }
 
         public async Task<T> Update(T entity)

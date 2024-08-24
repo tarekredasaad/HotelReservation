@@ -21,7 +21,7 @@ namespace HotelReservationApi.Services.AuthService
             User user = new User();
             dto.Password = HashPassword.Encrypt(dto.Password);
             user = dto.MapOne<User>();
-            user = await _userRepository.Add(user);
+            user = await _userRepository.AddAsync(user);
             
             //Staff staff = new Staff();
             //if(dto.GroupId == 1)

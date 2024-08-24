@@ -20,7 +20,15 @@ namespace HotelReservationApi.MapperProfile
 
             CreateMap<RoomDTO, Room>()
                 .ForMember(dest => dest.Pictures, opt => opt.MapFrom(src => src.Pictures))
-                .ForMember(dest => dest.RoomFacilities, opt => opt.MapFrom(src => src.Facilities.Select(f => new RoomFacility { FacilityId = f.Id })));
+                .ForMember(dest => dest.RoomFacilities, opt => opt.MapFrom(src => src.Facilities.Select(f => new RoomFacility { FacilityId = f.Id })))
+                .AfterMap((src, dest) =>
+                {
+                    foreach (var roomFacility in dest.RoomFacilities)
+                    {
+                        roomFacility.RoomId = dest.Id;
+                    }
+                });
+
 
 
             CreateMap<RoomFacility, RoomFacilityDTO>().ReverseMap();

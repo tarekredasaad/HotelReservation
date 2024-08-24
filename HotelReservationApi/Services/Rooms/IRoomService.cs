@@ -1,4 +1,5 @@
 ﻿using HotelReservationApi.DTOs.Rooms;
+using HotelReservationApi.Models;
 
 namespace HotelReservationApi.Services.Rooms
 {
@@ -6,7 +7,7 @@ namespace HotelReservationApi.Services.Rooms
     {
         IEnumerable<RoomDTO> GetRooms();
         RoomDTO GetRoomById(int id);
-        Task<RoomDTO> AddRoom(RoomCreateDTO roomCreateDTO);
+        Room AddRoom(RoomCreateDTO roomCreateDTO);
         void UpdateRoom(RoomDTO roomDTO);
         void DeleteRoom(int roomId);
         Task SaveChangesAsync();

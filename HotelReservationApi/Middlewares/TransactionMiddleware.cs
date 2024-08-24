@@ -27,9 +27,8 @@ namespace HotelReservationApi.Middlewares
                 try
                 {
                     
-                     await _next(httpContext);
-                    await context.SaveChangesAsync();
-                   
+                    await _next(httpContext);
+                    await  context.SaveChangesAsync();
                     await transaction.CommitAsync();
                 }
                 catch (Exception ex)

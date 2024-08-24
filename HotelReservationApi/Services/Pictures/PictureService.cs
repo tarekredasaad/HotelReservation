@@ -1,5 +1,6 @@
 ﻿using HotelReservationApi.DTOs;
 using HotelReservationApi.DTOs.Pictures;
+using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repositories;
@@ -15,22 +16,20 @@ namespace HotelReservationApi.Services.Pictures
             _pictureRepository = repository;
         }
 
-        public async Task AddPicture(PictureCreateDTO pictureCreateDTO)
+        public void AddPicture(PictureCreateDTO pictureCreateDTO)
         {
             var picture = pictureCreateDTO.MapOne<Picture>();
-            await _pictureRepository.Add(picture);
-            await _pictureRepository.SaveChangesAsync();
+            _pictureRepository.Add(picture);
         }
 
-        public async Task AddRange(List<PictureDTO> pictures)
+        public void AddRange(RoomDTO roomDTO, List<PictureDTO> pictures)
         {
             foreach(var pictureDTO in pictures)
             {
                 var picture = pictureDTO.MapOne<Picture>();
-                await _pictureRepository.Add(picture);
+                picture.RoomId = roomDTO.Id;
+                _pictureRepository.Add(picture);
             }
-
-            await _pictureRepository.SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()

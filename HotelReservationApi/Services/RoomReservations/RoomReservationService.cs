@@ -18,7 +18,7 @@ namespace HotelReservationApi.Services.RoomReservations
         {
             RoomReservation roomReservation = roomReservationDTO.MapOne<RoomReservation>();
 
-            roomReservation = await _roomReservationRepository.Add(roomReservation);
+            roomReservation = await _roomReservationRepository.AddAsync(roomReservation);
 
             await _roomReservationRepository.SaveChangesAsync();
         }
@@ -28,7 +28,7 @@ namespace HotelReservationApi.Services.RoomReservations
             foreach(var roomReservationDTO in roomReservationDTOs)
             {
                 var roomReservation = roomReservationDTO.MapOne<RoomReservation>();
-                await _roomReservationRepository.Add(roomReservation);
+                await _roomReservationRepository.AddAsync(roomReservation);
             }
 
             await _roomReservationRepository.SaveChangesAsync();

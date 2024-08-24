@@ -28,16 +28,16 @@ namespace HotelReservationApi.Mediators.Rooms
 
         public async Task<RoomDTO> AddRoomAsync(RoomCreateDTO roomCreateDTO)
         {
-            var room = await _roomService.AddRoom(roomCreateDTO);
+            var room = _roomService.AddRoom(roomCreateDTO);
             await _roomService.SaveChangesAsync();
 
-            await _roomFacilityService.AddRange(room.Id, roomCreateDTO.FacilityIDs);
-            await _roomFacilityService.SaveChangesAsync();
-
-            await _pictureService.AddRange(roomCreateDTO.Pictures);
-            await _pictureService.SaveChangesAsync();
-
             var roomDTO = room.MapOne<RoomDTO>();
+
+            _roomFacilityService.AddRange(roomDTO, roomCreateDTO.FacilityIDs);
+            //await _roomFacilityService.SaveChangesAsync();
+
+            _pictureService.AddRange(roomDTO, roomCreateDTO.Pictures);
+            //await _pictureService.SaveChangesAsync();
 
             return roomDTO;
         }

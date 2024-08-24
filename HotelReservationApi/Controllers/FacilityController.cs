@@ -1,6 +1,8 @@
 ﻿using HotelReservationApi.DTOs.Facilities;
+using HotelReservationApi.Helper;
 using HotelReservationApi.Mediators.Facilities;
 using HotelReservationApi.ViewModel;
+using HotelReservationApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApi.Controllers
@@ -16,15 +18,46 @@ namespace HotelReservationApi.Controllers
             _facilityMediator = facilityMediator;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<ResultViewModel>> AddFacilities(FacilityCreateDTO facilities)
+        [HttpGet]
+        public async Task<ResultViewModel> GetFacilities()
         {
-            if (!ModelState.IsValid) 
-            { 
-                return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState }); 
-            };
+            var facilityDTOs = _facilityMediator.GetFacilities();
+            var facilityViewModels = facilityDTOs.AsQueryable().Map<FacilityViewModel>();
 
-            return Ok(await _facilityMediator.AddFacility(facilities));
+            return new ResultViewModel()
+            {
+                StatusCode = 200,
+                Data = facilityViewModels,
+            };
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ResultViewModel> GetfacilityById(int id)
+        {
+            var facilityDTO = await _facilityMediator.GetFacilityById(id);
+            var facilityViewModel = facilityDTO.MapOne<FacilityViewModel>();
+
+            return new ResultViewModel()
+            {
+                StatusCode = 200,
+                Data = facilityViewModel,
+            };
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ResultViewModel>> AddFacilities(FacilityCreateViewModel facility)
+        {
+            var facilityCreateDTO = facility.MapOne<FacilityCreateDTO>();
+
+            var facilityDTO = await _facilityMediator.AddFacility(facilityCreateDTO);
+
+            var facilityViewModel = facilityDTO.MapOne<FacilityViewModel>();
+
+            return new ResultViewModel()
+            {
+                StatusCode = 200,
+                Data = facilityViewModel,
+            };
         }
     }
 }

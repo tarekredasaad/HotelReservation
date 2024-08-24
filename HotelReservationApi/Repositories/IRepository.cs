@@ -9,7 +9,8 @@ namespace HotelReservationApi.Repositories
         Task AddRange(List<T> list);
         T GetByID(int id);
         T GetWithTrackinByID(int id);
-        Task<T> Add(T entity);
+        Task<T> AddAsync(T entity);
+        T Add(T entity);
         Task<T> Update(T entity);
         void Delete(T entity);
         void Delete(int id);

@@ -7,8 +7,8 @@ namespace HotelReservationApi.Services.Pictures
 {
     public interface IPictureService
     {
-        Task AddPicture(PictureCreateDTO pictureCreateDTO);
-        Task AddRange(List<PictureDTO> pictures);
+        void AddPicture(PictureCreateDTO pictureCreateDTO);
+        void AddRange(RoomDTO roomDTO, List<PictureDTO> pictures);
         Task SaveChangesAsync();
     }
 }

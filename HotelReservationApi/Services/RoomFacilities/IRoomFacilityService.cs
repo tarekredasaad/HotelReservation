@@ -5,8 +5,8 @@ namespace HotelReservationApi.Services.RoomFacilities
 {
     public interface IRoomFacilityService
     {
-        Task AddRoomFacility(RoomFacilityDTO roomFacilityDTO);
-        Task AddRange(int roomId, HashSet<int> facilityIDs);
+        void AddRoomFacility(RoomFacilityDTO roomFacilityDTO);
+        void AddRange(RoomDTO room, HashSet<int> facilityIDs);
         Task SaveChangesAsync();
     }
 }

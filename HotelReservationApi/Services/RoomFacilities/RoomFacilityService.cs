@@ -14,24 +14,24 @@ namespace HotelReservationApi.Services.RoomFacilities
             _roomFacilityRepository = roomFacilityRepository;
         }
 
-        public async Task AddRoomFacility(RoomFacilityDTO roomFacilityDTO)
+        public void AddRoomFacility(RoomFacilityDTO roomFacilityDTO)
         {
             RoomFacility roomFacility = roomFacilityDTO.MapOne<RoomFacility>();
 
-            roomFacility = await _roomFacilityRepository.Add(roomFacility);
+            roomFacility = _roomFacilityRepository.Add(roomFacility);
         }
 
-        public async Task AddRange(int roomId, HashSet<int> FacilityIDs)
+        public void AddRange(RoomDTO roomDTO, HashSet<int> FacilityIDs)
         {
             foreach (var facilityId in FacilityIDs)
             {
                 RoomFacility roomFacility = new RoomFacility()
                 {
-                    RoomId = roomId,
+                    RoomId = roomDTO.Id,
                     FacilityId = facilityId
                 };
 
-                await _roomFacilityRepository.Add(roomFacility);
+                _roomFacilityRepository.Add(roomFacility);
             }
         }
 

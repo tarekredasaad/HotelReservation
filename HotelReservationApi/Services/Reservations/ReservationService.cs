@@ -20,7 +20,7 @@ namespace HotelReservationApi.Services.Reservations
         {
             Reservation reservation = ReservationDTO.MapOne<Reservation>();
 
-            reservation = await _reservationRepository.Add(reservation);
+            reservation = await _reservationRepository.AddAsync(reservation);
 
             await _reservationRepository.SaveChangesAsync();
 
