@@ -27,5 +27,15 @@ namespace HotelReservationApi.Data
         public DbSet<Group> Groups { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Reservation>()
+                .HasOne(r => r.Invoice)
+                .WithOne(i => i.Reservation)
+                .HasForeignKey<Invoice>(i => i.ReservationId);
+
+            // Other configurations
+        }
     }
+
 }
