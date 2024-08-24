@@ -1,27 +1,30 @@
 ﻿using HotelReservationApi.DTOs.Facilities;
-using HotelReservationApi.DTOs.Pictures;
-using HotelReservationApi.Services.FacilitiesSrv;
+using HotelReservationApi.Mediators.Facilities;
 using HotelReservationApi.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class FacilityController : ControllerBase
     {
-        IFacilitiesService _facilitiesService;
-        public FacilityController(IFacilitiesService facilitiesService)
+        private readonly IFacilityMediator _facilityMediator;
+
+        public FacilityController(IFacilityMediator facilityMediator)
         {
-            _facilitiesService = facilitiesService;
+            _facilityMediator = facilityMediator;
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResultViewModel>> AddFacilities(FacilitiesCreateDTO facilities)
+        public async Task<ActionResult<ResultViewModel>> AddFacilities(FacilityCreateDTO facilities)
         {
-            if (!ModelState.IsValid) { return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState }); };
-            return Ok(await _facilitiesService.AddFacility(facilities));
+            if (!ModelState.IsValid) 
+            { 
+                return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState }); 
+            };
+
+            return Ok(await _facilityMediator.AddFacility(facilities));
         }
     }
 }

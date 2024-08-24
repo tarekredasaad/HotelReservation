@@ -1,21 +1,20 @@
 ﻿using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
+using HotelReservationApi.Repositories;
 using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Services.AuthService
 {
     public class AuthService: IAuthService
     {
-        IRepository<User> _userRepository;
-        IHttpContextAccessor _httpContextAccessor;
-        public AuthService(IRepository<User> repository
-            , IHttpContextAccessor httpContextAccessor) 
+        private readonly IRepository<User> _userRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AuthService(IRepository<User> userRepository, IHttpContextAccessor httpContextAccessor) 
         {
-            _userRepository = repository;
+            _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;
         }
-
 
         public async Task<ResultViewModel> RegisterUserAsync(UserViewModel dto)
         {
@@ -32,19 +31,18 @@ namespace HotelReservationApi.Services.AuthService
             //}
             
             return ResultViewModel.Sucess(user);
-
-           
         }
 
         public async Task<ResultViewModel> LoginUserAsync(UserLoginViewModel dto)
         {
             User user =  _userRepository.First(i => i.UserName == dto.UserName);
+
             var password = HashPassword.Decrypt(user.Password);
+
             if (user == null || password != null )
             {
                 return (ResultViewModel.Faliure());
             }
-
            
             _httpContextAccessor.HttpContext.Session.SetString("UserName", user.UserName);
 

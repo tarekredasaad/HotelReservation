@@ -4348,7 +4348,6 @@
       "Autofac >= 8.0.0",
       "Autofac.Extensions.DependencyInjection >= 9.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.8",
-      "Microsoft.EntityFrameworkCore >= 8.0.7",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.7",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.7",
       "Microsoft.IdentityModel.Tokens >= 8.0.1",
@@ -4357,19 +4356,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Tarek Reda\\.nuget\\packages\\": {}
+    "C:\\Users\\Taha\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+      "projectUniqueName": "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
       "projectName": "HotelReservationApi",
-      "projectPath": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
-      "packagesPath": "C:\\Users\\Tarek Reda\\.nuget\\packages\\",
-      "outputPath": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservationApi\\obj\\",
+      "projectPath": "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+      "packagesPath": "C:\\Users\\Taha\\.nuget\\packages\\",
+      "outputPath": "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Tarek Reda\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Taha\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4377,6 +4376,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4389,6 +4389,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -4410,10 +4415,6 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[8.0.8, )"
-          },
-          "Microsoft.EntityFrameworkCore": {
-            "target": "Package",
-            "version": "[8.0.7, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
@@ -4457,7 +4458,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

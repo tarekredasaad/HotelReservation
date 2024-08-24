@@ -1,11 +1,10 @@
 ﻿using HotelReservationApi.Services.AuthService;
 using HotelReservationApi.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -15,15 +14,15 @@ namespace HotelReservationApi.Controllers
             _authService = authService;
         }
 
-        [HttpPost("RegisterUser")]
+        [HttpPost]
         public async Task<ActionResult<ResultViewModel>> Register(UserViewModel user)
         {
             if (!ModelState.IsValid) { return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState }); };
 
             return Ok(await _authService.RegisterUserAsync(user));
         }
-        [HttpPost("LoginUser")]
 
+        [HttpPost]
         public async Task<ActionResult<ResultViewModel>> Login(UserLoginViewModel user)
         {
             if (!ModelState.IsValid) { return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState }); };

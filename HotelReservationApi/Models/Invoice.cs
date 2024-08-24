@@ -11,6 +11,5 @@ namespace HotelReservationApi.Models
 
         public int ReservationId { get; set; }
         public Reservation Reservation { get; set; }
-
     }
 }
