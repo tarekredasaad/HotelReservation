@@ -16,7 +16,7 @@ namespace HotelReservationApi.Services.ReservationSrv
             _repository = repository;
         }
 
-        public async Task<Reservation> AddReservation(ReservationDTO ReservationDTO)
+        public  Reservation AddReservation(ReservationDTO ReservationDTO)
         {
             
 
@@ -25,7 +25,7 @@ namespace HotelReservationApi.Services.ReservationSrv
             reservation.IsConfirmed = false;
             reservation.Status = ReservationStatus.pending;
 
-            
+            reservation.NumberDays = 5;
 
             return reservation;
         }

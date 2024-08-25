@@ -6,14 +6,14 @@ namespace HotelReservationApi.MiddleWare
     public class TransactionMiddleware
     {
 
-        //private readonly Context _context;
+        //Context _context;
         RequestDelegate _next;
 
         public TransactionMiddleware(
-            //Context context,
+           //Context context,
             RequestDelegate next)
         {
-            //_context = context;
+           //_context = context;
             _next = next;
         }
 
@@ -35,7 +35,7 @@ namespace HotelReservationApi.MiddleWare
                 catch (Exception ex)
                 {
                     await transaction?.RollbackAsync();
-                    throw ex;
+                    throw ;
                 }
             }
             else

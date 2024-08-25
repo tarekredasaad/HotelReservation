@@ -5,6 +5,6 @@ namespace HotelReservationApi.Mediator.Reservations
 {
     public interface IReservationMediator
     {
-        Task<ResultViewModel> AddReservation(ReservationDTO reservationDTO);
+        ResultViewModel AddReservation(ReservationDTO reservationDTO);
     }
 }

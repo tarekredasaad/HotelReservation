@@ -11,17 +11,17 @@ namespace HotelReservationApi.Services.RoomReservationSrv
     public class RoomReservationService : IRoomReservationService
     {
         IRepository<RoomReservation> _roomReservationRepository;
-        IRoomFacilityService _roomFacilityService;
+      
         
         public RoomReservationService(IRepository<RoomReservation> roomReservationRepository
-            , IRoomFacilityService roomReposatory
+            
            )
         {
             _roomReservationRepository = roomReservationRepository;
-            _roomFacilityService = roomReposatory;
+           
         }
 
-        public async Task<List<RoomReservation>> AddRoomReservation(RoomReservationDTO reservationDTO)
+        public  List<RoomReservation> AddRoomReservation(RoomReservationDTO reservationDTO)
         {
             if(reservationDTO == null)
             {
@@ -32,20 +32,20 @@ namespace HotelReservationApi.Services.RoomReservationSrv
            
             foreach (var RoomFacility in reservationDTO.RoomFacilityDTO)
             {
-                RoomReservation roomReservation = new RoomReservation();
-                roomReservation.ReservationId = reservationDTO.Reservation.Id;
-                roomReservation.RoomId = RoomFacility.RoomId;
                 foreach (var facilityId in RoomFacility.FacilityIds)
                 {
+                    RoomReservation roomReservation = new RoomReservation();
+                    roomReservation.ReservationId = reservationDTO.Reservation.Id;
+                    roomReservation.Reservation = reservationDTO.Reservation;
+                    roomReservation.RoomId = RoomFacility.RoomId;
                     roomReservation.FacilityId = facilityId;
                     roomReservations.Add(roomReservation);
                 }
-                //roomReservation.IsReserved = true;
-                //roomReservation.TotalPrice = await _roomFacilityService.costRoom(id);
+               
                
             }
 
-            await _roomReservationRepository.AddRange(roomReservations);
+             _roomReservationRepository.Add_Range(roomReservations);
             return roomReservations;
         }
     }

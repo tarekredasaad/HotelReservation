@@ -6,7 +6,7 @@ namespace HotelReservationApi.Services.ReservationSrv
 {
     public interface IReservationService
     {
-        Task<Reservation> AddReservation(ReservationDTO ReservationDTO);
+        Reservation AddReservation(ReservationDTO ReservationDTO);
         Task SaveChange(Reservation Reservation);
     }
 }

@@ -25,7 +25,7 @@ namespace HotelReservationApi.Mediator.Reservations
             _roomFacilityService = roomFacilityService;
         }
 
-        public async Task<ResultViewModel> AddReservation(ReservationDTO reservationDTO)
+        public ResultViewModel AddReservation(ReservationDTO reservationDTO)
         {
             if(reservationDTO == null)
             {
@@ -34,9 +34,12 @@ namespace HotelReservationApi.Mediator.Reservations
 
             //Reservation reservation = await _reservationService.AddReservation(reservationDTO);
             Reservation reservation = new Reservation();
-            reservation = await _reservationService.AddReservation(reservationDTO);
-            reservation.TotalPrice = await _roomFacilityService.costRoom(reservationDTO.roomFacilityDTOs);
-            await _reservationService.SaveChange(reservation);
+            reservation =  _reservationService
+                .AddReservation(reservationDTO);
+
+            reservation.TotalPrice =  _roomFacilityService
+                .costRoom(reservationDTO.roomFacilityDTOs);
+            //await _reservationService.SaveChange(reservation);
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.ReservationId = reservation.Id;
 
@@ -45,7 +48,7 @@ namespace HotelReservationApi.Mediator.Reservations
             roomReservationDTO = reservationDTO.MapOne<RoomReservationDTO>();
             roomReservationDTO.Reservation = reservation;
             roomReservationDTO.RoomFacilityDTO = reservationDTO.roomFacilityDTOs;
-            List<RoomReservation> roomReservations = await _roomReservationService
+            List<RoomReservation> roomReservations =  _roomReservationService
                 .AddRoomReservation(roomReservationDTO);
 
             return ResultViewModel.Sucess(roomReservations);
