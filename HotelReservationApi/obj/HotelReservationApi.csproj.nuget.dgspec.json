@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {}
+    "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {}
   },
   "projects": {
-    "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {
+    "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+        "projectUniqueName": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
         "projectName": "HotelReservationApi",
-        "projectPath": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+        "projectPath": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
         "packagesPath": "C:\\Users\\Tarek Reda\\.nuget\\packages\\",
-        "outputPath": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservationApi\\obj\\",
+        "outputPath": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservation\\HotelReservationApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Tarek Reda\\AppData\\Roaming\\NuGet\\NuGet.Config",

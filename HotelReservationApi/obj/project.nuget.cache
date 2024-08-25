@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AaglMnV9gq/tzGWNE/inS/kTTH52dM2o6JaEokveQSU0+x/Oy4WukBpMAXo3BzhyPS+27OkRHtWTeJ/tbtf7ZA==",
+  "dgSpecHash": "3Qvj7vhtDkVL0tmpPSZd13VG/yYM2dFzGzjLj/HdHK7RtN9FSpl2ldJvXaXwGtiGDmgch6JCr3rw2I00Z3QmRA==",
   "success": true,
-  "projectFilePath": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+  "projectFilePath": "G:\\UpSkilling\\HotelReservationApi-master\\HotelReservation - Copy\\HotelReservation\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tarek Reda\\.nuget\\packages\\autofac\\8.0.0\\autofac.8.0.0.nupkg.sha512",
     "C:\\Users\\Tarek Reda\\.nuget\\packages\\autofac.extensions.dependencyinjection\\9.0.0\\autofac.extensions.dependencyinjection.9.0.0.nupkg.sha512",
