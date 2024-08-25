@@ -1,6 +1,6 @@
 ﻿namespace HotelReservationApi.Constant.Enum
 {
-    public enum Types
+    public enum RoomType
     {
         Sweat,
         SingleRoom,

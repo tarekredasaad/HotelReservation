@@ -11,7 +11,7 @@ namespace HotelReservationApi.Repositories
         T GetWithTrackinByID(int id);
         Task<T> AddAsync(T entity);
         T Add(T entity);
-        Task<T> Update(T entity);
+        T Update(T entity);
         void Delete(T entity);
         void Delete(int id);
         T First(Expression<Func<T, bool>> predicate);

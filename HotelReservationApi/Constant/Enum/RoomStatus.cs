@@ -1,6 +1,6 @@
 ﻿namespace HotelReservationApi.Constant.Enum
 {
-    public enum Status
+    public enum RoomStatus
     {
         Available,
         Maintenance

@@ -31,7 +31,7 @@ namespace HotelReservationApi.Repositories
            await _context.Set<T>().AddRangeAsync(list);
         }
 
-        public async Task<T> Update(T entity)
+        public T Update(T entity)
         {
             _context.Set<T>().Update(entity);
             return entity;

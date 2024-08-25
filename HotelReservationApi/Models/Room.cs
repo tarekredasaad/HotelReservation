@@ -1,18 +1,14 @@
 using HotelReservationApi.Constant.Enum;
-using System.Text.Json.Serialization;
 
 
 namespace HotelReservationApi.Models
 {
     public class Room : BaseModel
     {
-        public string Name { get; set; }
-        public Status Status { get; set; }
-        public Types Type { get; set; }
+        public string Number { get; set; }
+        public RoomStatus Status { get; set; }
+        public RoomType Type { get; set; }
         public double Price { get; set; }
-
-        public int? FeedbackId { get; set; }
-        public Feedback? Feedback { get; set; }
 
         public List<Offer> Offers { get; set; }
         public List<Picture>? Pictures { get; set; }

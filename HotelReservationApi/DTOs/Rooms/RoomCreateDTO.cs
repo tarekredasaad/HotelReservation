@@ -4,9 +4,9 @@ namespace HotelReservationApi.DTOs.Rooms
 {
     public class RoomCreateDTO
     {
-        public string Name { get; set; }
-        public Status Status { get; set; }
-        public Types Type { get; set; }
+        public string Number { get; set; }
+        public RoomStatus Status { get; set; }
+        public RoomType Type { get; set; }
         public double Price { get; set; }
 
         public HashSet<int> FacilityIDs { get; set; }

@@ -842,3 +842,5 @@ D:\Taha\Projects\HotelReservation\HotelReservationApi\obj\Debug\net8.0\refint\Ho
 D:\Taha\Projects\HotelReservation\HotelReservationApi\obj\Debug\net8.0\HotelReservationApi.pdb
 D:\Taha\Projects\HotelReservation\HotelReservationApi\obj\Debug\net8.0\HotelReservationApi.genruntimeconfig.cache
 D:\Taha\Projects\HotelReservation\HotelReservationApi\obj\Debug\net8.0\ref\HotelReservationApi.dll
+D:\Taha\Projects\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Taha\Projects\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Stripe.net.dll

@@ -34,10 +34,8 @@ namespace HotelReservationApi.Mediators.Rooms
             var roomDTO = room.MapOne<RoomDTO>();
 
             _roomFacilityService.AddRange(roomDTO, roomCreateDTO.FacilityIDs);
-            //await _roomFacilityService.SaveChangesAsync();
 
             _pictureService.AddRange(roomDTO, roomCreateDTO.Pictures);
-            //await _pictureService.SaveChangesAsync();
 
             return roomDTO;
         }

@@ -1,4 +1,4 @@
-﻿using HotelReservationApi.DTOs.Rooms;
+﻿using HotelReservationApi.DTOs.RoomReservations;
 
 namespace HotelReservationApi.Services.RoomReservations
 {

@@ -16,9 +16,10 @@ namespace HotelReservationApi.Services.Reservations
             _reservationRepository = reservationRepository;
         }
 
-        public async Task<ReservationDTO> AddReservation(CreateReservationDTO ReservationDTO)
+        public async Task<ReservationDTO> AddReservation(ReservationDTO reservationCreateDTO)
         {
-            Reservation reservation = ReservationDTO.MapOne<Reservation>();
+
+            Reservation reservation = reservationCreateDTO.MapOne<Reservation>();
 
             reservation = await _reservationRepository.AddAsync(reservation);
 
@@ -27,6 +28,32 @@ namespace HotelReservationApi.Services.Reservations
             var reservationDTO = reservation.MapOne<ReservationDTO>();
 
             return reservationDTO;
+        }
+
+        public async Task<ReservationDTO> UpdateReservation(ReservationDTO reservationDTO)
+        {
+            var reservation = reservationDTO.MapOne<Reservation>();
+
+            reservation = _reservationRepository.Update(reservation);
+
+            await _reservationRepository.SaveChangesAsync();
+
+            var updatedReservationDTO = reservation.MapOne<ReservationDTO>();
+
+            return updatedReservationDTO;
+        }
+
+        public bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
+        {
+            var reservation = _reservationRepository.First(r => r.RoomReservations.Any(rr => rr.RoomId == roomId) 
+                && r.CheckInDate < checkInDate && r.CheckOutDate > checkOutDate);
+
+            if (reservation is null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
