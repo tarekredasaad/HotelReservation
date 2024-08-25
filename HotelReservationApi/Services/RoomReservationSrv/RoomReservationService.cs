@@ -30,15 +30,19 @@ namespace HotelReservationApi.Services.RoomReservationSrv
 
             List<RoomReservation> roomReservations = new List<RoomReservation>();
            
-            foreach (var id in reservationDTO.Rooms)
+            foreach (var RoomFacility in reservationDTO.RoomFacilityDTO)
             {
                 RoomReservation roomReservation = new RoomReservation();
-                roomReservation.RoomId = id;
-                roomReservation.ReservationId = reservationDTO.ReservationId;
+                roomReservation.ReservationId = reservationDTO.Reservation.Id;
+                roomReservation.RoomId = RoomFacility.RoomId;
+                foreach (var facilityId in RoomFacility.FacilityIds)
+                {
+                    roomReservation.FacilityId = facilityId;
+                    roomReservations.Add(roomReservation);
+                }
                 //roomReservation.IsReserved = true;
                 //roomReservation.TotalPrice = await _roomFacilityService.costRoom(id);
                
-                roomReservations.Add(roomReservation);
             }
 
             await _roomReservationRepository.AddRange(roomReservations);

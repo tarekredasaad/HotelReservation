@@ -9,6 +9,7 @@ namespace HotelReservationApi.MapperProfile
         public ReservationProfile()
         {
             CreateMap<CreateReservationDTO, Reservation>().ReverseMap();
+            CreateMap<ReservationDTO, Reservation>().ReverseMap();
         }
 
     }

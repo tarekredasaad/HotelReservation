@@ -120,6 +120,33 @@ namespace HotelReservationApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RoomFacilities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    FacilityId = table.Column<int>(type: "int", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomFacilities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RoomFacilities_Facilities_FacilityId",
+                        column: x => x.FacilityId,
+                        principalTable: "Facilities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_RoomFacilities_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -233,40 +260,6 @@ namespace HotelReservationApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RoomFacilities",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoomId = table.Column<int>(type: "int", nullable: false),
-                    FacilityId = table.Column<int>(type: "int", nullable: false),
-                    ReservationId = table.Column<int>(type: "int", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoomFacilities", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RoomFacilities_Facilities_FacilityId",
-                        column: x => x.FacilityId,
-                        principalTable: "Facilities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_RoomFacilities_Reservations_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_RoomFacilities_Rooms_RoomId",
-                        column: x => x.RoomId,
-                        principalTable: "Rooms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RoomReservations",
                 columns: table => new
                 {
@@ -356,11 +349,6 @@ namespace HotelReservationApi.Migrations
                 name: "IX_RoomFacilities_FacilityId",
                 table: "RoomFacilities",
                 column: "FacilityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RoomFacilities_ReservationId",
-                table: "RoomFacilities",
-                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoomFacilities_RoomId",

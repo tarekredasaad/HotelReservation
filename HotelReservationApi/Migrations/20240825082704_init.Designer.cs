@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelReservationApi.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240824220415_init")]
+    [Migration("20240825082704_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -287,17 +287,12 @@ namespace HotelReservationApi.Migrations
                     b.Property<int>("FacilityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReservationId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FacilityId");
-
-                    b.HasIndex("ReservationId");
 
                     b.HasIndex("RoomId");
 
@@ -416,7 +411,7 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -427,7 +422,7 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.Reservation", "Reservation")
                         .WithMany()
                         .HasForeignKey("ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Reservation");
@@ -438,7 +433,7 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.Staff", "Staff")
                         .WithMany()
                         .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Staff");
@@ -474,24 +469,16 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.Facility", "Facilities")
                         .WithMany("RoomFacilities")
                         .HasForeignKey("FacilityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HotelReservationApi.Models.Reservation", "Reservation")
-                        .WithMany()
-                        .HasForeignKey("ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("HotelReservationApi.Models.Room", "Room")
                         .WithMany("RoomFacilities")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Facilities");
-
-                    b.Navigation("Reservation");
 
                     b.Navigation("Room");
                 });
@@ -501,13 +488,13 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.Offer", "offer")
                         .WithMany("RoomOffers")
                         .HasForeignKey("OfferId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("HotelReservationApi.Models.Room", "Room")
                         .WithMany("RoomOffers")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Room");
@@ -520,19 +507,19 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.Facility", "Facilities")
                         .WithMany()
                         .HasForeignKey("FacilityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("HotelReservationApi.Models.Reservation", "Reservation")
-                        .WithMany()
+                        .WithMany("RoomReservations")
                         .HasForeignKey("ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("HotelReservationApi.Models.Room", "Rooms")
                         .WithMany("RoomReservations")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Facilities");
@@ -547,7 +534,7 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -558,7 +545,7 @@ namespace HotelReservationApi.Migrations
                     b.HasOne("HotelReservationApi.Models.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Group");
@@ -577,6 +564,11 @@ namespace HotelReservationApi.Migrations
             modelBuilder.Entity("HotelReservationApi.Models.Offer", b =>
                 {
                     b.Navigation("RoomOffers");
+                });
+
+            modelBuilder.Entity("HotelReservationApi.Models.Reservation", b =>
+                {
+                    b.Navigation("RoomReservations");
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Room", b =>

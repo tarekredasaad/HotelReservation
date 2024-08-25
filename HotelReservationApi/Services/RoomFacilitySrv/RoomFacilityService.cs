@@ -34,19 +34,24 @@ namespace HotelReservationApi.Services.RoomFacilitySrv
             
         }
 
-        public async  Task<double> costRoom(int roomId , List<int> facilitiesIds)
+        public async  Task<double> costRoom(HashSet<RoomFacilityDTO> roomFacilityDTOs)
         {
             double facilityCost=0;
             double roomCost=0;
-            foreach (var id in facilitiesIds)
+            double cost = 0;
+            foreach (var roomFacilityDTO in roomFacilityDTOs)
             {
+                foreach (var id in roomFacilityDTO.FacilityIds)
+                {
 
-                var roomFacility = await _RoomFacilitRepo.
-                    GetAll(r => r.RoomId == roomId && r.FacilityId == id );
-                 facilityCost += roomFacility.Sum(f => f.Facilities.Cost);
-                 roomCost = roomFacility.FirstOrDefault().Room.Price;
+                    var roomFacility = await _RoomFacilitRepo.
+                        GetAll(r => r.RoomId == roomFacilityDTO.RoomId && r.FacilityId == id,r=>r.Room ,r=>r.Facilities);
+                    facilityCost += roomFacility.FirstOrDefault().Facilities.Cost;
+                    roomCost = roomFacility.FirstOrDefault().Room.Price;
+                }
+                cost += roomCost + facilityCost;
             }
-            return facilityCost + roomCost;
+            return cost;
 
            
         }

@@ -4,8 +4,8 @@
     {
         public DateTime From { get; set; }
         public DateTime To { get; set; }
-        public HashSet<int> Rooms { get; set; }
-        public HashSet<int> Facilities { get; set; }
+       
+        public HashSet<RoomFacilityDTO> roomFacilityDTOs { get; set; }
 
 
 

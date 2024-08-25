@@ -7,6 +7,6 @@ namespace HotelReservationApi.Services.RoomFacilitySrv
     {
 
         Task AddRoomFacilities(RoomFacilityDTO roomFacilityDTO);
-        Task<double> costRoom(int roomId);
+        Task<double> costRoom(HashSet<RoomFacilityDTO> roomFacilityDTOs);
     }
 }

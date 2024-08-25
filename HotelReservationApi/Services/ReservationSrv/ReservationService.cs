@@ -1,4 +1,5 @@
-﻿using HotelReservationApi.DTOs.Reservations;
+﻿using HotelReservationApi.Constant.Enum;
+using HotelReservationApi.DTOs.Reservations;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repository;
@@ -21,12 +22,18 @@ namespace HotelReservationApi.Services.ReservationSrv
 
             Reservation reservation = new Reservation();
             reservation = ReservationDTO.MapOne<Reservation>();
+            reservation.IsConfirmed = false;
+            reservation.Status = ReservationStatus.pending;
 
-            reservation = await _repository.Add(reservation);
-
-            await _repository.SaveChange();
+            
 
             return reservation;
+        }
+        public async Task SaveChange(Reservation Reservation)
+        {
+            Reservation reservation = new Reservation();
+            reservation = await _repository.Add(Reservation);
+            await _repository.SaveChange();
         }
     }
 }
