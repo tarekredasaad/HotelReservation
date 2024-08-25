@@ -4,6 +4,7 @@ using HotelReservationApi.Mediator.Reservations;
 using HotelReservationApi.Mediator.Rooms;
 using HotelReservationApi.Repository;
 using HotelReservationApi.Services.FacilitiesSrv;
+using HotelReservationApi.Services.InvoiceSrv;
 using HotelReservationApi.Services.PictureSrv;
 using HotelReservationApi.Services.ReservationSrv;
 using HotelReservationApi.Services.RoomFacilitySrv;
@@ -27,6 +28,7 @@ namespace HotelReservationApi
             builder.RegisterAssemblyTypes(typeof(IReservationService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(IRoomReservationService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(IReservationMediator).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(IInvoiceService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
 
         }
     }

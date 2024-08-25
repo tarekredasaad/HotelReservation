@@ -21,7 +21,7 @@ namespace HotelReservationApi.Services.RoomReservationSrv
            
         }
 
-        public  List<RoomReservation> AddRoomReservation(RoomReservationDTO reservationDTO)
+        public  async Task<List<RoomReservation>> AddRoomReservation(RoomReservationDTO reservationDTO)
         {
             if(reservationDTO == null)
             {
@@ -45,7 +45,7 @@ namespace HotelReservationApi.Services.RoomReservationSrv
                
             }
 
-             _roomReservationRepository.Add_Range(roomReservations);
+            await _roomReservationRepository.AddRange(roomReservations);
             return roomReservations;
         }
     }

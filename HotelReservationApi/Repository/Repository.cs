@@ -58,7 +58,7 @@ namespace HotelReservationApi.Repository
             var result = (IEnumerable<T>)query;//.ToList();
             return result;
         }
-        public  List<T> GetAll(Expression<Func<T, bool>> predicate,params Expression<Func<T, object>>[] includes)
+        public  async Task<List<T>> GetAll(Expression<Func<T, bool>> predicate,params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>();
             foreach (var include in includes)
@@ -73,7 +73,7 @@ namespace HotelReservationApi.Repository
             }
 
             // Return the result as a list
-            var result =   query.ToList();
+            var result =  await query.ToListAsync();
             return result;
         }
         

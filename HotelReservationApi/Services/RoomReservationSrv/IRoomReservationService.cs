@@ -5,6 +5,6 @@ namespace HotelReservationApi.Services.RoomReservationSrv
 {
     public interface IRoomReservationService
     {
-        List<RoomReservation> AddRoomReservation(RoomReservationDTO reservationDTO);
+        Task<List<RoomReservation>> AddRoomReservation(RoomReservationDTO reservationDTO);
     }
 }

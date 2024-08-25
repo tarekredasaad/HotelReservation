@@ -16,7 +16,7 @@ namespace HotelReservationApi.Services.ReservationSrv
             _repository = repository;
         }
 
-        public  Reservation AddReservation(ReservationDTO ReservationDTO)
+        public async Task<Reservation> AddReservation(ReservationDTO ReservationDTO)
         {
             
 
@@ -34,6 +34,18 @@ namespace HotelReservationApi.Services.ReservationSrv
             Reservation reservation = new Reservation();
             reservation = await _repository.Add(Reservation);
             await _repository.SaveChange();
+        }
+
+        public async Task<Reservation> Get(int id)
+        {
+            Reservation reservation = _repository.GetByID(id);
+            return reservation;
+        }
+
+        public async Task<Reservation> Update(Reservation reservation)
+        {
+            Reservation reservation_x = await _repository.Update(reservation);
+            return reservation_x;
         }
     }
 }

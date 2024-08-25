@@ -7,7 +7,7 @@ namespace HotelReservationApi.Repository
         IQueryable<T> GetAll();
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate, string model);
 
-        List<T> GetAll(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
+        Task<List<T>> GetAll(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes);
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
         Task AddRange(List<T> list);

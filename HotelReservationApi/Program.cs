@@ -11,6 +11,7 @@ using System.Diagnostics;
 using Autofac.Core;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
+using HotelReservationApi.Configration;
 
 
 namespace HotelReservationApi
@@ -33,7 +34,8 @@ namespace HotelReservationApi
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
                 builder.RegisterModule(new AutoFacModule()));
-
+            //builder.Services.Configure<StripeSettings>()
+            builder.Services.Configure<StripeSettings>( builder.Configuration.GetSection("StripeSettings"));
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddHttpContextAccessor();
