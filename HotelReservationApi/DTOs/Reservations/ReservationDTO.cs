@@ -1,13 +1,12 @@
-﻿namespace HotelReservationApi.DTOs.Reservations
+﻿using HotelReservationApi.DTOs.Rooms;
+
+namespace HotelReservationApi.DTOs.Reservations
 {
     public class ReservationDTO
     {
         public DateTime From { get; set; }
         public DateTime To { get; set; }
        
-        public HashSet<RoomFacilityDTO> roomFacilityDTOs { get; set; }
-
-
-
+        public HashSet<RoomFacilityDTO> RoomFacilities { get; set; }
     }
 }

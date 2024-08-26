@@ -16,18 +16,16 @@ namespace HotelReservationApi.Repository
         
         public async Task<T> Add(T entity)
         {
-            
             await _context.Set<T>().AddAsync(entity);
-            
-           
             var entry2 = _context.Entry(entity);
-            //entry2.State
             return entity;
         }
+
         public async Task AddRange(List<T> list)
         {
            await  _context.Set<T>().AddRangeAsync(list);
         }
+
         public async Task<T> Update(T entity)
         {
             _context.Set<T>().Update(entity);
@@ -36,7 +34,6 @@ namespace HotelReservationApi.Repository
 
         public void Delete(T entity)
         {
-            //_context.Set<T>().Remove(entity);
             entity.Deleted = true;
             Update(entity);
         }
@@ -47,17 +44,18 @@ namespace HotelReservationApi.Repository
             Delete(entity);
         }
 
-
         public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
         {
             return GetAll().Where(predicate);
         }
+
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate,string model)
         {
             IQueryable<T> query = _context.Set<T>().Include(model).Where( predicate).AsNoTracking();
             var result = (IEnumerable<T>)query;//.ToList();
             return result;
         }
+
         public  async Task<List<T>> GetAll(Expression<Func<T, bool>> predicate,params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>();
@@ -66,14 +64,13 @@ namespace HotelReservationApi.Repository
                 query = query.Include(include);
             }
 
-            // Apply predicate if provided
             if (predicate != null)
             {
                 query = query.Where(predicate);
             }
 
-            // Return the result as a list
             var result =  await query.ToListAsync();
+
             return result;
         }
         
@@ -92,12 +89,10 @@ namespace HotelReservationApi.Repository
         public IQueryable<T> GetAll()
         {
             return _context.Set<T>().Where(x => !x.Deleted).AsNoTracking();
-            //return _context.Set<T>().Where(x => !x.Deleted).AsNoTrackingWithIdentityResolution();
         }
         
         public T GetByID(int id)
         {
-            //return _context.Find<T>(id);
             return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
@@ -113,7 +108,8 @@ namespace HotelReservationApi.Repository
         {
             return Get(predicate).FirstOrDefault();
         }
-        public async Task SaveChange()
+
+        public async Task SaveChangesAsync()
         {
            await _context.SaveChangesAsync();
         }

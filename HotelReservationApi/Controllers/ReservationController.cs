@@ -1,63 +1,89 @@
-﻿using HotelReservationApi.DTOs.Facilities;
+﻿using FluentValidation;
+using FluentValidation.Results;
 using HotelReservationApi.DTOs.Reservations;
+using HotelReservationApi.Helper;
 using HotelReservationApi.Mediator.Reservations;
 using HotelReservationApi.ViewModel;
-using Microsoft.AspNetCore.Http;
+using HotelReservationApi.ViewModel.Reservations;
 using Microsoft.AspNetCore.Mvc;
-using Stripe.Checkout;
-using Stripe;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Text;
 
 namespace HotelReservationApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ReservationController : ControllerBase
     {
-        IReservationMediator _reservationMediator;
+        private readonly IReservationMediator _reservationMediator;
+        private readonly IValidator<ReservationViewModel> _reservationValidator;
+        private readonly IValidator<ConfirmReservationDTO> _confirmReservationValidator;
 
-        public ReservationController(IReservationMediator reservationMediator)
+        public ReservationController(IReservationMediator reservationMediator, 
+            IValidator<ReservationViewModel> reservationValidator, 
+            IValidator<ConfirmReservationDTO> confirmReservationValidator)
         {
             _reservationMediator = reservationMediator;
+            _reservationValidator = reservationValidator;
+            _confirmReservationValidator = confirmReservationValidator;
         }
 
-        [HttpPost("AddReservations")]
-        public async Task<ActionResult<ResultViewModel>> AddReservations(ReservationDTO reservationDTO)
+        [HttpPost]
+        public async Task<ActionResult<ResultViewModel>> AddReservation(ReservationViewModel reservationCreateVM)
         {
-            if (!ModelState.IsValid)
+            ValidationResult result = _reservationValidator.Validate(reservationCreateVM);
+
+            if (!result.IsValid)
             {
-                return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState });
-            };
-            return Ok( await _reservationMediator.AddReservation(reservationDTO));
+                return BadRequest(ResultViewModel.Faliure(result.Errors.First().ToString()));
+            }
+
+            var reservationCreateDTO = reservationCreateVM.MapOne<ReservationDTO>();
+
+            var reservationDTO = await _reservationMediator.AddReservation(reservationCreateDTO);
+
+            return Ok(ResultViewModel.Sucess(reservationDTO, "Reservation created successfully."));
         }
 
-        [HttpPost("charge")]
-        public async  Task<ActionResult> CreateCheckOut(ConfirmReservationDTO confirmReservationDTO)
+        [HttpPost]
+        public async  Task<ActionResult<ResultViewModel>> CreateCheckOutURL(ConfirmReservationDTO confirmReservationDTO)
         {
-            if (!ModelState.IsValid)
+            ValidationResult result = _confirmReservationValidator.Validate(confirmReservationDTO);
+
+            if (!result.IsValid)
             {
-                return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState });
+                return BadRequest(ResultViewModel.Faliure(result.Errors.First().ToString()));
             };
 
-            return Ok(await _reservationMediator.CreateCheckOut(confirmReservationDTO));
+            string checkOutURL = await _reservationMediator.CreateCheckOut(confirmReservationDTO);
+
+            return Ok(ResultViewModel.Sucess(checkOutURL, "Checkout URL created successfully."));
         }
 
 
-        [HttpPost("ConfirmReservation")]
-        public async Task<ActionResult<ResultViewModel>> ConfirmReservation( ConfirmReservationDTO confirmReservationDTO)
+        [HttpPost]
+        public async Task<ActionResult<ResultViewModel>> ConfirmReservation(ConfirmReservationDTO confirmReservationDTO)
         {
-            if (!ModelState.IsValid)
+            ValidationResult result = _confirmReservationValidator.Validate(confirmReservationDTO);
+
+            if (!result.IsValid)
             {
-                return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState });
+                return BadRequest(ResultViewModel.Faliure(result.Errors.First().ToString()));
             };
-            return Ok(await _reservationMediator.ConfirmReservation(confirmReservationDTO));
+
+            var reservationDTO = await _reservationMediator.ConfirmReservation(confirmReservationDTO);
+
+            return Ok(ResultViewModel.Sucess(reservationDTO, "The reservation confirmed successfully."));
         }
-        [HttpGet("getReservation")]
-        public async Task<ActionResult<ResultViewModel>> getReservation([FromQuery] ConfirmReservationDTO confirmReservationDTO)
+
+        [HttpPost]
+        public async Task<ResultViewModel> IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
         {
-            return Ok("success");
+            bool isAvailable = _reservationMediator.IsRoomAvailable(roomId, checkInDate, checkOutDate);
+
+            return new ResultViewModel()
+            {
+                StatusCode = 200,
+                Data = isAvailable,
+            };
         }
     }
 }

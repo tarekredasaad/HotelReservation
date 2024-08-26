@@ -1,86 +1,82 @@
-﻿using HotelReservationApi.DTOs.Reservations;
+﻿using HotelReservationApi.Constant.Enum;
+using HotelReservationApi.DTOs.Reservations;
 using HotelReservationApi.DTOs.RoomReservationDTO;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
-using HotelReservationApi.Services.ReservationSrv;
-using HotelReservationApi.Services.RoomFacilitySrv;
-using HotelReservationApi.Services.RoomReservationSrv;
-using HotelReservationApi.ViewModel;
-using HotelReservationApi.Constant.Enum;
-using Stripe.Checkout;
-using Stripe;
 using HotelReservationApi.Services.InvoiceSrv;
+using HotelReservationApi.Services.ReservationSrv;
+using HotelReservationApi.Services.RoomFacilities;
+using HotelReservationApi.Services.RoomReservationSrv;
+using Stripe;
+using Stripe.Checkout;
+using Invoice = HotelReservationApi.Models.Invoice;
+using SessionCreateOptions = Stripe.Checkout.SessionCreateOptions;
+using SessionService = Stripe.Checkout.SessionService;
 
 namespace HotelReservationApi.Mediator.Reservations
 {
     public class ReservationMediator : IReservationMediator
     {
-        IReservationService _reservationService;
-        IRoomReservationService _roomReservationService;
-        IRoomFacilityService _roomFacilityService;
-        IInvoiceService _invoiceService;
-        public ReservationMediator(IReservationService reservationService
-            , IRoomReservationService roomReservationService
-            ,IRoomFacilityService roomFacilityService
-            ,IInvoiceService invoice)
+        private readonly IReservationService _reservationService;
+        private readonly IRoomReservationService _roomReservationService;
+        private readonly IRoomFacilityService _roomFacilityService;
+        private readonly IInvoiceService _invoiceService;
+
+        public ReservationMediator(IReservationService reservationService, 
+            IRoomReservationService roomReservationService, 
+            IRoomFacilityService roomFacilityService, 
+            IInvoiceService invoiceService)
         {
             _reservationService = reservationService;
             _roomReservationService = roomReservationService;
             _roomFacilityService = roomFacilityService;
-            _invoiceService = invoice;
+            _invoiceService = invoiceService;
         }
 
-        public async Task<ResultViewModel> AddReservation(ReservationDTO reservationDTO)
+        public async Task<ReservationDTO> AddReservation(ReservationDTO reservationDTO)
         {
-            if(reservationDTO == null)
-            {
-                return ResultViewModel.Faliure();
-            }
+            Reservation reservation = await _reservationService.AddReservation(reservationDTO);
+            await _reservationService.SaveChangesAsync();
 
-            //Reservation reservation = await _reservationService.AddReservation(reservationDTO);
-            Reservation reservation = new Reservation();
-            reservation = await _reservationService
-                .AddReservation(reservationDTO);
+            reservation.TotalPrice = await _roomFacilityService.CostRoom(reservationDTO.RoomFacilities);
 
-            reservation.TotalPrice = await  _roomFacilityService
-                .costRoom(reservationDTO.roomFacilityDTOs);
-            //await _reservationService.SaveChange(reservation);
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.ReservationId = reservation.Id;
 
             RoomReservationDTO roomReservationDTO = new RoomReservationDTO();
-            //roomReservationDTO = reservation.MapOne<RoomReservationDTO>();
-            roomReservationDTO = reservationDTO.MapOne<RoomReservationDTO>();
             roomReservationDTO.Reservation = reservation;
-            roomReservationDTO.RoomFacilityDTO = reservationDTO.roomFacilityDTOs;
+            roomReservationDTO.RoomFacilityDTO = reservationDTO.RoomFacilities;
+            
             List<RoomReservation> roomReservations = await _roomReservationService
                 .AddRoomReservation(roomReservationDTO);
 
-            return ResultViewModel.Sucess(roomReservations);
-
+            return reservationDTO;
         }
+
         public async Task<string> CreateCheckOut(ConfirmReservationDTO confirmReservationDTO)
         {
-            int id = confirmReservationDTO.reservationId;
-            long amount = confirmReservationDTO.Amount;
-
             var options = new PaymentIntentCreateOptions
             {
-                Amount = (long)(confirmReservationDTO.Amount * 100),
+                Amount = (long) (confirmReservationDTO.Amount * 100),
                 Currency = "usd",
                 PaymentMethod = "pm_card_visa",
 
-            };  //_stripeSettings.SecretKey;//
+            };
+            
             StripeConfiguration.ApiKey = "sk_test_51PqW8S01MqAl9mk4G6qYv1fym30xCJqVD8RhU3ZUGV9fd8WVw9L6sWM1RbmxIpUI9jPyL63KykSr8S3gsKankoL900CmF3Bs1W";
+            
             var service = new PaymentIntentService();
+            
             PaymentIntent response = service.Create(options);
             PaymentMethod paymentMethod = new PaymentMethod();
+            
             var optionsCheckout = new SessionCreateOptions
             {
                 PaymentMethodTypes = new List<string>
                 {
                     "card"
                 },
+
                 LineItems = new List<SessionLineItemOptions>
                 {
                     new SessionLineItemOptions
@@ -97,40 +93,52 @@ namespace HotelReservationApi.Mediator.Reservations
 
                         },
                         Quantity = 1
-
                     }
-
                 },
 
                 Mode = "payment",
-                SuccessUrl = $"https://localhost:44364/api/Reservation/getReservation?reservationId={id}&Amount={amount}",
+                SuccessUrl = $"https://localhost:44364/api/Reservation/getReservation?reservationId={confirmReservationDTO.ReservationId}&Amount={confirmReservationDTO.Amount}",
                 CancelUrl = "https://localhost:5255/"
             };
-            var SussionService = new SessionService();
-            var session = SussionService.Create(optionsCheckout);
+
+            var sessionService = new SessionService();
+            var session = sessionService.Create(optionsCheckout);
+
             return session.Url;
         }
-        public async Task<ResultViewModel> ConfirmReservation(ConfirmReservationDTO confirmReservationDTO)
+
+        public async Task<ReservationDTO> ConfirmReservation(ConfirmReservationDTO confirmReservationDTO)
         {
-            if (confirmReservationDTO == null)
-            {
-                return null;
-            }
-            Reservation reservation = await _reservationService.Get(confirmReservationDTO.reservationId);
-           
+            Reservation reservation = await _reservationService.Get(confirmReservationDTO.ReservationId);
             reservation.IsConfirmed = true;
             reservation = await _reservationService.Update(reservation);
 
-            Models.Invoice invoice = new Models.Invoice();
-            invoice.ReservationId = reservation.Id;
-            invoice.Amount =(double) confirmReservationDTO.Amount;
-            invoice.InvoiceDate = DateTime.Now;
-            invoice.PaymentStatus = PaymentStatus.Paid;
-            invoice.PaymentType = PaymentType.cash;
-            invoice = await _invoiceService.AddInvoice(invoice);
+            await CreateInvoice(reservation);
 
+            var reservationDTO = reservation.MapOne<ReservationDTO>();
 
-            return ResultViewModel.Sucess(reservation);
+            return reservationDTO;
+        }
+
+        public bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
+        {
+            bool isAvailable = _reservationService.IsRoomAvailable(roomId, checkInDate, checkOutDate);
+
+            return isAvailable;
+        }
+
+        private async Task CreateInvoice(Reservation reservation)
+        {
+            Invoice invoice = new Invoice
+            {
+                ReservationId = reservation.Id,
+                Amount = reservation.TotalPrice,
+                InvoiceDate = DateTime.Now,
+                PaymentStatus = PaymentStatus.Succeeded,
+                PaymentType = PaymentType.Cash,
+            };
+
+            await _invoiceService.AddInvoice(invoice);
         }
     }
 }

@@ -16,24 +16,21 @@ namespace HotelReservationApi.Services.ReservationSrv
             _repository = repository;
         }
 
-        public async Task<Reservation> AddReservation(ReservationDTO ReservationDTO)
+        public async Task<Reservation> AddReservation(ReservationDTO reservationDTO)
         {
-            
-
-            Reservation reservation = new Reservation();
-            reservation = ReservationDTO.MapOne<Reservation>();
+            Reservation reservation = reservationDTO.MapOne<Reservation>();
             reservation.IsConfirmed = false;
-            reservation.Status = ReservationStatus.pending;
+            reservation.Status = ReservationStatus.Pending;
 
-            reservation.NumberDays = 5;
+            reservation.NumberDays = (reservationDTO.From - reservationDTO.To).Days;
+
+            await _repository.Add(reservation);
 
             return reservation;
         }
-        public async Task SaveChange(Reservation Reservation)
+        public async Task SaveChangesAsync()
         {
-            Reservation reservation = new Reservation();
-            reservation = await _repository.Add(Reservation);
-            await _repository.SaveChange();
+            await _repository.SaveChangesAsync();
         }
 
         public async Task<Reservation> Get(int id)
@@ -46,6 +43,19 @@ namespace HotelReservationApi.Services.ReservationSrv
         {
             Reservation reservation_x = await _repository.Update(reservation);
             return reservation_x;
+        }
+
+        public bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
+        {
+            var reservation = _repository.First(r => r.RoomReservations.Any(rr => rr.RoomId == roomId)
+                && r.To < checkInDate && r.From > checkOutDate);
+
+            if (reservation is null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -5,8 +5,9 @@ namespace HotelReservationApi.Mediator.Reservations
 {
     public interface IReservationMediator
     {
-        Task<ResultViewModel> AddReservation(ReservationDTO reservationDTO);
+        Task<ReservationDTO> AddReservation(ReservationDTO reservationDTO);
         Task<string> CreateCheckOut(ConfirmReservationDTO confirmReservationDTO);
-        Task<ResultViewModel> ConfirmReservation(ConfirmReservationDTO confirmReservationDTO);
+        Task<ReservationDTO> ConfirmReservation(ConfirmReservationDTO confirmReservationDTO);
+        bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate);
     }
 }

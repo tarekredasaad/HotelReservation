@@ -1,10 +1,13 @@
 ﻿using HotelReservationApi.DTOs.Rooms;
-using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Mediator.Rooms
 {
     public interface IRoomMediator
     {
-        Task<ResultViewModel> AddRoom(RoomDTO roomDTO);
+        IEnumerable<RoomDTO> GetRooms();
+        RoomDTO GetRoomById(int id);
+        Task<RoomDTO> AddRoomAsync(RoomCreateDTO roomCreateDTO);
+        Task UpdateRoomAsync(RoomDTO roomDTO);
+        Task DeleteRoomAsync(int id);
     }
 }

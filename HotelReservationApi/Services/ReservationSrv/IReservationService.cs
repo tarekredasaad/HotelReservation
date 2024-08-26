@@ -7,8 +7,9 @@ namespace HotelReservationApi.Services.ReservationSrv
     public interface IReservationService
     {
         Task<Reservation> AddReservation(ReservationDTO ReservationDTO);
-        Task SaveChange(Reservation Reservation);
+        Task SaveChangesAsync();
         Task<Reservation> Get(int id);
         Task<Reservation> Update(Reservation reservation);
+        bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate);
     }
 }

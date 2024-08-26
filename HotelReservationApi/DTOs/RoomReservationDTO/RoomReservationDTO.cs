@@ -1,10 +1,11 @@
-﻿using HotelReservationApi.Models;
+﻿using HotelReservationApi.DTOs.Rooms;
+using HotelReservationApi.Models;
 
 namespace HotelReservationApi.DTOs.RoomReservationDTO
 {
     public class RoomReservationDTO
     {
-       public Reservation Reservation { get; set; }
+        public Reservation Reservation { get; set; }
         public HashSet<RoomFacilityDTO> RoomFacilityDTO { get; set; }
     }
 }

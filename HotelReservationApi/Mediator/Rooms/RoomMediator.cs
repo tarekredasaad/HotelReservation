@@ -1,62 +1,61 @@
-﻿using HotelReservationApi.DTOs;
-using HotelReservationApi.DTOs.Rooms;
+﻿using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
-using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
-using HotelReservationApi.Services.FacilitiesSrv;
-using HotelReservationApi.Services.PictureSrv;
-using HotelReservationApi.Services.RoomFacilitySrv;
+using HotelReservationApi.Services.Pictures;
+using HotelReservationApi.Services.RoomFacilities;
 using HotelReservationApi.Services.RoomsSrv;
-using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Mediator.Rooms
 {
     public class RoomMediator : IRoomMediator
     {
-        IPictureService _pictureService;
-      
-        IRoomService _roomService;
-      
-        IRoomFacilityService _roomFacilityService;
+        private readonly IPictureService _pictureService;
+        private readonly IRoomService _roomService;
+        private readonly IRoomFacilityService _roomFacilityService;
 
-        public RoomMediator(IPictureService pictureService 
-             
-            ,IRoomService roomService,
-            IRoomFacilityService roomFacilityService
-            )
+        public RoomMediator(IPictureService pictureService, IRoomService roomService, IRoomFacilityService roomFacilityService)
         {
             _pictureService = pictureService;
-          
-         
-           
             _roomFacilityService = roomFacilityService;
             _roomService = roomService;
         }
 
-        public async Task<ResultViewModel> AddRoom(RoomDTO roomDTO)
+        public IEnumerable<RoomDTO> GetRooms()
         {
-            if (roomDTO == null)
-            {
-                return ResultViewModel.Faliure(); 
-            }
-            Room room = new Room();
-            RoomCreateDTO roomCreateDTO = roomDTO.MapOne<RoomCreateDTO>();
-           
-            room.Pictures = await _pictureService.pictureSRV(roomDTO.Pictures);
-            room = await _roomService.AddRoom(roomCreateDTO);
+            var roomDTOs = _roomService.GetRooms();
 
-            await _roomService.SaveChange();
+            return roomDTOs;
+        }
 
-            
-            RoomFacilityDTO roomFacilityDTO = new RoomFacilityDTO();
-            roomFacilityDTO.FacilityIds = roomDTO.Facilities.ToList();
-            roomFacilityDTO.RoomId = room.Id;
+        public async Task<RoomDTO> AddRoomAsync(RoomCreateDTO roomCreateDTO)
+        {
+            var room = await _roomService.AddRoom(roomCreateDTO);
+            await _roomService.SaveChangesAsync();
 
-            await _roomFacilityService.AddRoomFacilities(roomFacilityDTO);
+            var roomDTO = room.MapOne<RoomDTO>();
 
-            
+            _roomFacilityService.AddRange(roomDTO, roomCreateDTO.FacilityIDs);
 
-            return ResultViewModel.Sucess(room);
+            _pictureService.AddRange(roomDTO, roomCreateDTO.Pictures);
+
+            return roomDTO;
+        }
+
+        public RoomDTO GetRoomById(int id)
+        {
+            var roomDTO = _roomService.GetRoomById(id);
+            return roomDTO;
+        }
+
+        public async Task DeleteRoomAsync(int id)
+        {
+            _roomService.DeleteRoom(id);
+            await _roomService.SaveChangesAsync();
+        }
+
+        public async Task UpdateRoomAsync(RoomDTO roomDTO)
+        {
+            _roomService.UpdateRoom(roomDTO);
+            await _roomService.SaveChangesAsync();
         }
     }
 }

@@ -6,7 +6,6 @@ namespace HotelReservationApi.Repository
     {
         IQueryable<T> GetAll();
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate, string model);
-
         Task<List<T>> GetAll(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes);
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
@@ -19,6 +18,6 @@ namespace HotelReservationApi.Repository
         void Delete(T entity);
         void Delete(int id);
         T First(Expression<Func<T, bool>> predicate);
-        Task SaveChange();
+        Task SaveChangesAsync();
     }
 }
