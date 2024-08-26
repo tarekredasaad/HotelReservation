@@ -22,12 +22,13 @@ namespace HotelReservationApi.Services.ReservationSrv
             reservation.IsConfirmed = false;
             reservation.Status = ReservationStatus.Pending;
 
-            reservation.NumberDays = (reservationDTO.From - reservationDTO.To).Days;
+            reservation.NumberDays = (reservationDTO.To - reservationDTO.From).Days;
 
             await _repository.Add(reservation);
 
             return reservation;
         }
+
         public async Task SaveChangesAsync()
         {
             await _repository.SaveChangesAsync();

@@ -22,14 +22,17 @@ namespace HotelReservationApi.Services.RoomReservationSrv
 
             List<RoomReservation> roomReservations = new List<RoomReservation>();
            
-            foreach (var roomFacility in reservationDTO.RoomFacilityDTO)
+            foreach (var reservationFacility in reservationDTO.ReservationFacilityDTO)
             {
-                RoomReservation roomReservation = new RoomReservation();
-                roomReservation.ReservationId = reservationDTO.Reservation.Id;
-                roomReservation.Reservation = reservationDTO.Reservation;
-                roomReservation.RoomId = roomFacility.RoomId;
-                roomReservation.FacilityId = roomFacility.FacilityId;
-                roomReservations.Add(roomReservation);
+                foreach (var facilityId in reservationFacility.FacilitiesIDs)
+                {
+                    RoomReservation roomReservation = new RoomReservation();
+                    roomReservation.ReservationId = reservationDTO.Reservation.Id;
+                    roomReservation.Reservation = reservationDTO.Reservation;
+                    roomReservation.RoomId = reservationFacility.RoomId;
+                    roomReservation.FacilityId = facilityId;
+                    roomReservations.Add(roomReservation);
+                }
             }
 
             await _roomReservationRepository.AddRange(roomReservations);
