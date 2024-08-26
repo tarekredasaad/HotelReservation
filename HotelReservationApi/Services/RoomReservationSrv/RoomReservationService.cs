@@ -1,4 +1,5 @@
-﻿using HotelReservationApi.DTOs.RoomReservationDTO;
+﻿using HotelReservationApi.DTOs.Reservations;
+using HotelReservationApi.DTOs.RoomReservationDTO;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repository;
 
@@ -21,20 +22,36 @@ namespace HotelReservationApi.Services.RoomReservationSrv
             }
 
             List<RoomReservation> roomReservations = new List<RoomReservation>();
-           
-            foreach (var roomFacility in reservationDTO.RoomFacilityDTO)
+            foreach (var RoomFacility in reservationDTO.RoomFacilityDTO)
             {
-                RoomReservation roomReservation = new RoomReservation();
-                roomReservation.ReservationId = reservationDTO.Reservation.Id;
-                roomReservation.Reservation = reservationDTO.Reservation;
-                roomReservation.RoomId = roomFacility.RoomId;
-                roomReservation.FacilityId = roomFacility.FacilityId;
-                roomReservations.Add(roomReservation);
+                foreach (var facilityId in RoomFacility.FacilityId)
+                {
+                    RoomReservation roomReservation = new RoomReservation();
+                    roomReservation.ReservationId = reservationDTO.Reservation.Id;
+                    roomReservation.Reservation = reservationDTO.Reservation;
+                    roomReservation.RoomId = RoomFacility.RoomId;
+                    roomReservation.FacilityId = facilityId;
+                    roomReservations.Add(roomReservation);
+                }
             }
+            // foreach (var roomFacility in reservationDTO.RoomFacilityDTO)
+            //{
+            //    RoomReservation roomReservation = new RoomReservation();
+            //    roomReservation.ReservationId = reservationDTO.Reservation.Id;
+            //    roomReservation.Reservation = reservationDTO.Reservation;
+            //    roomReservation.RoomId = roomFacility.RoomId;
+            //    roomReservation.FacilityId = roomFacility.FacilityId;
+            //    roomReservations.Add(roomReservation);
+            //}
 
             await _roomReservationRepository.AddRange(roomReservations);
             return roomReservations;
         }
+
+        //public async Task<Room> getRooms(int id)
+        //{
+
+        //}
     }
 }
 

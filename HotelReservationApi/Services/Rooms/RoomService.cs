@@ -1,4 +1,5 @@
-﻿using HotelReservationApi.DTOs.Rooms;
+﻿using HotelReservationApi.DTOs.Reservations;
+using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repository;
@@ -15,13 +16,13 @@ namespace HotelReservationApi.Services.Rooms
             _roomRepository = roomRepository;
         }
 
-        public IEnumerable<RoomDTO> GetRooms()
+        public List<RoomDTO> GetRooms()
         {
             var rooms = _roomRepository.GetAll();
 
             var roomDTOs = rooms.Map<RoomDTO>();
 
-            return roomDTOs;
+            return roomDTOs.ToList();
         }
 
         public RoomDTO GetRoomById(int id)
@@ -59,6 +60,14 @@ namespace HotelReservationApi.Services.Rooms
         public async Task SaveChangesAsync()
         {
             await _roomRepository.SaveChangesAsync();
+        }
+
+        public async Task<List<Room>> GetRoomsTypes(SearchReservationDTO searchReservation)
+        {
+           
+            List<Room> rooms = _roomRepository.Get(r => r.Type == searchReservation.Types).ToList();
+            
+            return rooms;
         }
     }
 }

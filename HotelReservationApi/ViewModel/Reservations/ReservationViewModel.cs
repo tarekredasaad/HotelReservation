@@ -1,4 +1,5 @@
 ﻿using HotelReservationApi.DTOs;
+using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.ViewModel.RoomFacilities;
 
 namespace HotelReservationApi.ViewModel.Reservations
@@ -8,6 +9,6 @@ namespace HotelReservationApi.ViewModel.Reservations
         public DateTime From { get; set; }
         public DateTime To { get; set; }
 
-        public HashSet<RoomFacilityViewModel> RoomFacilities { get; set; }
+        public HashSet<RoomFacilityDTO> RoomFacilities { get; set; }
     }
 }

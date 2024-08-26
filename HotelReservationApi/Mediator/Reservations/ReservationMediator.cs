@@ -7,6 +7,7 @@ using HotelReservationApi.Services.InvoiceSrv;
 using HotelReservationApi.Services.ReservationSrv;
 using HotelReservationApi.Services.RoomFacilities;
 using HotelReservationApi.Services.RoomReservationSrv;
+using HotelReservationApi.Services.RoomsSrv;
 using Stripe;
 using Stripe.Checkout;
 using Invoice = HotelReservationApi.Models.Invoice;
@@ -21,16 +22,19 @@ namespace HotelReservationApi.Mediator.Reservations
         private readonly IRoomReservationService _roomReservationService;
         private readonly IRoomFacilityService _roomFacilityService;
         private readonly IInvoiceService _invoiceService;
+        IRoomService _roomService;
 
         public ReservationMediator(IReservationService reservationService, 
             IRoomReservationService roomReservationService, 
             IRoomFacilityService roomFacilityService, 
-            IInvoiceService invoiceService)
+            IInvoiceService invoiceService
+            ,IRoomService roomService)
         {
             _reservationService = reservationService;
             _roomReservationService = roomReservationService;
             _roomFacilityService = roomFacilityService;
             _invoiceService = invoiceService;
+            _roomService = roomService;
         }
 
         public async Task<ReservationDTO> AddReservation(ReservationDTO reservationDTO)
@@ -126,7 +130,21 @@ namespace HotelReservationApi.Mediator.Reservations
 
             return isAvailable;
         }
+        //public async Task<List<Room>> AvailableRooms(SearchReservationDTO searchReservationDTO)
+        //{
+        //    if(searchReservationDTO == null)
+        //    {
+        //        return null;
+        //    }
+        //    List<Room> AllRooms = new List<Room>();
+        //    AllRooms =  _roomService.GetRooms();
+            
+        //    foreach (Room room in rooms)
+        //    {
+        //        bool exist = _roomReservationService.;
 
+        //    }
+        //}
         private async Task CreateInvoice(Reservation reservation)
         {
             Invoice invoice = new Invoice

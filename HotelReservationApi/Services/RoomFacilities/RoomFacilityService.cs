@@ -45,13 +45,16 @@ namespace HotelReservationApi.Services.RoomFacilities
                 double facilityCost = 0;
 
                 var roomFacility = await _roomFacilityRepository.
-                    GetAll(r => r.RoomId == roomFacilityDTO.RoomId && r.FacilityId == roomFacilityDTO.FacilityId, r => r.Room, r => r.Facility);
+                    GetAll(r => r.RoomId == roomFacilityDTO.RoomId , r => r.Room, r => r.Facility);
+                foreach (var id in roomFacilityDTO.FacilityId)
+                {
 
-                facilityCost += roomFacility.FirstOrDefault().Facility.Cost;
+                    facilityCost += roomFacility.FirstOrDefault().Facility.Cost;
+                    roomCost = roomFacility.FirstOrDefault().Room.Price;
+                    
+                }
 
-                roomCost = roomFacility.FirstOrDefault().Room.Price;
-
-                cost += roomCost + facilityCost;
+                    cost += roomCost + facilityCost;
             }
 
             return cost;

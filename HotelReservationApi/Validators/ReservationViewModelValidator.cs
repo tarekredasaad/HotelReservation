@@ -15,8 +15,8 @@ namespace HotelReservationApi.Validators
                 .NotEmpty().WithMessage("The end date is required.")
                 .GreaterThan(reservation => reservation.From).WithMessage("The end date must be after the start date.");
 
-            RuleForEach(reservation => reservation.RoomFacilities)
-                .SetValidator(new RoomFacilityViewModelValidator());
+            //RuleForEach(reservation => reservation.RoomFacilities)
+            //    .SetValidator(new RoomFacilityViewModelValidator());
         }
     }
 }

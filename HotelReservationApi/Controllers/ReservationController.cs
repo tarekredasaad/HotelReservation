@@ -79,11 +79,8 @@ namespace HotelReservationApi.Controllers
         {
             bool isAvailable = _reservationMediator.IsRoomAvailable(roomId, checkInDate, checkOutDate);
 
-            return new ResultViewModel()
-            {
-                StatusCode = 200,
-                Data = isAvailable,
-            };
+            return ResultViewModel.Sucess(isAvailable);
+            
         }
     }
 }
