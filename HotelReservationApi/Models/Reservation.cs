@@ -9,9 +9,9 @@ namespace HotelReservationApi.Models
         public DateTime From { get; set; }
         public DateTime To { get; set; }
 
-        public bool IsConfirmed { get; set; }
+        public bool IsConfirmed { get; set; } = false;
         public int NumberDays { get; set; }
-        public ReservationStatus Status { get; set; }
+        public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
 
         public double TotalPrice { get; set; }
 

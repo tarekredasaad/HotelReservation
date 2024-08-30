@@ -20,8 +20,7 @@ namespace HotelReservationApi.Services.ReservationSrv
         public async Task<Reservation> AddReservation(ReservationDTO reservationDTO)
         {
             Reservation reservation = reservationDTO.MapOne<Reservation>();
-            reservation.IsConfirmed = false;
-            reservation.Status = ReservationStatus.Pending;
+            
 
             reservation.NumberDays = (reservationDTO.From - reservationDTO.To).Days;
 

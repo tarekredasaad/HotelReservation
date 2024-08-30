@@ -34,15 +34,7 @@ namespace HotelReservationApi.Services.RoomReservationSrv
                     roomReservations.Add(roomReservation);
                 }
             }
-            // foreach (var roomFacility in reservationDTO.RoomFacilityDTO)
-            //{
-            //    RoomReservation roomReservation = new RoomReservation();
-            //    roomReservation.ReservationId = reservationDTO.Reservation.Id;
-            //    roomReservation.Reservation = reservationDTO.Reservation;
-            //    roomReservation.RoomId = roomFacility.RoomId;
-            //    roomReservation.FacilityId = roomFacility.FacilityId;
-            //    roomReservations.Add(roomReservation);
-            //}
+            
 
             await _roomReservationRepository.AddRange(roomReservations);
             return roomReservations;
