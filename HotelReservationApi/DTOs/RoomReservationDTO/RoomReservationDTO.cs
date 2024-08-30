@@ -7,6 +7,6 @@ namespace HotelReservationApi.DTOs.RoomReservationDTO
     public class RoomReservationDTO
     {
         public Reservation Reservation { get; set; }
-        public HashSet<ReservationFacilityDTO> ReservationFacilityDTO { get; set; }
+        public HashSet<RoomFacilityDTO> ReservationFacilityDTO { get; set; }
     }
 }
