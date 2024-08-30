@@ -9,6 +9,10 @@ namespace HotelReservationApi.ViewModel.Reservations
         public DateTime From { get; set; }
         public DateTime To { get; set; }
 
-        public HashSet<RoomFacilityDTO> RoomFacilities { get; set; }
+
+        ////public HashSet<RoomFacilityDTO> RoomFacilities { get; set; }
+
+        public HashSet<ReservationFacilityViewModel> ReservationFacilities { get; set; }
+ 
     }
 }

@@ -1,4 +1,5 @@
-﻿using HotelReservationApi.DTOs.Rooms;
+﻿using HotelReservationApi.DTOs.Reservations;
+using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repository;
@@ -35,26 +36,39 @@ namespace HotelReservationApi.Services.RoomFacilities
             }
         }
 
-        public async Task<double> CostRoom(HashSet<RoomFacilityDTO> roomFacilityDTOs)
+        public async Task<double> CostRoom(HashSet<RoomFacilityDTO> reservationFacilityDTOs)
         {
             double roomCost = 0;
             double cost = 0;
 
-            foreach (var roomFacilityDTO in roomFacilityDTOs)
+            foreach (var reservationFacilityDTO in reservationFacilityDTOs)
             {
                 double facilityCost = 0;
 
-                var roomFacility = await _roomFacilityRepository.
-                    GetAll(r => r.RoomId == roomFacilityDTO.RoomId , r => r.Room, r => r.Facility);
-                foreach (var id in roomFacilityDTO.FacilityId)
-                {
 
-                    facilityCost += roomFacility.FirstOrDefault().Facility.Cost;
-                    roomCost = roomFacility.FirstOrDefault().Room.Price;
+                //var roomFacility = await _roomFacilityRepository.
+                //    GetAll(r => r.RoomId == reservationFacilityDTO.RoomId , r => r.Room, r => r.Facility);
+                //foreach (var id in reservationFacilityDTO.FacilityId)
+                //{
+
+                //    facilityCost += roomFacility.FirstOrDefault().Facility.Cost;
+                //    roomCost = roomFacility.FirstOrDefault().Room.Price;
                     
-                }
+                //}
 
                     cost += roomCost + facilityCost;
+
+                foreach(var id in reservationFacilityDTO.FacilityId)
+                {
+                    var roomFacility = await _roomFacilityRepository.
+                        GetAll(r => r.RoomId == reservationFacilityDTO.RoomId && r.FacilityId == id, r => r.Room, r => r.Facility);
+
+                    facilityCost += roomFacility.FirstOrDefault().Facility.Cost;
+
+                    roomCost = roomFacility.FirstOrDefault().Room.Price;
+                }
+
+                cost += roomCost + facilityCost;
             }
 
             return cost;
@@ -64,5 +78,7 @@ namespace HotelReservationApi.Services.RoomFacilities
         {
             await _roomFacilityRepository.SaveChangesAsync();
         }
+
+       
     }
 }

@@ -42,14 +42,14 @@ namespace HotelReservationApi.Mediator.Reservations
             Reservation reservation = await _reservationService.AddReservation(reservationDTO);
             await _reservationService.SaveChangesAsync();
 
-            reservation.TotalPrice = await _roomFacilityService.CostRoom(reservationDTO.RoomFacilities);
+            reservation.TotalPrice = await _roomFacilityService.CostRoom(reservationDTO.ReservationFacilities);
 
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.ReservationId = reservation.Id;
 
             RoomReservationDTO roomReservationDTO = new RoomReservationDTO();
             roomReservationDTO.Reservation = reservation;
-            roomReservationDTO.RoomFacilityDTO = reservationDTO.RoomFacilities;
+            roomReservationDTO.ReservationFacilityDTO = reservationDTO.ReservationFacilities;
             
             List<RoomReservation> roomReservations = await _roomReservationService
                 .AddRoomReservation(roomReservationDTO);
