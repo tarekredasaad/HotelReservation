@@ -2,6 +2,7 @@
 using HotelReservationApi.DTOs.RoomReservationDTO;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repository;
+using System.Linq;
 
 namespace HotelReservationApi.Services.RoomReservationSrv
 {
@@ -49,10 +50,15 @@ namespace HotelReservationApi.Services.RoomReservationSrv
             return roomReservations;
         }
 
-        //public async Task<Room> getRooms(int id)
-        //{
+        public async Task<List<RoomReservation>> getRooms()
+        {
+            List<RoomReservation> rooms = _roomReservationRepository.GetAll()
+                .ToList();
+                //.Contains((RoomReservation)(searchReservationDTO.RoomIds as IEnumerable<int>));//.Contains((IEnumerable<int>) searchReservationDTO.RoomIds);
+            //var result = rooms.Contains(searchReservationDTO.RoomIds);
 
-        //}
+            return rooms;
+        }
     }
 }
 

@@ -10,6 +10,7 @@ namespace HotelReservationApi.Services.ReservationSrv
         Task SaveChangesAsync();
         Task<Reservation> Get(int id);
         Task<Reservation> Update(Reservation reservation);
-        bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate);
+        Task<List<Reservation>> GetAll();
+        Task<List<Reservation>> GetReservationAvailable(SearchReservationDTO searchReservationDTO);
     }
 }

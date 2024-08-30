@@ -33,7 +33,11 @@ namespace HotelReservationApi.Services.ReservationSrv
         {
             await _repository.SaveChangesAsync();
         }
-
+        public async Task<List<Reservation>> GetAll()
+        {
+            List<Reservation> reservations = _repository.GetAll().ToList();
+            return reservations;
+        }
         public async Task<Reservation> Get(int id)
         {
             Reservation reservation = _repository.GetByID(id);
@@ -46,19 +50,13 @@ namespace HotelReservationApi.Services.ReservationSrv
             return reservation_x;
         }
 
-        public bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
+        public async Task<List<Reservation>> GetReservationAvailable( SearchReservationDTO searchReservationDTO)
         {
-            var reservation = _repository.First(r => r.RoomReservations.Any(rr => rr.RoomId == roomId)
-                && r.To < checkInDate && r.From > checkOutDate);
-
-            if (reservation is null)
-            {
-                return false;
-            }
-
-            return true;
+            var reservation =await _repository.GetAll(r => 
+                 r.To < searchReservationDTO.To && r.From > searchReservationDTO.From);
+                       
+            return reservation;
         }
-
-       
+               
     }
 }

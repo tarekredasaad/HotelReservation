@@ -1,6 +1,7 @@
 ﻿using HotelReservationApi.Constant.Enum;
 using HotelReservationApi.DTOs.Reservations;
 using HotelReservationApi.DTOs.RoomReservationDTO;
+using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Services.InvoiceSrv;
@@ -124,27 +125,35 @@ namespace HotelReservationApi.Mediator.Reservations
             return reservationDTO;
         }
 
-        public bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
-        {
-            bool isAvailable = _reservationService.IsRoomAvailable(roomId, checkInDate, checkOutDate);
-
-            return isAvailable;
-        }
-        //public async Task<List<Room>> AvailableRooms(SearchReservationDTO searchReservationDTO)
+        //public bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
         //{
-        //    if(searchReservationDTO == null)
-        //    {
-        //        return null;
-        //    }
-        //    List<Room> AllRooms = new List<Room>();
-        //    AllRooms =  _roomService.GetRooms();
-            
-        //    foreach (Room room in rooms)
-        //    {
-        //        bool exist = _roomReservationService.;
+        //    bool isAvailable = _reservationService.IsRoomAvailable(roomId, checkInDate, checkOutDate);
 
-        //    }
+        //    return isAvailable;
         //}
+        public async Task<List<Room>> GetAvailableRooms(SearchReservationDTO searchReservationDTO)
+        {
+            if (searchReservationDTO == null)
+            {
+                return null;
+            }
+            //List<RoomDTO> AllRooms = new List<RoomDTO>();
+            //AllRooms = _roomService.GetRooms();
+
+            List<RoomReservation> roomReservations =await _roomReservationService.getRooms();
+            List<Reservation> reservations = await _reservationService.GetReservationAvailable(searchReservationDTO);
+            var reservationIds = reservations.Select(r => r.Id).ToList();
+            List<Room> rooms = roomReservations
+                .Where(rr => reservationIds.Contains(rr.ReservationId))
+                .Select(rr => rr.Room)
+                .ToList();
+            //foreach (RoomDTO room in AllRooms)
+            //{
+            //    bool exist = _roomReservationService.;
+
+            //}
+            return rooms;
+        }
         private async Task CreateInvoice(Reservation reservation)
         {
             Invoice invoice = new Invoice
