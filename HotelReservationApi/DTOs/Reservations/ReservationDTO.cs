@@ -8,5 +8,6 @@ namespace HotelReservationApi.DTOs.Reservations
         public DateTime To { get; set; }
        
         public HashSet<RoomFacilityDTO> ReservationFacilities { get; set; }
+        
     }
 }

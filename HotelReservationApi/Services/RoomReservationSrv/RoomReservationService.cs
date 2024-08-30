@@ -30,8 +30,6 @@ namespace HotelReservationApi.Services.RoomReservationSrv
            
             //foreach (var reservationFacility in reservationDTO.ReservationFacilityDTO)
             //{
-                foreach (var facilityId in RoomFacility.FacilityId)
-                {
                     RoomReservation roomReservation = new RoomReservation();
                     roomReservation.ReservationId = reservationDTO.Reservation.Id;
                     roomReservation.Reservation = reservationDTO.Reservation;
@@ -40,8 +38,14 @@ namespace HotelReservationApi.Services.RoomReservationSrv
 
                     roomReservation.RoomId = RoomFacility.RoomId;
  
-                    roomReservation.FacilityId = facilityId;
+                    //roomReservation.FacilityId = facilityId;
                     roomReservations.Add(roomReservation);
+                foreach (var facilityId in RoomFacility.FacilityId)
+                {
+                    RoomReservationFacilities roomReservationFacilities = new RoomReservationFacilities();
+                    roomReservationFacilities.FacilityId = facilityId;
+                    roomReservationFacilities.RoomReservation = roomReservation;
+
                 }
             }
             

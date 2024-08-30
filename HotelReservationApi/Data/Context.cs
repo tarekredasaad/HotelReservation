@@ -19,6 +19,7 @@ namespace HotelReservationApi.Data
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomReservation> RoomReservations { get; set; }
+        public DbSet<RoomReservationFacilities> RoomReservationFacilities { get; set; }
         public DbSet<RoomFacility> RoomFacilities { get; set; }
         public DbSet<Facility> Facilities { get; set; }
         public DbSet<Invoice> Invoices { get; set; }

@@ -7,6 +7,7 @@ using HotelReservationApi.Models;
 using HotelReservationApi.Services.InvoiceSrv;
 using HotelReservationApi.Services.ReservationSrv;
 using HotelReservationApi.Services.RoomFacilities;
+using HotelReservationApi.Services.RoomReservationFacilitySrv;
 using HotelReservationApi.Services.RoomReservationSrv;
 using HotelReservationApi.Services.RoomsSrv;
 using Stripe;
@@ -23,12 +24,14 @@ namespace HotelReservationApi.Mediator.Reservations
         private readonly IRoomReservationService _roomReservationService;
         private readonly IRoomFacilityService _roomFacilityService;
         private readonly IInvoiceService _invoiceService;
+        IRoomReservationFacilityService _roomReservationFacilityService;
         IRoomService _roomService;
 
         public ReservationMediator(IReservationService reservationService, 
             IRoomReservationService roomReservationService, 
             IRoomFacilityService roomFacilityService, 
             IInvoiceService invoiceService
+            ,IRoomReservationFacilityService roomReservationFacilityService
             ,IRoomService roomService)
         {
             _reservationService = reservationService;
@@ -36,6 +39,7 @@ namespace HotelReservationApi.Mediator.Reservations
             _roomFacilityService = roomFacilityService;
             _invoiceService = invoiceService;
             _roomService = roomService;
+            _roomReservationFacilityService = roomReservationFacilityService;
         }
 
         public async Task<ReservationDTO> AddReservation(ReservationDTO reservationDTO)
@@ -54,6 +58,9 @@ namespace HotelReservationApi.Mediator.Reservations
             
             List<RoomReservation> roomReservations = await _roomReservationService
                 .AddRoomReservation(roomReservationDTO);
+            List<RoomReservationFacilities> roomReservationFacilities =
+              await _roomReservationFacilityService
+              .Add(roomReservations, reservationDTO.ReservationFacilities);
 
             return reservationDTO;
         }
@@ -135,10 +142,9 @@ namespace HotelReservationApi.Mediator.Reservations
         {
             if (searchReservationDTO == null)
             {
-                return null;
+                return default;
             }
-            //List<RoomDTO> AllRooms = new List<RoomDTO>();
-            //AllRooms = _roomService.GetRooms();
+           
 
             List<RoomReservation> roomReservations =await _roomReservationService.getRooms();
             List<Reservation> reservations = await _reservationService.GetReservationAvailable(searchReservationDTO);
@@ -147,11 +153,7 @@ namespace HotelReservationApi.Mediator.Reservations
                 .Where(rr => !reservationIds.Contains(rr.ReservationId))
                 .Select(rr => rr.Room)
                 .ToList();
-            //foreach (RoomDTO room in AllRooms)
-            //{
-            //    bool exist = _roomReservationService.;
-
-            //}
+            
             return rooms;
         }
         private async Task CreateInvoice(Reservation reservation)
