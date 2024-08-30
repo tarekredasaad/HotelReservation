@@ -52,7 +52,7 @@ namespace HotelReservationApi.Services.RoomReservationSrv
 
         public async Task<List<RoomReservation>> getRooms()
         {
-            List<RoomReservation> rooms = _roomReservationRepository.GetAll()
+            List<RoomReservation> rooms = _roomReservationRepository.GetAll(r=>r.Room)
                 .ToList();
                 //.Contains((RoomReservation)(searchReservationDTO.RoomIds as IEnumerable<int>));//.Contains((IEnumerable<int>) searchReservationDTO.RoomIds);
             //var result = rooms.Contains(searchReservationDTO.RoomIds);

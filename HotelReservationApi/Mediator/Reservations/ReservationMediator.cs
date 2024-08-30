@@ -144,7 +144,7 @@ namespace HotelReservationApi.Mediator.Reservations
             List<Reservation> reservations = await _reservationService.GetReservationAvailable(searchReservationDTO);
             var reservationIds = reservations.Select(r => r.Id).ToList();
             List<Room> rooms = roomReservations
-                .Where(rr => reservationIds.Contains(rr.ReservationId))
+                .Where(rr => !reservationIds.Contains(rr.ReservationId))
                 .Select(rr => rr.Room)
                 .ToList();
             //foreach (RoomDTO room in AllRooms)

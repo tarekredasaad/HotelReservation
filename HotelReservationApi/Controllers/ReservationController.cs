@@ -74,12 +74,12 @@ namespace HotelReservationApi.Controllers
             return Ok(ResultViewModel.Sucess(reservationDTO, "The reservation confirmed successfully."));
         }
 
-        [HttpPost]
-        public async Task<ResultViewModel> IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
+        [HttpPost("GetRoomAvailable")]
+        public async Task<ActionResult<ResultViewModel>> GetRoomAvailable(SearchReservationDTO searchReservationDTO)
         {
-            bool isAvailable = _reservationMediator.IsRoomAvailable(roomId, checkInDate, checkOutDate);
+            var rooms =await _reservationMediator.GetAvailableRooms(searchReservationDTO);
 
-            return ResultViewModel.Sucess(isAvailable);
+            return Ok(ResultViewModel.Sucess(rooms));
             
         }
     }

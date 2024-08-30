@@ -10,6 +10,6 @@ namespace HotelReservationApi.Mediator.Reservations
         Task<string> CreateCheckOut(ConfirmReservationDTO confirmReservationDTO);
         Task<ReservationDTO> ConfirmReservation(ConfirmReservationDTO confirmReservationDTO);
         //bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate);
-        Task<List<Room>> GetAvailableRooms(SearchReservationDTO searchReservationDTO)
+        Task<List<Room>> GetAvailableRooms(SearchReservationDTO searchReservationDTO);
     }
 }
