@@ -11,10 +11,13 @@ namespace HotelReservationApi.Data
         }
         public Context(DbContextOptions options) : base(options)
         {
-            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<User> users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Claim> Claims { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Room> Rooms { get; set; }
@@ -24,7 +27,6 @@ namespace HotelReservationApi.Data
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Reservation> Bookings { get; set; }
         public DbSet<Offer> Offers { get; set; }
-        public DbSet<Group> Groups { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
     }

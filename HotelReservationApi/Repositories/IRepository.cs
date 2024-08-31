@@ -14,7 +14,7 @@ namespace HotelReservationApi.Repositories
         T Update(T entity);
         void Delete(T entity);
         void Delete(int id);
-        T First(Expression<Func<T, bool>> predicate);
+       Task<T> First(Expression<Func<T, bool>> predicate);
         Task SaveChangesAsync();
     }
 }

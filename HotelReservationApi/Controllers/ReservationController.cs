@@ -3,6 +3,7 @@ using HotelReservationApi.Helper;
 using HotelReservationApi.Mediators.Reservations;
 using HotelReservationApi.ViewModel;
 using HotelReservationApi.ViewModels.Reservations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,7 @@ namespace HotelReservationApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Staff")]
         public async Task<ResultViewModel> AddReservation(ReservationCreateViewModel reservationCreateVM)
         {
             var reservationCreateDTO = reservationCreateVM.MapOne<ReservationCreateDTO>();
@@ -35,6 +37,7 @@ namespace HotelReservationApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Customer")]
         public async Task<ResultViewModel> IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
         {
             bool isAvailable = _reservationMediator.IsRoomAvailable(roomId, checkInDate, checkOutDate);

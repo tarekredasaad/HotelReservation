@@ -5,15 +5,10 @@ namespace HotelReservationApi.Middlewares
 {
     public class TransactionMiddleware
     {
-
-        //private readonly Context _context;
         RequestDelegate _next;
 
-        public TransactionMiddleware(
-            //Context context,
-            RequestDelegate next)
+        public TransactionMiddleware(RequestDelegate next)
         {
-            //_context = context;
             _next = next;
         }
 

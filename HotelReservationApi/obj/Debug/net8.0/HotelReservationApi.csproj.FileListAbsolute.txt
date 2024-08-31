@@ -844,3 +844,6 @@ D:\Taha\Projects\HotelReservation\HotelReservationApi\obj\Debug\net8.0\HotelRese
 D:\Taha\Projects\HotelReservation\HotelReservationApi\obj\Debug\net8.0\ref\HotelReservationApi.dll
 D:\Taha\Projects\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\Taha\Projects\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Stripe.net.dll
+D:\Ahmed Taha\UpSkilling\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Ahmed Taha\UpSkilling\HotelReservation\HotelReservationApi\bin\Debug\net8.0\Stripe.net.dll
+D:\Ahmed Taha\UpSkilling\HotelReservation\HotelReservationApi\bin\Debug\net8.0\BCrypt.Net-Next.dll

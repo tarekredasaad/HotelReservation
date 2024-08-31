@@ -1,5 +1,9 @@
-﻿using HotelReservationApi.Services.AuthService;
+﻿using HotelReservationApi.DTOs.Auth;
+using HotelReservationApi.Helper;
+using HotelReservationApi.Mediators.Users;
 using HotelReservationApi.ViewModel;
+using HotelReservationApi.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApi.Controllers
@@ -8,27 +12,31 @@ namespace HotelReservationApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        IAuthService _authService;
-        public UserController(IAuthService authService)
+        private readonly IUserMediator _userMediator;
+
+        public UserController(IUserMediator userMediator)
         {
-            _authService = authService;
+            _userMediator = userMediator;
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResultViewModel>> Register(UserViewModel user)
+        [AllowAnonymous]
+        public async Task<ResultViewModel> Register(UserRegisterViewModel registerVM)
         {
-            if (!ModelState.IsValid) { return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState }); };
+            var userRegisterDTO = registerVM.MapOne<UserRegisterDTO>();
+            var result = await _userMediator.RegisterAsync(userRegisterDTO);
 
-            return Ok(await _authService.RegisterUserAsync(user));
+            return ResultViewModel.Sucess(result.Data, result.Message);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResultViewModel>> Login(UserLoginViewModel user)
+        [AllowAnonymous]
+        public async Task<ResultViewModel> Login(UserLoginViewModel loginVM)
         {
-            if (!ModelState.IsValid) { return BadRequest(new ResultViewModel() { StatusCode = 400, Data = ModelState }); };
+            var userLoginDTO = loginVM.MapOne<UserLoginDTO>();
+            var result = await  _userMediator.LoginAsync(userLoginDTO);
 
-            return Ok(await _authService.LoginUserAsync(user));
+            return ResultViewModel.Sucess(result.Data, result.Message);
         }
-
     }
 }

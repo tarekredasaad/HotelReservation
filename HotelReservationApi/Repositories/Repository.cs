@@ -72,9 +72,9 @@ namespace HotelReservationApi.Repositories
                     .FirstOrDefault();
         }
 
-        public T First(Expression<Func<T, bool>> predicate)
+        public async Task<T> First(Expression<Func<T, bool>> predicate)
         {
-            return Get(predicate).FirstOrDefault();
+            return await Get(predicate).FirstOrDefaultAsync();
         }
 
         public async Task SaveChangesAsync()

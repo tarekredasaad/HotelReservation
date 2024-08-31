@@ -3,6 +3,7 @@ using HotelReservationApi.Helper;
 using HotelReservationApi.Mediators.Rooms;
 using HotelReservationApi.ViewModel;
 using HotelReservationApi.ViewModels.Rooms;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApi.Controllers
@@ -45,6 +46,7 @@ namespace HotelReservationApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Staff")]
         public async Task<ResultViewModel> AddRoom(RoomCreateViewModel roomCreateVM)
         {
             var roomCreateDTO = roomCreateVM.MapOne<RoomCreateDTO>();
@@ -59,6 +61,7 @@ namespace HotelReservationApi.Controllers
         }
 
         [HttpPut]
+        [Authorize(Policy = "Staff")]
         public async Task<ResultViewModel> UpdateRoom(RoomViewModel roomVM)
         {
             var roomDTO = roomVM.MapOne<RoomDTO>();
@@ -72,6 +75,7 @@ namespace HotelReservationApi.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Policy = "Staff")]
         public async Task<ResultViewModel> DeleteRoom(int id)
         {
             await _roomMediator.DeleteRoomAsync(id);
