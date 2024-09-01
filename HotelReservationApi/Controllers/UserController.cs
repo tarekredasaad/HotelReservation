@@ -2,7 +2,7 @@
 using HotelReservationApi.Helper;
 using HotelReservationApi.Mediators.Users;
 using HotelReservationApi.ViewModel;
-using HotelReservationApi.ViewModels;
+using HotelReservationApi.ViewModels.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

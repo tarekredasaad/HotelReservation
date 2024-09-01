@@ -1,4 +1,4 @@
-﻿namespace HotelReservationApi.ViewModels
+﻿namespace HotelReservationApi.ViewModels.Auth
 {
     public class UserRegisterViewModel
     {

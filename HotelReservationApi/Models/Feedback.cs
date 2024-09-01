@@ -11,5 +11,7 @@
 
         public int ReservationId { get; set; }
         public Reservation Reservation { get; set; }
+
+        public List<FeedbackResponse> Responses { get; set; }
     }
 }

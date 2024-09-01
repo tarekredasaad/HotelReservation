@@ -3,6 +3,7 @@ using HotelReservationApi.Helper;
 using HotelReservationApi.Mediators.Facilities;
 using HotelReservationApi.ViewModel;
 using HotelReservationApi.ViewModels.Facilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApi.Controllers
@@ -45,6 +46,7 @@ namespace HotelReservationApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Staff")]
         public async Task<ActionResult<ResultViewModel>> AddFacilities(FacilityCreateViewModel facility)
         {
             var facilityCreateDTO = facility.MapOne<FacilityCreateDTO>();
