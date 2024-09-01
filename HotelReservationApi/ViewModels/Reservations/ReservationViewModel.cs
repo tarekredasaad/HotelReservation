@@ -1,8 +1,8 @@
 using HotelReservationApi.DTOs;
 using HotelReservationApi.DTOs.Rooms;
-using HotelReservationApi.ViewModel.RoomFacilities;
+using HotelReservationApi.ViewModels.RoomFacilities;
 
-namespace HotelReservationApi.ViewModel.Reservations
+namespace HotelReservationApi.ViewModels.Reservations
 {
     public class ReservationViewModel
     {

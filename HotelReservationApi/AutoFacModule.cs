@@ -1,20 +1,25 @@
 ﻿using Autofac;
 using AutoMapper;
+using FluentValidation;
 using HotelReservationApi.Data;
 using HotelReservationApi.MapperProfile;
+using HotelReservationApi.Mediator.Reservations;
+using HotelReservationApi.Mediator.Rooms;
 using HotelReservationApi.Mediators.Facilities;
-using HotelReservationApi.Mediators.Reservations;
 using HotelReservationApi.Mediators.Rooms;
 using HotelReservationApi.Mediators.Users;
 using HotelReservationApi.Repositories;
 using HotelReservationApi.Services.Facilities;
+using HotelReservationApi.Services.Invoices;
 using HotelReservationApi.Services.Pictures;
+using HotelReservationApi.Services.Reservations;
 using HotelReservationApi.Services.Roles;
 using HotelReservationApi.Services.RoomFacilities;
 using HotelReservationApi.Services.RoomReservations;
 using HotelReservationApi.Services.Rooms;
 using HotelReservationApi.Services.UserRoles;
 using HotelReservationApi.Services.Users;
+using HotelReservationApi.Validators;
 
 namespace HotelReservationApi
 {

@@ -1,10 +1,11 @@
 ﻿using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
+using HotelReservationApi.Mediators.Rooms;
 using HotelReservationApi.Services.Pictures;
 using HotelReservationApi.Services.RoomFacilities;
 using HotelReservationApi.Services.Rooms;
 
-namespace HotelReservationApi.Mediators.Rooms
+namespace HotelReservationApi.Mediator.Rooms
 {
     public class RoomMediator : IRoomMediator
     {
@@ -28,7 +29,7 @@ namespace HotelReservationApi.Mediators.Rooms
 
         public async Task<RoomDTO> AddRoomAsync(RoomCreateDTO roomCreateDTO)
         {
-            var room = _roomService.AddRoom(roomCreateDTO);
+            var room = await _roomService.AddRoom(roomCreateDTO);
             await _roomService.SaveChangesAsync();
 
             var roomDTO = room.MapOne<RoomDTO>();

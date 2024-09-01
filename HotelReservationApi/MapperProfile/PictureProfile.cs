@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using HotelReservationApi.DTOs;
 using HotelReservationApi.DTOs.Pictures;
 using HotelReservationApi.Models;
 

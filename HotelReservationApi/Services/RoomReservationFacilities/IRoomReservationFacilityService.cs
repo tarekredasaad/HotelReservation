@@ -1,11 +1,11 @@
 ﻿using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Models;
 
-namespace HotelReservationApi.Services.RoomReservationFacilitySrv
+namespace HotelReservationApi.Services.RoomReservationFacilities
 {
     public interface IRoomReservationFacilityService
     {
-        Task<List<RoomReservationFacilities>>
+        Task<List<RoomReservationFacility>>
             Add(List<RoomReservation> roomReservations
             , HashSet<RoomFacilityDTO> roomFacilityDTOs);
     }

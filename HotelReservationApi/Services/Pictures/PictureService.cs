@@ -1,10 +1,10 @@
-using HotelReservationApi.DTOs;
+
+
 using HotelReservationApi.DTOs.Pictures;
 using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repositories;
-using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Services.Pictures
 {

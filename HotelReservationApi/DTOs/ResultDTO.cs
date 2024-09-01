@@ -1,4 +1,4 @@
-﻿using HotelReservationApi.ViewModel;
+﻿using HotelReservationApi.ViewModels;
 
 namespace HotelReservationApi.DTOs
 {

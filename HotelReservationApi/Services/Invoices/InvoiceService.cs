@@ -1,7 +1,7 @@
 ﻿using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
+using HotelReservationApi.Repositories;
 
-namespace HotelReservationApi.Services.InvoiceSrv
+namespace HotelReservationApi.Services.Invoices
 {
     public class InvoiceService : IInvoiceService
     {
@@ -14,7 +14,7 @@ namespace HotelReservationApi.Services.InvoiceSrv
 
         public async Task<Invoice> AddInvoice(Invoice invoice)
         {
-            Invoice invoice1 = await _invoiceRepository.Add(invoice);
+            Invoice invoice1 = await _invoiceRepository.AddAsync(invoice);
             return invoice1;
 
         }

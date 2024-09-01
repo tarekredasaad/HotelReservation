@@ -1,4 +1,5 @@
-﻿using HotelReservationApi.DTOs.Rooms;
+﻿using HotelReservationApi.DTOs.Reservations;
+using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repositories;
@@ -36,7 +37,7 @@ namespace HotelReservationApi.Services.Rooms
         {
             Room room = roomCreateDTO.MapOne<Room>();
 
-            room = await _roomRepository.Add(room);
+            room = await _roomRepository.AddAsync(room);
 
             var roomDTO = room.MapOne<RoomDTO>();
 

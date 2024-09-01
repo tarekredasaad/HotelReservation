@@ -7,9 +7,9 @@ using HotelReservationApi.ViewModels.Rooms;
 using HotelReservationApi.DTOs.Reservations;
 using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Models;
-using HotelReservationApi.ViewModel.Reservations;
-using HotelReservationApi.ViewModel.RoomFacilities;
-using HotelReservationApi.ViewModel.Rooms;
+using HotelReservationApi.ViewModels.Reservations;
+using HotelReservationApi.ViewModels.RoomFacilities;
+using HotelReservationApi.ViewModels.Rooms;
 
 namespace HotelReservationApi.MapperProfile
 {

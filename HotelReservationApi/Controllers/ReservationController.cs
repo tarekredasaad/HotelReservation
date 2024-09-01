@@ -3,8 +3,8 @@ using FluentValidation.Results;
 using HotelReservationApi.DTOs.Reservations;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Mediator.Reservations;
-using HotelReservationApi.ViewModel;
-using HotelReservationApi.ViewModel.Reservations;
+using HotelReservationApi.ViewModels;
+using HotelReservationApi.ViewModels.Reservations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApi.Controllers
@@ -15,11 +15,11 @@ namespace HotelReservationApi.Controllers
     {
         private readonly IReservationMediator _reservationMediator;
         private readonly IValidator<ReservationViewModel> _reservationValidator;
-        private readonly IValidator<ConfirmReservationDTO> _confirmReservationValidator;
+        private readonly IValidator<ReservationConfirmDTO> _confirmReservationValidator;
 
         public ReservationController(IReservationMediator reservationMediator, 
             IValidator<ReservationViewModel> reservationValidator, 
-            IValidator<ConfirmReservationDTO> confirmReservationValidator)
+            IValidator<ReservationConfirmDTO> confirmReservationValidator)
         {
             _reservationMediator = reservationMediator;
             _reservationValidator = reservationValidator;
@@ -44,7 +44,7 @@ namespace HotelReservationApi.Controllers
         }
 
         [HttpPost]
-        public async  Task<ActionResult<ResultViewModel>> CreateCheckOutURL(ConfirmReservationDTO confirmReservationDTO)
+        public async  Task<ActionResult<ResultViewModel>> CreateCheckOutURL(ReservationConfirmDTO confirmReservationDTO)
         {
             ValidationResult result = _confirmReservationValidator.Validate(confirmReservationDTO);
 
@@ -60,7 +60,7 @@ namespace HotelReservationApi.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<ResultViewModel>> ConfirmReservation(ConfirmReservationDTO confirmReservationDTO)
+        public async Task<ActionResult<ResultViewModel>> ConfirmReservation(ReservationConfirmDTO confirmReservationDTO)
         {
             ValidationResult result = _confirmReservationValidator.Validate(confirmReservationDTO);
 
@@ -74,7 +74,7 @@ namespace HotelReservationApi.Controllers
             return Ok(ResultViewModel.Sucess(reservationDTO, "The reservation confirmed successfully."));
         }
 
-        [HttpPost("GetRoomAvailable")]
+        [HttpPost]
         public async Task<ActionResult<ResultViewModel>> GetRoomAvailable(SearchReservationDTO searchReservationDTO)
         {
             var rooms =await _reservationMediator.GetAvailableRooms(searchReservationDTO);

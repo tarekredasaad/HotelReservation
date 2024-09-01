@@ -1,6 +1,6 @@
 ﻿using HotelReservationApi.Models;
 
-namespace HotelReservationApi.Services.InvoiceSrv
+namespace HotelReservationApi.Services.Invoices
 {
     public interface IInvoiceService
     {

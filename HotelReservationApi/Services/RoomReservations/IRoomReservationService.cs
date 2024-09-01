@@ -1,10 +1,11 @@
 ﻿using HotelReservationApi.DTOs.RoomReservations;
+using HotelReservationApi.Models;
 
 namespace HotelReservationApi.Services.RoomReservations
 {
     public interface IRoomReservationService
     {
-        Task AddRoomReservation(RoomReservationDTO roomReservationDTO);
-        Task AddRange(List<RoomReservationDTO> roomReservationDTOs);
+        Task<List<RoomReservation>> AddRoomReservation(RoomReservationDTO reservationDTO);
+        Task<List<RoomReservation>> getRooms();
     }
 }

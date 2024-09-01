@@ -2,7 +2,7 @@
 using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
+using HotelReservationApi.Repositories;
 
 namespace HotelReservationApi.Services.RoomFacilities
 {
@@ -19,7 +19,7 @@ namespace HotelReservationApi.Services.RoomFacilities
         {
             RoomFacility roomFacility = roomFacilityDTO.MapOne<RoomFacility>();
 
-            roomFacility = await _roomFacilityRepository.Add(roomFacility);
+            roomFacility = await _roomFacilityRepository.AddAsync(roomFacility);
         }
 
         public void AddRange(RoomDTO roomDTO, HashSet<int> FacilityIDs)
@@ -45,18 +45,7 @@ namespace HotelReservationApi.Services.RoomFacilities
             {
                 double facilityCost = 0;
 
-
-                //var roomFacility = await _roomFacilityRepository.
-                //    GetAll(r => r.RoomId == reservationFacilityDTO.RoomId , r => r.Room, r => r.Facility);
-                //foreach (var id in reservationFacilityDTO.FacilityId)
-                //{
-
-                //    facilityCost += roomFacility.FirstOrDefault().Facility.Cost;
-                //    roomCost = roomFacility.FirstOrDefault().Room.Price;
-                    
-                //}
-
-                    cost += roomCost + facilityCost;
+                cost += roomCost + facilityCost;
 
                 foreach(var id in reservationFacilityDTO.FacilityId)
                 {

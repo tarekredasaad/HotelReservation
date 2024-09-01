@@ -1,4 +1,4 @@
-﻿namespace HotelReservationApi.ViewModel
+﻿namespace HotelReservationApi.ViewModels
 {
     public class ResultViewModel
     {

@@ -2,7 +2,7 @@
 using HotelReservationApi.DTOs.Facilities;
 using HotelReservationApi.DTOs.Pictures;
 
-namespace HotelReservationApi.ViewModel.Rooms
+namespace HotelReservationApi.ViewModels.Rooms
 {
     public class RoomViewModel
     {

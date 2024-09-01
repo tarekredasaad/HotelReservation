@@ -1,5 +1,4 @@
-﻿using HotelReservationApi.ViewModels.FeedbackResponses;
-using HotelReservationApi.ViewModels.Feedbacks;
+﻿using HotelReservationApi.ViewModels.Feedbacks;
 
 namespace HotelReservationApi.Mediators.Feedbacks
 {

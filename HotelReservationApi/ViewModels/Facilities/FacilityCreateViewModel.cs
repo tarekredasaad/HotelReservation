@@ -1,4 +1,4 @@
-﻿namespace HotelReservationApi.ViewModel.Facilities
+﻿namespace HotelReservationApi.ViewModels.Facilities
 {
     public class FacilityCreateViewModel
     {

@@ -1,27 +1,27 @@
 ﻿using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Models;
-using HotelReservationApi.Repository;
+using HotelReservationApi.Repositories;
 
-namespace HotelReservationApi.Services.RoomReservationFacilitySrv
+namespace HotelReservationApi.Services.RoomReservationFacilities
 {
     public class RoomReservationFacilityService : IRoomReservationFacilityService
     {
-        IRepository<RoomReservationFacilities> _repository;
+        IRepository<RoomReservationFacility> _repository;
 
-        public RoomReservationFacilityService(IRepository<RoomReservationFacilities> repository)
+        public RoomReservationFacilityService(IRepository<RoomReservationFacility> repository)
         {
             _repository = repository;
         }
-        public async Task<List<RoomReservationFacilities>>
+        public async Task<List<RoomReservationFacility>>
             Add(List<RoomReservation> roomReservations
             , HashSet<RoomFacilityDTO> roomFacilityDTOs)
         {
-            List<RoomReservationFacilities> roomReservationFacilities =
-                new List<RoomReservationFacilities>();
+            List<RoomReservationFacility> roomReservationFacilities =
+                new List<RoomReservationFacility>();
             foreach (var item in roomReservations)
             {
-                RoomReservationFacilities roomReservationFacility =
-                    new RoomReservationFacilities();
+                RoomReservationFacility roomReservationFacility =
+                    new RoomReservationFacility();
                 roomReservationFacility.RoomReservation = item;
 
                 foreach (var facility in roomFacilityDTOs)

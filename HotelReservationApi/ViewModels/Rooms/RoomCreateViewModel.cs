@@ -1,8 +1,7 @@
 ﻿using HotelReservationApi.Constant.Enum;
-using HotelReservationApi.DTOs;
 using HotelReservationApi.DTOs.Pictures;
 
-namespace HotelReservationApi.ViewModel.Rooms
+namespace HotelReservationApi.ViewModels.Rooms
 {
     public class RoomCreateViewModel
     {

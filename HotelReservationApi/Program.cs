@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
+using HotelReservationApi.Configration;
 using HotelReservationApi.Data;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Helpers;
@@ -36,16 +37,13 @@ namespace HotelReservationApi
                 builder.RegisterModule(new AutoFacModule()));
 
             builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
-            builder.Services.AddFluentValidationAutoValidation();
+            //builder.Services.AddFluentValidationAutoValidation();
 
             builder.Services.Configure<StripeSettings>( builder.Configuration.GetSection("StripeSettings"));
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddControllers()
-                .AddNewtonsoftJson(options => { 
-                                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                });
+            builder.Services.AddControllers();
 
             builder.Services.AddControllers();
 

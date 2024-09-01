@@ -1,4 +1,4 @@
-﻿namespace HotelReservationApi.ViewModel.RoomFacilities
+﻿namespace HotelReservationApi.ViewModels.RoomFacilities
 {
     public class RoomFacilityViewModel
     {

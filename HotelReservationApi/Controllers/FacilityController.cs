@@ -1,11 +1,9 @@
 ﻿using HotelReservationApi.DTOs.Facilities;
-using HotelReservationApi.DTOs.Pictures;
 using HotelReservationApi.Helper;
-using HotelReservationApi.Mediator.Facilities;
-using HotelReservationApi.Services.FacilitiesSrv;
-using HotelReservationApi.ViewModel;
-using HotelReservationApi.ViewModel.Facilities;
-using Microsoft.AspNetCore.Http;
+using HotelReservationApi.Mediators.Facilities;
+using HotelReservationApi.ViewModels;
+using HotelReservationApi.ViewModels.Facilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApi.Controllers

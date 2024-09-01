@@ -1,6 +1,4 @@
-using HotelReservationApi.Constant.Enum;
-using HotelReservationApi.DTOs.RoomReservations;
-using HotelReservationApi.ViewModels.RoomReservations;
+using HotelReservationApi.DTOs.Rooms;
 
 namespace HotelReservationApi.DTOs.Reservations
 {
@@ -8,8 +6,8 @@ namespace HotelReservationApi.DTOs.Reservations
     {
         public DateTime From { get; set; }
         public DateTime To { get; set; }
-       
+
         public HashSet<RoomFacilityDTO> ReservationFacilities { get; set; }
-        
+
     }
 }

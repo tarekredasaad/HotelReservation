@@ -1,5 +1,5 @@
 ﻿using HotelReservationApi.Mediators.Feedbacks;
-using HotelReservationApi.ViewModel;
+using HotelReservationApi.ViewModels;
 using HotelReservationApi.ViewModels.FeedbackResponses;
 using HotelReservationApi.ViewModels.Feedbacks;
 using Microsoft.AspNetCore.Http;

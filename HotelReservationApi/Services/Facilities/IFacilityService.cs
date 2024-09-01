@@ -1,5 +1,4 @@
 ﻿using HotelReservationApi.DTOs.Facilities;
-using HotelReservationApi.Models;
 
 namespace HotelReservationApi.Services.Facilities
 {

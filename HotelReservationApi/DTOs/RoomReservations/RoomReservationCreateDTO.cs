@@ -2,7 +2,7 @@
 {
     public class RoomReservationCreateDTO
     {
-        public int RoomId { get; set; }
-        public List<int> FacilityIDs { get; set; }
+        public HashSet<int> RoomIds { get; set; }
+        public int ReservationId { get; set; }
     }
 }

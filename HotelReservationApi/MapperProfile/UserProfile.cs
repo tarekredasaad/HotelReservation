@@ -2,7 +2,7 @@
 using HotelReservationApi.DTOs.Auth;
 using HotelReservationApi.DTOs.Users;
 using HotelReservationApi.Models;
-using HotelReservationApi.ViewModel;
+using HotelReservationApi.ViewModels;
 using HotelReservationApi.ViewModels.Auth;
 
 namespace HotelReservationApi.MapperProfile

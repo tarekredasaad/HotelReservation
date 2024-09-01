@@ -1,6 +1,6 @@
 ﻿namespace HotelReservationApi.Models
 {
-    public class RoomReservationFacilities:BaseModel
+    public class RoomReservationFacility : BaseModel
     {
         public int RoomReservationId { get; set; }
         public RoomReservation RoomReservation { get; set; }

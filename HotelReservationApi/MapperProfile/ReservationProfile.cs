@@ -1,12 +1,7 @@
 ﻿using AutoMapper;
 using HotelReservationApi.DTOs.Reservations;
-using HotelReservationApi.DTOs.RoomReservations;
-using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Models;
 using HotelReservationApi.ViewModels.Reservations;
-using HotelReservationApi.ViewModels.Rooms;
-using HotelReservationApi.Models;
-using HotelReservationApi.ViewModel.Reservations;
 
 namespace HotelReservationApi.MapperProfile
 {
@@ -25,7 +20,7 @@ namespace HotelReservationApi.MapperProfile
             CreateMap<ReservationDTO, Reservation>();
             CreateMap<ReservationViewModel, ReservationDTO>().ReverseMap();
            
-            CreateMap<CreateReservationDTO, Reservation>().ReverseMap();
+            CreateMap<ReservationCreateDTO, Reservation>().ReverseMap();
             CreateMap<ReservationDTO, Reservation>().ReverseMap();
 
             CreateMap<ReservationFacilityViewModel, ReservationFacilityDTO>().ReverseMap();

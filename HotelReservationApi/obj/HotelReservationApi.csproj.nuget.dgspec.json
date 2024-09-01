@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {}
+    "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {}
   },
   "projects": {
-    "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {
+    "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+        "projectUniqueName": "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
         "projectName": "HotelReservationApi",
-        "projectPath": "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
-        "packagesPath": "C:\\Users\\Ahmed Taha\\.nuget\\packages\\",
-        "outputPath": "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\obj\\",
+        "projectPath": "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+        "packagesPath": "C:\\Users\\Taha\\.nuget\\packages\\",
+        "outputPath": "D:\\Ahmed Taha\\UpSkilling\\HotelReservation\\HotelReservationApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Ahmed Taha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Taha\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,6 +61,10 @@
             "BCrypt.Net-Next": {
               "target": "Package",
               "version": "[4.0.3, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.9.2, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",

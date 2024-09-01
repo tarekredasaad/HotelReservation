@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using HotelReservationApi.DTOs.Reservations;
-using HotelReservationApi.ViewModel.Reservations;
+using HotelReservationApi.ViewModels.Reservations;
 
 namespace HotelReservationApi.Validators
 {
-    public class ConfirmReservationValidator : AbstractValidator<ConfirmReservationDTO>
+    public class ConfirmReservationValidator : AbstractValidator<ReservationConfirmDTO>
     {
         public ConfirmReservationValidator()
         {

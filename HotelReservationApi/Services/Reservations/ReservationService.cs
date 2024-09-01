@@ -2,58 +2,58 @@
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repositories;
-using HotelReservationApi.Services.ReservationSrv;
-using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Services.Reservations
 {
     public class ReservationService : IReservationService
     {
-        IRepository<Reservation> _reservationRepository;
+        IRepository<Reservation> _repository;
 
-        public ReservationService(IRepository<Reservation> reservationRepository)
+        public ReservationService(IRepository<Reservation> repository)
         {
-            _reservationRepository = reservationRepository;
+            _repository = repository;
         }
 
-        public async Task<ReservationDTO> AddReservation(ReservationDTO reservationCreateDTO)
+        public async Task<Reservation> AddReservation(ReservationDTO reservationDTO)
         {
+            Reservation reservation = reservationDTO.MapOne<Reservation>();
+            
 
-            Reservation reservation = reservationCreateDTO.MapOne<Reservation>();
+            reservation.NumberDays = (reservationDTO.To - reservationDTO.From).Days;
 
-            reservation = await _reservationRepository.AddAsync(reservation);
+            await _repository.AddAsync(reservation);
 
-            await _reservationRepository.SaveChangesAsync();
-
-            var reservationDTO = reservation.MapOne<ReservationDTO>();
-
-            return reservationDTO;
+            return reservation;
         }
 
-        public async Task<ReservationDTO> UpdateReservation(ReservationDTO reservationDTO)
+        public async Task SaveChangesAsync()
         {
-            var reservation = reservationDTO.MapOne<Reservation>();
-
-            reservation = _reservationRepository.Update(reservation);
-
-            await _reservationRepository.SaveChangesAsync();
-
-            var updatedReservationDTO = reservation.MapOne<ReservationDTO>();
-
-            return updatedReservationDTO;
+            await _repository.SaveChangesAsync();
+        }
+        public async Task<List<Reservation>> GetAll()
+        {
+            List<Reservation> reservations = _repository.GetAll().ToList();
+            return reservations;
+        }
+        public async Task<Reservation> Get(int id)
+        {
+            Reservation reservation = _repository.GetByID(id);
+            return reservation;
         }
 
-        public bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
+        public async Task<Reservation> Update(Reservation reservation)
         {
-            var reservation = _reservationRepository.First(r => r.RoomReservations.Any(rr => rr.RoomId == roomId) 
-                && r.CheckInDate < checkInDate && r.CheckOutDate > checkOutDate);
-
-            if (reservation is null)
-            {
-                return false;
-            }
-
-            return true;
+            Reservation reservation_x = _repository.Update(reservation);
+            return reservation_x;
         }
+
+        public async Task<List<Reservation>> GetReservationAvailable( SearchReservationDTO searchReservationDTO)
+        {
+            var reservation =await _repository.GetAll(r => 
+                 r.To < searchReservationDTO.To && r.From > searchReservationDTO.From);
+                       
+            return reservation;
+        }
+               
     }
 }

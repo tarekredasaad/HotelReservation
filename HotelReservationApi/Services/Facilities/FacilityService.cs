@@ -2,6 +2,7 @@
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repositories;
+using HotelReservationApi.ViewModels;
 
 namespace HotelReservationApi.Services.Facilities
 {
@@ -27,7 +28,7 @@ namespace HotelReservationApi.Services.Facilities
         {
             List<FacilityDTO> facilityDTOs = new List<FacilityDTO>();
 
-            foreach (var id in ints) 
+            foreach (var id in ints)
             {
                 Facility facility = new Facility();
                 facility = _facilityRepository.GetByID(id);

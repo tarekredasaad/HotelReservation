@@ -2,7 +2,7 @@ using HotelReservationApi.DTOs.Reservations;
 using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Models;
 
-namespace HotelReservationApi.Services.RoomsSrv
+namespace HotelReservationApi.Services.Rooms
 {
     public interface IRoomService
     {
