@@ -13,6 +13,9 @@ namespace HotelReservationApi.Models
         public PaymentStatus PaymentStatus { get; set; }
         public double TotalAmount { get; set; }
 
+        public int FeedbackId { get; set; }
+        public Feedback Feedback { get; set; }
+
         public List<RoomReservation> RoomReservations { get; set; }
     }
 }
