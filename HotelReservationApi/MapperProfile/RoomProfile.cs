@@ -4,15 +4,21 @@ using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.ViewModels.Rooms;
+using HotelReservationApi.DTOs.Reservations;
+using HotelReservationApi.DTOs.Rooms;
+using HotelReservationApi.Models;
+using HotelReservationApi.ViewModel.Reservations;
+using HotelReservationApi.ViewModel.RoomFacilities;
+using HotelReservationApi.ViewModel.Rooms;
 
 namespace HotelReservationApi.MapperProfile
 {
     public class RoomProfile : Profile
     {
-        public RoomProfile() 
+        public RoomProfile()
         {
             CreateMap<RoomCreateViewModel, RoomCreateDTO>().ReverseMap();
-            CreateMap<RoomCreateDTO,Room>().ReverseMap();
+            CreateMap<RoomCreateDTO, Room>().ReverseMap();
 
             CreateMap<RoomViewModel, RoomDTO>().ReverseMap();
 
@@ -31,14 +37,9 @@ namespace HotelReservationApi.MapperProfile
                     }
                 });
 
-            CreateMap<RoomFacility, RoomFacilityDTO>().ReverseMap();
+            CreateMap<ReservationViewModel, ReservationDTO>().ReverseMap();
 
-            CreateMap<RoomReservation, RoomReservationDTO>()
-                .ForMember(dest => dest.RoomId, opt => opt.MapFrom(src => src.RoomId))
-                .ForMember(dest => dest.RoomNumber, opt => opt.MapFrom(src => src.Room.Number))
-                .ForMember(dest => dest.RoomType, opt => opt.MapFrom(src => src.Room.Type))
-                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Room.Price))
-                .ForMember(dest => dest.Facilities, opt => opt.Ignore());
+            CreateMap<RoomFacilityViewModel, RoomFacilityDTO>().ReverseMap();
         }
 
     }

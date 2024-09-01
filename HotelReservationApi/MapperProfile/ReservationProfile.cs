@@ -5,6 +5,8 @@ using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Models;
 using HotelReservationApi.ViewModels.Reservations;
 using HotelReservationApi.ViewModels.Rooms;
+using HotelReservationApi.Models;
+using HotelReservationApi.ViewModel.Reservations;
 
 namespace HotelReservationApi.MapperProfile
 {
@@ -21,6 +23,12 @@ namespace HotelReservationApi.MapperProfile
             CreateMap<Reservation, ReservationDTO>();
 
             CreateMap<ReservationDTO, Reservation>();
+            CreateMap<ReservationViewModel, ReservationDTO>().ReverseMap();
+           
+            CreateMap<CreateReservationDTO, Reservation>().ReverseMap();
+            CreateMap<ReservationDTO, Reservation>().ReverseMap();
+
+            CreateMap<ReservationFacilityViewModel, ReservationFacilityDTO>().ReverseMap();
         }
 
     }

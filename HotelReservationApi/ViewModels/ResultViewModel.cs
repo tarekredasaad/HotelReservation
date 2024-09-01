@@ -10,11 +10,9 @@
         {
             return new ResultViewModel
             {
-                //IsSuccess = true,
                 StatusCode = 200,
                 Data = data,
                 Message = message,
-                //ErrorCode = ErrorCode.None,
             };
         }
 
@@ -22,11 +20,9 @@
         {
             return new ResultViewModel
             {
-                //IsSuccess = false,
                 StatusCode = 400,
                 Data = default,
                 Message = message,
-                //ErrorCode = errorCode,
             };
         }
     }

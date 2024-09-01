@@ -1,18 +1,15 @@
-﻿using HotelReservationApi.Constant.Enum;
-using HotelReservationApi.Models;
-using HotelReservationApi.ViewModels.RoomReservations;
+using HotelReservationApi.DTOs;
+using HotelReservationApi.DTOs.Rooms;
+using HotelReservationApi.ViewModel.RoomFacilities;
 
-namespace HotelReservationApi.ViewModels.Reservations
+namespace HotelReservationApi.ViewModel.Reservations
 {
     public class ReservationViewModel
     {
-        public int Id { get; set; }
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
 
-        public PaymentStatus PaymentStatus { get; set; }
-        public double TotalAmount { get; set; }
-
-        public List<RoomReservationViewModel> RoomReservations { get; set; }
+        public HashSet<ReservationFacilityViewModel> ReservationFacilities { get; set; }
+ 
     }
 }

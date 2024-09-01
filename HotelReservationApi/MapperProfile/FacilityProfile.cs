@@ -4,12 +4,14 @@ using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Models;
 using HotelReservationApi.ViewModels.Facilities;
 using HotelReservationApi.ViewModels.Rooms;
+using HotelReservationApi.ViewModel.Facilities;
+
 
 namespace HotelReservationApi.MapperProfile
 {
     public class FacilityProfile : Profile
     {
-        public FacilityProfile() 
+        public FacilityProfile()
         {
             CreateMap<FacilityCreateViewModel, FacilityCreateDTO>().ReverseMap();
             CreateMap<FacilityCreateDTO, Facility>().ReverseMap();

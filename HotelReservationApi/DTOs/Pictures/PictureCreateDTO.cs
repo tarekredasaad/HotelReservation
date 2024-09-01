@@ -2,6 +2,7 @@
 {
     public class PictureCreateDTO
     {
-        public List<IFormFile> files { get; set; }
+        public string Name { get; set; }
+        public string URL { get; set; }
     }
 }

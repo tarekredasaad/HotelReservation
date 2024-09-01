@@ -1,9 +1,10 @@
-﻿using HotelReservationApi.DTOs;
+using HotelReservationApi.DTOs;
 using HotelReservationApi.DTOs.Pictures;
 using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repositories;
+using HotelReservationApi.ViewModel;
 
 namespace HotelReservationApi.Services.Pictures
 {
@@ -24,7 +25,7 @@ namespace HotelReservationApi.Services.Pictures
 
         public void AddRange(RoomDTO roomDTO, List<PictureDTO> pictures)
         {
-            foreach(var pictureDTO in pictures)
+            foreach (var pictureDTO in pictures)
             {
                 var picture = pictureDTO.MapOne<Picture>();
                 picture.RoomId = roomDTO.Id;

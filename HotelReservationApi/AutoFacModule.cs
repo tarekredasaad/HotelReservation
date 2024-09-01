@@ -33,6 +33,8 @@ namespace HotelReservationApi
             builder.RegisterType<FacilityService>().As<IFacilityService>().InstancePerLifetimeScope();
             builder.RegisterType<RoomFacilityService>().As<IRoomFacilityService>().InstancePerLifetimeScope();
             builder.RegisterType<RoomReservationService>().As<IRoomReservationService>().InstancePerLifetimeScope();
+            builder.RegisterType<InvoiceService>().As<IInvoiceService>().InstancePerLifetimeScope();
+            builder.RegisterType<ReservationService>().As<IReservationService>().InstancePerLifetimeScope();
 
             builder.RegisterType<UserMediator>().As<IUserMediator>().InstancePerLifetimeScope();
             builder.RegisterType<RoomMediator>().As<IRoomMediator>().InstancePerLifetimeScope();
@@ -45,7 +47,13 @@ namespace HotelReservationApi
                 cfg.AddProfile<RoomProfile>();
                 cfg.AddProfile<FacilityProfile>();
                 cfg.AddProfile<PictureProfile>();
+                cfg.AddProfile<ReservationProfile>();
+                cfg.AddProfile<RoomReservationProfile>();
             }).CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
+            
+            builder.RegisterAssemblyTypes(typeof(ConfirmReservationValidator).Assembly)
+               .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
+               .AsImplementedInterfaces();
         }
     }
 }

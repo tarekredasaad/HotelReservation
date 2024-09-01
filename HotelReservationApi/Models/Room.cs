@@ -5,7 +5,7 @@ namespace HotelReservationApi.Models
 {
     public class Room : BaseModel
     {
-        public string Number { get; set; }
+        public string Name { get; set; }
         public RoomStatus Status { get; set; }
         public RoomType Type { get; set; }
         public double Price { get; set; }

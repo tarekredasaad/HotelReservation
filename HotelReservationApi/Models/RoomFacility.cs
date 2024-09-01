@@ -8,4 +8,5 @@
         public int FacilityId { get;set; }
         public Facility Facility { get; set; }
     }
+
 }

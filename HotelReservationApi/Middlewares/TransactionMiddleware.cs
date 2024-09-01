@@ -29,7 +29,7 @@ namespace HotelReservationApi.Middlewares
                 catch (Exception ex)
                 {
                     await transaction?.RollbackAsync();
-                    throw;
+                    throw ;
                 }
             }
             else

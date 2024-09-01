@@ -36,9 +36,16 @@ namespace HotelReservationApi
                 builder.RegisterModule(new AutoFacModule()));
 
             builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
+            builder.Services.AddFluentValidationAutoValidation();
+
+            builder.Services.Configure<StripeSettings>( builder.Configuration.GetSection("StripeSettings"));
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddHttpContextAccessor();
+            builder.Services.AddControllers()
+                .AddNewtonsoftJson(options => { 
+                                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
 
             builder.Services.AddControllers();
 
@@ -115,7 +122,6 @@ namespace HotelReservationApi
 
             app.UseMiddleware<GlobalErrorHandlerMiddleware>();
             app.UseMiddleware<TransactionMiddleware>();
-
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

@@ -1,11 +1,12 @@
 ﻿using HotelReservationApi.Constant.Enum;
 using HotelReservationApi.DTOs;
+using HotelReservationApi.DTOs.Pictures;
 
-namespace HotelReservationApi.ViewModels.Rooms
+namespace HotelReservationApi.ViewModel.Rooms
 {
     public class RoomCreateViewModel
     {
-        public string Number { get; set; }
+        public string Name { get; set; }
         public RoomStatus Status { get; set; }
         public RoomType Type { get; set; }
         public double Price { get; set; }

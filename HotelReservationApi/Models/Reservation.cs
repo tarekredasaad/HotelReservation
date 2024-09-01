@@ -1,21 +1,21 @@
 ﻿using HotelReservationApi.Constant.Enum;
+using Microsoft.EntityFrameworkCore.Update.Internal;
+using System.Text.Json.Serialization;
 
 namespace HotelReservationApi.Models
 {
-    public class Reservation : BaseModel
+    public class Reservation :BaseModel
     {
-        //public int CustomerId { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
 
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
+        public bool IsConfirmed { get; set; } = false;
+        public int NumberDays { get; set; }
+        public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
 
-        public string PaymentIntentId { get; set; }
-        public PaymentStatus PaymentStatus { get; set; }
-        public double TotalAmount { get; set; }
+        public double TotalPrice { get; set; }
 
-        public int FeedbackId { get; set; }
-        public Feedback Feedback { get; set; }
-
+        [JsonIgnore]
         public List<RoomReservation> RoomReservations { get; set; }
     }
 }

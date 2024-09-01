@@ -1,12 +1,15 @@
-﻿using HotelReservationApi.DTOs.Rooms;
+using HotelReservationApi.DTOs.Rooms;
+using HotelReservationApi.DTOs.Reservations;
+using HotelReservationApi.DTOs.Rooms;
 using HotelReservationApi.Models;
 
 namespace HotelReservationApi.Services.RoomFacilities
 {
     public interface IRoomFacilityService
     {
-        void AddRoomFacility(RoomFacilityDTO roomFacilityDTO);
+        Task AddRoomFacility(RoomFacilityDTO roomFacilityDTO);
         void AddRange(RoomDTO room, HashSet<int> facilityIDs);
+        Task<double> CostRoom(HashSet<RoomFacilityDTO> reservationFacilityDTOs);
         Task SaveChangesAsync();
     }
 }
