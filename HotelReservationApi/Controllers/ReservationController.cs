@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using HotelReservationApi.DTOs.Reservations;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Mediator.Reservations;
+using HotelReservationApi.Services;
 using HotelReservationApi.ViewModels;
 using HotelReservationApi.ViewModels.Reservations;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,11 @@ namespace HotelReservationApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ResultViewModel>> AddReservation(ReservationViewModel reservationCreateVM)
         {
+            if (TokenGenerator.token is null)
+            {
+                return BadRequest(ResultViewModel
+                    .Faliure("The User is not authenticated you shoud make login First"));
+            }
             ValidationResult result = _reservationValidator.Validate(reservationCreateVM);
 
             if (!result.IsValid)
@@ -46,6 +52,11 @@ namespace HotelReservationApi.Controllers
         [HttpPost]
         public async  Task<ActionResult<ResultViewModel>> CreateCheckOutURL(ReservationConfirmDTO confirmReservationDTO)
         {
+            if (TokenGenerator.token is null)
+            {
+                return BadRequest(ResultViewModel
+                    .Faliure("The User is not authenticated you shoud make login First"));
+            }
             ValidationResult result = _confirmReservationValidator.Validate(confirmReservationDTO);
 
             if (!result.IsValid)
@@ -62,6 +73,11 @@ namespace HotelReservationApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ResultViewModel>> ConfirmReservation(ReservationConfirmDTO confirmReservationDTO)
         {
+            if (TokenGenerator.token is null)
+            {
+                return BadRequest(ResultViewModel
+                    .Faliure("The User is not authenticated you shoud make login First"));
+            }
             ValidationResult result = _confirmReservationValidator.Validate(confirmReservationDTO);
 
             if (!result.IsValid)

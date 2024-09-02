@@ -5,6 +5,7 @@ using HotelReservationApi.DTOs.Feedbacks;
 using HotelReservationApi.DTOs.Reservations;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Mediators.Feedbacks;
+using HotelReservationApi.Services;
 using HotelReservationApi.ViewModels;
 using HotelReservationApi.ViewModels.FeedbackResponses;
 using HotelReservationApi.ViewModels.Feedbacks;
@@ -32,6 +33,11 @@ namespace HotelReservationApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ResultViewModel>> SubmitFeedback(FeedbackViewModel feedbackCreateViewModel)
         {
+            if (TokenGenerator.token is null)
+            {
+                return BadRequest(ResultViewModel
+                    .Faliure("The User is not authenticated you shoud make login First"));
+            }
             ValidationResult valdiationResult = _feedbackValidator.Validate(feedbackCreateViewModel);
 
             if (!valdiationResult.IsValid)
@@ -56,6 +62,12 @@ namespace HotelReservationApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ResultViewModel>> GetFeedbackById(int id)
         {
+            if (TokenGenerator.token is null)
+            {
+                return BadRequest(ResultViewModel
+                    .Faliure("The User is not authenticated you shoud make login First"));
+            }
+
             if (id == 0)
             {
                 return BadRequest(ResultViewModel.Faliure("Feedback Id must be greater than zero!"));
@@ -71,6 +83,11 @@ namespace HotelReservationApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ResultViewModel>> RespondToFeedback(FeedbackResponseViewModel responseViewModel)
         {
+            if (TokenGenerator.token is null)
+            {
+                return BadRequest(ResultViewModel
+                    .Faliure("The User is not authenticated you shoud make login First"));
+            }
             ValidationResult valdiationResult = _feedbackResponseValidator.Validate(responseViewModel);
 
             if (!valdiationResult.IsValid)
