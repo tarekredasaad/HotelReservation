@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public int StaffId { get; set; }
+        public int FeedbackId { get; set; }
         public string ResponseText { get; set; }
         public DateTime ResponseDate { get; set; }
     }

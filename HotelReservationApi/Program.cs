@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using HotelReservationApi.Configration;
 using HotelReservationApi.Data;
 using HotelReservationApi.Helper;
@@ -37,7 +38,7 @@ namespace HotelReservationApi
                 builder.RegisterModule(new AutoFacModule()));
 
             builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
-            //builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddFluentValidationAutoValidation();
 
             builder.Services.Configure<StripeSettings>( builder.Configuration.GetSection("StripeSettings"));
 

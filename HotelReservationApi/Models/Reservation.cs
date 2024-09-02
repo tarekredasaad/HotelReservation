@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace HotelReservationApi.Models
 {
-    public class Reservation :BaseModel
+    public class Reservation : BaseModel
     {
         public DateTime From { get; set; }
         public DateTime To { get; set; }
@@ -14,6 +14,9 @@ namespace HotelReservationApi.Models
         public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
 
         public double TotalPrice { get; set; }
+
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
 
         [JsonIgnore]
         public List<RoomReservation> RoomReservations { get; set; }

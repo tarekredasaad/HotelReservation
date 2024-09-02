@@ -14,7 +14,7 @@ namespace HotelReservationApi.Data
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public DbSet<User> users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Claim> Claims { get; set; }
@@ -30,5 +30,6 @@ namespace HotelReservationApi.Data
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<FeedbackResponse> FeedbackResponses { get; set; }
     }
 }

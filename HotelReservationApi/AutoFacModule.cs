@@ -6,6 +6,7 @@ using HotelReservationApi.MapperProfile;
 using HotelReservationApi.Mediator.Reservations;
 using HotelReservationApi.Mediator.Rooms;
 using HotelReservationApi.Mediators.Facilities;
+using HotelReservationApi.Mediators.Feedbacks;
 using HotelReservationApi.Mediators.Rooms;
 using HotelReservationApi.Mediators.Users;
 using HotelReservationApi.Repositories;
@@ -45,6 +46,7 @@ namespace HotelReservationApi
             builder.RegisterType<RoomMediator>().As<IRoomMediator>().InstancePerLifetimeScope();
             builder.RegisterType<FacilityMediator>().As<IFacilityMediator>().InstancePerLifetimeScope();
             builder.RegisterType<ReservationMediator>().As<IReservationMediator>().InstancePerLifetimeScope();
+            builder.RegisterType<FeedbackMediator>().As<IFeedbackMediator>().InstancePerLifetimeScope();
 
             builder.Register(context => new MapperConfiguration(cfg =>
             {

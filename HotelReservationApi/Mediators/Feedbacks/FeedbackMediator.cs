@@ -1,10 +1,8 @@
-﻿using HotelReservationApi.DTOs.FeedbackResponses;
+﻿using HotelReservationApi.DTOs;
+using HotelReservationApi.DTOs.FeedbackResponses;
 using HotelReservationApi.DTOs.Feedbacks;
-using HotelReservationApi.Helper;
 using HotelReservationApi.Services.FeedbackResponses;
 using HotelReservationApi.Services.Feedbacks;
-using HotelReservationApi.ViewModels.FeedbackResponses;
-using HotelReservationApi.ViewModels.Feedbacks;
 
 namespace HotelReservationApi.Mediators.Feedbacks
 {
@@ -20,29 +18,44 @@ namespace HotelReservationApi.Mediators.Feedbacks
             _feedbackResponseService = feedbackResponseService;
         }
 
-        public async Task<FeedbackDTO> AddFeedbackAsync(FeedbackViewModel feedbackViewModel)
+        public async Task<ResultDTO> AddFeedbackAsync(FeedbackCreateDTO feedbackCreateDTO)
         {
-            var feedbackCreateDTO = feedbackViewModel.MapOne<FeedbackCreateDTO>();
+            var existingFeedback = await _feedbackService.GetFeedbackByReservationIdAsync(feedbackCreateDTO.ReservationId);
+            
+            if (existingFeedback != null)
+            {
+                return ResultDTO.Faliure("Feedback has already been submitted for this reservation.");
+            }
 
             var feedbackDTO = await _feedbackService.AddFeedbackAsync(feedbackCreateDTO);
         
-            return feedbackDTO;
+            return ResultDTO.Sucess(feedbackDTO);
         }
 
-        public async Task<FeedbackDTO> GetFeedbackByIdAsync(int feedbackId)
+        public async Task<ResultDTO> GetFeedbackByIdAsync(int feedbackId)
         {
             var feedbackDTO = await _feedbackService.GetFeedbackByIdAsync(feedbackId);
 
-            return feedbackDTO;
+            if (feedbackDTO is null) 
+            {
+                return ResultDTO.Faliure("Feedback doesn't exists!");
+            }
+
+            return ResultDTO.Sucess(feedbackDTO);
         }
 
-        public async Task<FeedbackResponseDTO> AddFeedbackResponseAsync(FeedbackResponseViewModel responseViewModel)
+        public async Task<ResultDTO> AddFeedbackResponseAsync(FeedbackResponseDTO responseDTO)
         {
-            var feedbackResponseDTO = responseViewModel.MapOne<FeedbackResponseDTO>();
-
-            feedbackResponseDTO = await _feedbackResponseService.AddFeedbackResponseAsync(feedbackResponseDTO);
+            var feedback = await _feedbackService.GetFeedbackByIdAsync(responseDTO.FeedbackId);
             
-            return feedbackResponseDTO;
+            if (feedback is null)
+            {
+                return ResultDTO.Faliure("Feedback doesn't exists!");
+            }
+
+            var feedbackResponseDTO = await _feedbackResponseService.AddFeedbackResponseAsync(responseDTO);
+
+            return ResultDTO.Sucess(feedbackResponseDTO);
         }
     }
 }

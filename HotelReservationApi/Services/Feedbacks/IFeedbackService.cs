@@ -7,5 +7,6 @@ namespace HotelReservationApi.Services.Feedbacks
     {
         Task<FeedbackDTO> AddFeedbackAsync(FeedbackCreateDTO feedbackCreateDTO);
         Task<FeedbackDTO> GetFeedbackByIdAsync(int feedbackId);
+        Task<FeedbackDTO> GetFeedbackByReservationIdAsync(int reservationId);
     }
 }

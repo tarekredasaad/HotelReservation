@@ -1,14 +1,13 @@
-﻿using HotelReservationApi.DTOs.FeedbackResponses;
+﻿using HotelReservationApi.DTOs;
+using HotelReservationApi.DTOs.FeedbackResponses;
 using HotelReservationApi.DTOs.Feedbacks;
-using HotelReservationApi.ViewModels.FeedbackResponses;
-using HotelReservationApi.ViewModels.Feedbacks;
 
 namespace HotelReservationApi.Mediators.Feedbacks
 {
     public interface IFeedbackMediator
     {
-        Task<FeedbackDTO> AddFeedbackAsync(FeedbackViewModel feedbackViewModel);
-        Task<FeedbackDTO> GetFeedbackByIdAsync(int feedbackId);
-        Task<FeedbackResponseDTO> AddFeedbackResponseAsync(FeedbackResponseViewModel responseViewModel);
+        Task<ResultDTO> AddFeedbackAsync(FeedbackCreateDTO feedbackCreateDTO);
+        Task<ResultDTO> GetFeedbackByIdAsync(int feedbackId);
+        Task<ResultDTO> AddFeedbackResponseAsync(FeedbackResponseDTO responseDTO);
     }
 }

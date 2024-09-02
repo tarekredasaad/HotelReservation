@@ -33,5 +33,14 @@ namespace HotelReservationApi.Services.Feedbacks
 
             return feedbackDTO;
         }
+
+        public async Task<FeedbackDTO> GetFeedbackByReservationIdAsync(int reservationId)
+        {
+            var feedback = await _feedbackRepository.First(f => f.ReservationId == reservationId);
+
+            var feedbackDTO = feedback.MapOne<FeedbackDTO>();
+
+            return feedbackDTO;
+        }
     }
 }
