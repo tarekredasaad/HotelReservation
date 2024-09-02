@@ -1,4 +1,5 @@
-﻿using HotelReservationApi.Mediators.Feedbacks;
+﻿using HotelReservationApi.Helper;
+using HotelReservationApi.Mediators.Feedbacks;
 using HotelReservationApi.ViewModels;
 using HotelReservationApi.ViewModels.FeedbackResponses;
 using HotelReservationApi.ViewModels.Feedbacks;
@@ -21,17 +22,31 @@ namespace HotelReservationApi.Controllers
         [HttpPost]
         public async Task<ResultViewModel> SubmitFeedback(FeedbackViewModel feedbackCreateViewModel)
         {
-            var feedbackViewModel = await _feedbackMediator.AddFeedbackAsync(feedbackCreateViewModel);
-            
+            var feedbackDTO = await _feedbackMediator.AddFeedbackAsync(feedbackCreateViewModel);
+
+            var feedbackViewModel = feedbackDTO.MapOne<FeedbackViewModel>();
+
             return ResultViewModel.Sucess(feedbackViewModel, "Feedback submitted Successfully.");
         }
 
         [HttpGet("{id}")]
         public async Task<ResultViewModel> GetFeedbackById(int id)
         {
-            var feedbackViewModel = await _feedbackMediator.GetFeedbackByIdAsync(id);
-            
+            var feedbackDTO = await _feedbackMediator.GetFeedbackByIdAsync(id);
+
+            var feedbackViewModel = feedbackDTO.MapOne<FeedbackViewModel>();
+
             return ResultViewModel.Sucess(feedbackViewModel);
+        }
+
+        [HttpPost]
+        public async Task<ResultViewModel> RespondToFeedback(FeedbackResponseViewModel responseViewModel)
+        {
+            var feedbackResponseDTO = await _feedbackMediator.AddFeedbackResponseAsync(responseViewModel);
+            
+            var feedbackResponseViewModel = feedbackResponseDTO.MapOne<FeedbackResponseViewModel>();
+
+            return ResultViewModel.Sucess(feedbackResponseViewModel, "Response submitted successfully.");
         }
     }
 }
