@@ -9,6 +9,7 @@ namespace HotelReservationApi.Services
 {
     public static class TokenGenerator
     {
+        public static string token {  get; set; }
         public static string GenerateToken(UserDTO userDTO) 
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -27,7 +28,37 @@ namespace HotelReservationApi.Services
             };
 
             var token = tokenHandler.CreateToken(tokeDescriptor);
+
             return tokenHandler.WriteToken(token);
         }
+
+        public static ClaimsPrincipal GetPrincipalFromToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("qPBB70yxYUSy5ievCLDNEItuIR69qBDhCcC7/8eFhhU=");
+
+            try
+            {
+                var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                return principal;
+            }
+            catch
+            {
+                // Handle validation failure
+                return null;
+            }
+        }
+
+
+
+
     }
 }

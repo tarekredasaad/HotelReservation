@@ -32,13 +32,7 @@ namespace HotelReservationApi.Services.RoomReservations
 
                     roomReservations.Add(roomReservation);
 
-                foreach (var facilityId in RoomFacility.FacilitiesIDs)
-                {
-                    RoomReservationFacility roomReservationFacilities = new RoomReservationFacility();
-                    roomReservationFacilities.FacilityId = facilityId;
-                    roomReservationFacilities.RoomReservation = roomReservation;
-
-                }
+               
             }
             
 

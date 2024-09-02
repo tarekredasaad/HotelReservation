@@ -5,6 +5,7 @@ using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace HotelReservationApi.Services.Users
 {
@@ -34,7 +35,17 @@ namespace HotelReservationApi.Services.Users
             var user = userDTO.MapOne<User>();
             _userRepository.Update(user);
         }
+        public Task<int> GetUserIdFromToken(string token)
+        {
+            var principal = TokenGenerator.GetPrincipalFromToken(token);
+            if (principal == null)
+                return default;
 
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            int id = int.Parse(userIdClaim?.Value);
+            var user = _userRepository.GetByID(id);
+            return Task.FromResult( user.Id);
+        }
         public async Task<UserDTO> FindUserByEmailAsync(string email)
         {
             var user = await _userRepository.First(u => u.Email == email);

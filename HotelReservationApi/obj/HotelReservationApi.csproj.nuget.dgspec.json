@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {}
+    "D:\\Tarek\\Training C#\\UpSkilling\\HotelReservationApi-master\\Hotel_Reservation\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {}
   },
   "projects": {
-    "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {
+    "D:\\Tarek\\Training C#\\UpSkilling\\HotelReservationApi-master\\Hotel_Reservation\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+        "projectUniqueName": "D:\\Tarek\\Training C#\\UpSkilling\\HotelReservationApi-master\\Hotel_Reservation\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
         "projectName": "HotelReservationApi",
-        "projectPath": "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
-        "packagesPath": "C:\\Users\\Ahmed Taha\\.nuget\\packages\\",
-        "outputPath": "D:\\Taha\\Projects\\HotelReservation\\HotelReservationApi\\obj\\",
+        "projectPath": "D:\\Tarek\\Training C#\\UpSkilling\\HotelReservationApi-master\\Hotel_Reservation\\HotelReservation\\HotelReservationApi\\HotelReservationApi.csproj",
+        "packagesPath": "C:\\Users\\Development\\.nuget\\packages\\",
+        "outputPath": "D:\\Tarek\\Training C#\\UpSkilling\\HotelReservationApi-master\\Hotel_Reservation\\HotelReservation\\HotelReservationApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Ahmed Taha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Development\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -124,7 +128,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

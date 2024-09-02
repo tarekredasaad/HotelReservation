@@ -35,7 +35,8 @@ namespace HotelReservationApi.Mediators.Users
             }
 
             var token = TokenGenerator.GenerateToken(userDTO);
-
+            
+            TokenGenerator.token = token;
             return ResultDTO.Sucess(token, "Login Successed!");
         }
 
