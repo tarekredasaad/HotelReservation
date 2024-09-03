@@ -10,6 +10,7 @@ using HotelReservationApi.Mediators.Feedbacks;
 using HotelReservationApi.Mediators.Rooms;
 using HotelReservationApi.Mediators.Users;
 using HotelReservationApi.Repositories;
+using HotelReservationApi.Services.CustomerSrv;
 using HotelReservationApi.Services.Facilities;
 using HotelReservationApi.Services.Invoices;
 using HotelReservationApi.Services.Pictures;
@@ -18,6 +19,8 @@ using HotelReservationApi.Services.Roles;
 using HotelReservationApi.Services.RoomFacilities;
 using HotelReservationApi.Services.RoomReservations;
 using HotelReservationApi.Services.Rooms;
+using HotelReservationApi.Services.Staffsrv;
+using HotelReservationApi.Services.StaffSrv;
 using HotelReservationApi.Services.UserRoles;
 using HotelReservationApi.Services.Users;
 using HotelReservationApi.Validators;
@@ -41,6 +44,8 @@ namespace HotelReservationApi
             builder.RegisterType<RoomReservationService>().As<IRoomReservationService>().InstancePerLifetimeScope();
             builder.RegisterType<InvoiceService>().As<IInvoiceService>().InstancePerLifetimeScope();
             builder.RegisterType<ReservationService>().As<IReservationService>().InstancePerLifetimeScope();
+            builder.RegisterType<StaffService>().As<IStaffService>().InstancePerLifetimeScope();
+            builder.RegisterType<CustomerService>().As<ICustomerService>().InstancePerLifetimeScope();
 
             builder.RegisterType<UserMediator>().As<IUserMediator>().InstancePerLifetimeScope();
             builder.RegisterType<RoomMediator>().As<IRoomMediator>().InstancePerLifetimeScope();

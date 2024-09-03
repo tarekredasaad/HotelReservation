@@ -3,12 +3,14 @@ using HotelReservationApi.DTOs.Reservations;
 using HotelReservationApi.DTOs.RoomReservations;
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
+using HotelReservationApi.Services;
 using HotelReservationApi.Services.Invoices;
 using HotelReservationApi.Services.Reservations;
 using HotelReservationApi.Services.RoomFacilities;
 using HotelReservationApi.Services.RoomReservationFacilities;
 using HotelReservationApi.Services.RoomReservations;
 using HotelReservationApi.Services.Rooms;
+using HotelReservationApi.Services.Users;
 using Stripe;
 using Stripe.Checkout;
 using Invoice = HotelReservationApi.Models.Invoice;
@@ -25,11 +27,13 @@ namespace HotelReservationApi.Mediator.Reservations
         private readonly IInvoiceService _invoiceService;
         IRoomReservationFacilityService _roomReservationFacilityService;
         IRoomService _roomService;
+        IUserService _userService;
 
         public ReservationMediator(IReservationService reservationService,
             IRoomReservationService roomReservationService,
             IRoomFacilityService roomFacilityService,
-            IInvoiceService invoiceService
+            IInvoiceService invoiceService,
+            IUserService userService
             , IRoomReservationFacilityService roomReservationFacilityService
             , IRoomService roomService)
         {
@@ -38,12 +42,17 @@ namespace HotelReservationApi.Mediator.Reservations
             _roomFacilityService = roomFacilityService;
             _invoiceService = invoiceService;
             _roomService = roomService;
+            _userService = userService;
             _roomReservationFacilityService = roomReservationFacilityService;
         }
 
         public async Task<ReservationDTO> AddReservation(ReservationDTO reservationDTO)
         {
-            Reservation reservation = await _reservationService.AddReservation(reservationDTO);
+            
+            Reservation reservation = new Reservation();
+            reservation.CustomerId = await _userService.GetUserIdFromToken(TokenGenerator.token);
+
+            reservation = await _reservationService.AddReservation(reservationDTO);
             await _reservationService.SaveChangesAsync();
 
             reservation.TotalPrice = await _roomFacilityService.CostRoom(reservationDTO.ReservationFacilities);

@@ -47,6 +47,7 @@ namespace HotelReservationApi.Controllers
 
         [HttpPost]
         [Authorize(Policy = "Staff")]
+        [AllowAnonymous]
         public async Task<ResultViewModel> AddRoom(RoomCreateViewModel roomCreateVM)
         {
             var roomCreateDTO = roomCreateVM.MapOne<RoomCreateDTO>();

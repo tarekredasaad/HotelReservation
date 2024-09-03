@@ -15,6 +15,14 @@ namespace HotelReservationApi.MapperProfile
             CreateMap<UserRegisterViewModel, UserRegisterDTO>();
 
             CreateMap<UserRegisterDTO, User>();
+            CreateMap<UserDTO, StaffDTO>()
+                .ForMember(dest => dest.UserId , opt => opt.MapFrom(src=>src.Id))
+                .ReverseMap(); 
+            CreateMap<UserDTO, CustomerDTO>()
+                .ForMember(dest => dest.UserId , opt => opt.MapFrom(src=>src.Id))
+                .ReverseMap();
+            CreateMap<Staff, StaffDTO>().ReverseMap();
+            CreateMap<Customer, CustomerDTO>().ReverseMap();
 
             CreateMap<UserCreateDTO, User>();
 

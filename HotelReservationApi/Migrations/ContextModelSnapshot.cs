@@ -279,6 +279,9 @@ namespace HotelReservationApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
@@ -301,6 +304,8 @@ namespace HotelReservationApi.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Reservations");
                 });
@@ -628,6 +633,17 @@ namespace HotelReservationApi.Migrations
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("HotelReservationApi.Models.Reservation", b =>
+                {
+                    b.HasOne("HotelReservationApi.Models.Customer", "Customer")
+                        .WithMany("Reservations")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("HotelReservationApi.Models.RoomFacility", b =>
                 {
                     b.HasOne("HotelReservationApi.Models.Facility", "Facility")
@@ -718,6 +734,8 @@ namespace HotelReservationApi.Migrations
             modelBuilder.Entity("HotelReservationApi.Models.Customer", b =>
                 {
                     b.Navigation("Feedbacks");
+
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("HotelReservationApi.Models.Facility", b =>
