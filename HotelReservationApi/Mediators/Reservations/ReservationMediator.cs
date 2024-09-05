@@ -49,10 +49,9 @@ namespace HotelReservationApi.Mediator.Reservations
         public async Task<ReservationDTO> AddReservation(ReservationDTO reservationDTO)
         {
             
-            Reservation reservation = new Reservation();
-            reservation.CustomerId = await _userService.GetUserIdFromToken(TokenGenerator.token);
+           
 
-            reservation = await _reservationService.AddReservation(reservationDTO);
+           Reservation reservation = await _reservationService.AddReservation(reservationDTO);
             await _reservationService.SaveChangesAsync();
 
             reservation.TotalPrice = await _roomFacilityService.CostRoom(reservationDTO.ReservationFacilities);

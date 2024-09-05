@@ -10,6 +10,8 @@ using HotelReservationApi.Services;
 using HotelReservationApi.Services.StaffSrv;
 using HotelReservationApi.Constant.Enum;
 using HotelReservationApi.Services.CustomerSrv;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace HotelReservationApi.Mediators.Users
 {
@@ -20,11 +22,12 @@ namespace HotelReservationApi.Mediators.Users
         private readonly IUserRoleService _userRoleService;
         IStaffService _staffService;
         ICustomerService _customerService;
-
+        IHttpContextAccessor _httpContextAccessor;
         public UserMediator(IUserService userService, 
             IRoleService roleService, 
             IUserRoleService userRoleService,
             ICustomerService customerService,
+            IHttpContextAccessor httpContextAccessor,
             IStaffService staffService)
         {
             _userService = userService;
@@ -32,6 +35,7 @@ namespace HotelReservationApi.Mediators.Users
             _userRoleService = userRoleService;
             _staffService = staffService;
             _customerService = customerService;
+            this._httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ResultDTO> LoginAsync(UserLoginDTO loginDTO)
@@ -44,13 +48,16 @@ namespace HotelReservationApi.Mediators.Users
             }
 
             var token = TokenGenerator.GenerateToken(userDTO);
+            _httpContextAccessor.HttpContext.Session.SetString("AuthToken", token);
+
             
-            TokenGenerator.token = token;
             return ResultDTO.Sucess(token, "Login Successed!");
         }
 
         public async Task<ResultDTO> RegisterAsync(UserRegisterDTO registerDTO)
         {
+            
+
             var userDTO = await _userService.FindUserByEmailAsync(registerDTO.Email);
 
             if (userDTO is not null)

@@ -2,22 +2,32 @@
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repositories;
+using HotelReservationApi.Services.Users;
 
 namespace HotelReservationApi.Services.Reservations
 {
     public class ReservationService : IReservationService
     {
         IRepository<Reservation> _repository;
+        IHttpContextAccessor _httpContextAccessor;
+        IUserService _userService;
 
-        public ReservationService(IRepository<Reservation> repository)
+        public ReservationService(IRepository<Reservation> repository
+            , IHttpContextAccessor httpContextAccessor
+            , IUserService userService)
         {
+
             _repository = repository;
+            _httpContextAccessor = httpContextAccessor;
+            _userService = userService;
         }
 
         public async Task<Reservation> AddReservation(ReservationDTO reservationDTO)
         {
+            var token = _httpContextAccessor.HttpContext.Session.GetString("AuthToken");
+
             Reservation reservation = reservationDTO.MapOne<Reservation>();
-            
+            reservation.CustomerId = await _userService.GetUserIdFromToken(token);
 
             reservation.NumberDays = (reservationDTO.To - reservationDTO.From).Days;
 

@@ -13,14 +13,16 @@ namespace HotelReservationApi.Mediators.Feedbacks
         private readonly IFeedbackService _feedbackService;
         private readonly IFeedbackResponseService _feedbackResponseService;
         IUserService _userService;
-
+        IHttpContextAccessor _httpContextAccessor;
         public FeedbackMediator(IFeedbackService feedbackService,
             IUserService userService,
-            IFeedbackResponseService feedbackResponseService)
+            IHttpContextAccessor httpContextAccessor,
+        IFeedbackResponseService feedbackResponseService)
         {
             _feedbackService = feedbackService;
             _feedbackResponseService = feedbackResponseService;
             _userService = userService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ResultDTO> AddFeedbackAsync(FeedbackCreateDTO feedbackCreateDTO)
@@ -31,8 +33,9 @@ namespace HotelReservationApi.Mediators.Feedbacks
             {
                 return ResultDTO.Faliure("Feedback has already been submitted for this reservation.");
             }
-            
-                feedbackCreateDTO.CustomerId = await _userService.GetUserIdFromToken(TokenGenerator.token);
+            string token = _httpContextAccessor.HttpContext.Session.GetString("AuthToken");
+
+            feedbackCreateDTO.CustomerId = await _userService.GetUserIdFromToken(token);
             var feedbackDTO = await _feedbackService.AddFeedbackAsync(feedbackCreateDTO);
         
             return ResultDTO.Sucess(feedbackDTO);

@@ -35,7 +35,7 @@ namespace HotelReservationApi.Services.Users
             var user = userDTO.MapOne<User>();
             _userRepository.Update(user);
         }
-        public Task<int> GetUserIdFromToken(string token)
+        public  Task<int> GetUserIdFromToken(string token)
         {
             var principal = TokenGenerator.GetPrincipalFromToken(token);
             if (principal == null)
