@@ -20,5 +20,11 @@ namespace HotelReservationApi.Services.CustomerSrv
             customer =  await _customerRepo.AddAsync(customer);
 
         }
+
+        public async Task<int> GetCustomerId(int userId)
+        {
+            Customer customer = await _customerRepo.First(x => x.UserId == userId);
+            return customer.Id;
+        }
     }
 }

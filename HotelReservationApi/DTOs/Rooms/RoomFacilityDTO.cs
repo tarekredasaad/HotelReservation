@@ -3,6 +3,7 @@
     public class RoomFacilityDTO
     {
         public int RoomId { get; set; }
-        public HashSet<int> FacilityId { get; set; }
+        public HashSet<int> FacilitiesIDs { get; set; }
+      
     }
 }

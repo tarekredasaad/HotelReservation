@@ -2,6 +2,7 @@
 using HotelReservationApi.DTOs.FeedbackResponses;
 using HotelReservationApi.DTOs.Feedbacks;
 using HotelReservationApi.Services;
+using HotelReservationApi.Services.CustomerSrv;
 using HotelReservationApi.Services.FeedbackResponses;
 using HotelReservationApi.Services.Feedbacks;
 using HotelReservationApi.Services.Users;
@@ -14,17 +15,21 @@ namespace HotelReservationApi.Mediators.Feedbacks
         private readonly IFeedbackResponseService _feedbackResponseService;
         IUserService _userService;
         IHttpContextAccessor _httpContextAccessor;
+        ICustomerService _customerService;
+
         public FeedbackMediator(IFeedbackService feedbackService,
             IUserService userService,
+            ICustomerService customerService,
             IHttpContextAccessor httpContextAccessor,
         IFeedbackResponseService feedbackResponseService)
         {
             _feedbackService = feedbackService;
+            _customerService = customerService;
             _feedbackResponseService = feedbackResponseService;
             _userService = userService;
             _httpContextAccessor = httpContextAccessor;
         }
-
+                                                                    
         public async Task<ResultDTO> AddFeedbackAsync(FeedbackCreateDTO feedbackCreateDTO)
         {
             var existingFeedback = await _feedbackService.GetFeedbackByReservationIdAsync(feedbackCreateDTO.ReservationId);
@@ -33,9 +38,13 @@ namespace HotelReservationApi.Mediators.Feedbacks
             {
                 return ResultDTO.Faliure("Feedback has already been submitted for this reservation.");
             }
+            
             string token = _httpContextAccessor.HttpContext.Session.GetString("AuthToken");
 
-            feedbackCreateDTO.CustomerId = await _userService.GetUserIdFromToken(token);
+            int userId = await _userService.GetUserIdFromToken(token);
+
+            feedbackCreateDTO.CustomerId = await _customerService.GetCustomerId(userId);
+            
             var feedbackDTO = await _feedbackService.AddFeedbackAsync(feedbackCreateDTO);
         
             return ResultDTO.Sucess(feedbackDTO);

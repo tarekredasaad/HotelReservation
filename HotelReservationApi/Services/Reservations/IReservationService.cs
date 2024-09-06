@@ -9,8 +9,9 @@ namespace HotelReservationApi.Services.Reservations
         Task<Reservation> AddReservation(ReservationDTO ReservationDTO);
         Task SaveChangesAsync();
         Task<Reservation> Get(int id);
-        Task<Reservation> Update(Reservation reservation);
-        Task<List<Reservation>> GetAll();
+        Task<Reservation> Update(ReservationDTO reservationDTO, int id);
+        Task<Reservation> UpdateToConfirm(Reservation reservation);
+       Task<List<Reservation>> GetAll();
         Task<List<Reservation>> GetReservationAvailable(SearchReservationDTO searchReservationDTO);
     }
 }

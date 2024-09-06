@@ -45,7 +45,7 @@ namespace HotelReservationApi
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllers();
-
+            builder.Services.AddSession();
             builder.Services.AddControllers();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -128,6 +128,7 @@ namespace HotelReservationApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseSession();
 
             app.UseHttpsRedirection();
 

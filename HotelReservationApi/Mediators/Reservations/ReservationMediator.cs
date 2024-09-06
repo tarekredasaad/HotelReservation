@@ -61,7 +61,7 @@ namespace HotelReservationApi.Mediator.Reservations
 
             RoomReservationDTO roomReservationDTO = new RoomReservationDTO();
             roomReservationDTO.Reservation = reservation;
-            //roomReservationDTO.ReservationFacilityDTO = reservationDTO.ReservationFacilities;
+            roomReservationDTO.ReservationFacilityDTO = reservationDTO.ReservationFacilities;
 
             List<RoomReservation> roomReservations = await _roomReservationService
                 .AddRoomReservation(roomReservationDTO);
@@ -71,7 +71,7 @@ namespace HotelReservationApi.Mediator.Reservations
 
             return reservationDTO;
         }
-
+        
         public async Task<string> CreateCheckOut(ReservationConfirmDTO confirmReservationDTO)
         {
             var options = new PaymentIntentCreateOptions
@@ -130,7 +130,7 @@ namespace HotelReservationApi.Mediator.Reservations
         {
             Reservation reservation = await _reservationService.Get(confirmReservationDTO.ReservationId);
             reservation.IsConfirmed = true;
-            reservation = await _reservationService.Update(reservation);
+            reservation = await _reservationService.UpdateToConfirm(reservation);
 
             await CreateInvoice(reservation);
 

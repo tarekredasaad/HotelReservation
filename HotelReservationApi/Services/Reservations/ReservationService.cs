@@ -2,6 +2,7 @@
 using HotelReservationApi.Helper;
 using HotelReservationApi.Models;
 using HotelReservationApi.Repositories;
+using HotelReservationApi.Services.CustomerSrv;
 using HotelReservationApi.Services.Users;
 
 namespace HotelReservationApi.Services.Reservations
@@ -11,13 +12,16 @@ namespace HotelReservationApi.Services.Reservations
         IRepository<Reservation> _repository;
         IHttpContextAccessor _httpContextAccessor;
         IUserService _userService;
+        ICustomerService _customerService;
 
         public ReservationService(IRepository<Reservation> repository
             , IHttpContextAccessor httpContextAccessor
+            ,ICustomerService customerService
             , IUserService userService)
         {
 
             _repository = repository;
+            _customerService = customerService;
             _httpContextAccessor = httpContextAccessor;
             _userService = userService;
         }
@@ -27,11 +31,12 @@ namespace HotelReservationApi.Services.Reservations
             var token = _httpContextAccessor.HttpContext.Session.GetString("AuthToken");
 
             Reservation reservation = reservationDTO.MapOne<Reservation>();
-            reservation.CustomerId = await _userService.GetUserIdFromToken(token);
+            int userId = await _userService.GetUserIdFromToken(token);
+            reservation.CustomerId = await _customerService.GetCustomerId(userId);
 
             reservation.NumberDays = (reservationDTO.To - reservationDTO.From).Days;
 
-            await _repository.AddAsync(reservation);
+            reservation =await _repository.AddAsync(reservation);
 
             return reservation;
         }
@@ -51,12 +56,30 @@ namespace HotelReservationApi.Services.Reservations
             return reservation;
         }
 
-        public async Task<Reservation> Update(Reservation reservation)
+        public async Task<Reservation> Update(ReservationDTO reservationDTO, int id)
         {
-            Reservation reservation_x = _repository.Update(reservation);
-            return reservation_x;
-        }
+            var token = _httpContextAccessor.HttpContext.Session.GetString("AuthToken");
 
+            Reservation reservation = await Get(id);
+            if(reservation == null)
+            {
+                return default;
+            }
+             reservation = reservationDTO.MapOne<Reservation>();
+            int userId = await _userService.GetUserIdFromToken(token);
+            reservation.CustomerId = await _customerService.GetCustomerId(userId);
+            reservation.Id = id;
+            reservation.NumberDays = (reservationDTO.To - reservationDTO.From).Days;
+
+            reservation = _repository.Update(reservation);
+
+            return reservation;
+        }
+        public async Task<Reservation> UpdateToConfirm(Reservation reservation)
+        {
+            Reservation reservation1 =  _repository.Update(reservation);
+            return reservation1;
+        }
         public async Task<List<Reservation>> GetReservationAvailable( SearchReservationDTO searchReservationDTO)
         {
             var reservation =await _repository.GetAll(r => 

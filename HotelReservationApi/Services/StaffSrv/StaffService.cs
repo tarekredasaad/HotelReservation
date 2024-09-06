@@ -17,8 +17,8 @@ namespace HotelReservationApi.Services.Staffsrv
         public async Task AddStaff(StaffDTO  staffDTO)
         {
             
-
             Staff staff = staffDTO.MapOne<Staff>(); 
+
             staff = await  _StaffRepo.AddAsync(staff);
 
 

@@ -6,6 +6,7 @@ using HotelReservationApi.Mediator.Reservations;
 using HotelReservationApi.Services;
 using HotelReservationApi.ViewModels;
 using HotelReservationApi.ViewModels.Reservations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApi.Controllers
@@ -26,37 +27,21 @@ namespace HotelReservationApi.Controllers
             _reservationValidator = reservationValidator;
             _confirmReservationValidator = confirmReservationValidator;
         }
-
+        //[Authorize(Policy = "Customer")]
         [HttpPost]
-        public async Task<ActionResult<ResultViewModel>> AddReservation(ReservationViewModel reservationCreateVM)
+        public async Task<ActionResult<ResultViewModel>> AddReservation(ReservationDTO reservationCreateVM)
         {
-            if (TokenGenerator.token is null)
-            {
-                return BadRequest(ResultViewModel
-                    .Faliure("The User is not authenticated you shoud make login First"));
-            }
-            ValidationResult result = _reservationValidator.Validate(reservationCreateVM);
+           
 
-            if (!result.IsValid)
-            {
-                return BadRequest(ResultViewModel.Faliure(result.Errors.First().ToString()));
-            }
-
-            var reservationCreateDTO = reservationCreateVM.MapOne<ReservationDTO>();
-
-            var reservationDTO = await _reservationMediator.AddReservation(reservationCreateDTO);
+            var reservationDTO = await _reservationMediator.AddReservation(reservationCreateVM);
 
             return Ok(ResultViewModel.Sucess(reservationDTO, "Reservation created successfully."));
         }
-
+       // [Authorize(Policy = "Customer")]
         [HttpPost]
         public async  Task<ActionResult<ResultViewModel>> CreateCheckOutURL(ReservationConfirmDTO confirmReservationDTO)
         {
-            if (TokenGenerator.token is null)
-            {
-                return BadRequest(ResultViewModel
-                    .Faliure("The User is not authenticated you shoud make login First"));
-            }
+            
             ValidationResult result = _confirmReservationValidator.Validate(confirmReservationDTO);
 
             if (!result.IsValid)

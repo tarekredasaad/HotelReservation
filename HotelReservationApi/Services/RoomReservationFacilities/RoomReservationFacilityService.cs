@@ -26,7 +26,7 @@ namespace HotelReservationApi.Services.RoomReservationFacilities
 
                 foreach (var facility in roomFacilityDTOs)
                 {
-                    foreach(int id in facility.FacilityId)
+                    foreach(int id in facility.FacilitiesIDs)
                     {
 
                         roomReservationFacility.FacilityId = id;

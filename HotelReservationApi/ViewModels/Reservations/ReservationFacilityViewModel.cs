@@ -3,6 +3,6 @@
     public class ReservationFacilityViewModel
     {
         public int RoomId { get; set; }
-        public List<int> FacilitiesIDs { get; set; }
+        public HashSet<int> FacilitiesIDs { get; set; }
     }
 }

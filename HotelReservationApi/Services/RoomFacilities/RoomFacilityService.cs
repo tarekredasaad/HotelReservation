@@ -47,7 +47,7 @@ namespace HotelReservationApi.Services.RoomFacilities
 
                 cost += roomCost + facilityCost;
 
-                foreach(var id in reservationFacilityDTO.FacilityId)
+                foreach(var id in reservationFacilityDTO.FacilitiesIDs)
                 {
                     var roomFacility = await _roomFacilityRepository.
                         GetAll(r => r.RoomId == reservationFacilityDTO.RoomId && r.FacilityId == id, r => r.Room, r => r.Facility);

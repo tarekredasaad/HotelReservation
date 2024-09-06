@@ -17,6 +17,7 @@ using HotelReservationApi.Services.Pictures;
 using HotelReservationApi.Services.Reservations;
 using HotelReservationApi.Services.Roles;
 using HotelReservationApi.Services.RoomFacilities;
+using HotelReservationApi.Services.RoomReservationFacilities;
 using HotelReservationApi.Services.RoomReservations;
 using HotelReservationApi.Services.Rooms;
 using HotelReservationApi.Services.Staffsrv;
@@ -42,6 +43,7 @@ namespace HotelReservationApi
             builder.RegisterType<FacilityService>().As<IFacilityService>().InstancePerLifetimeScope();
             builder.RegisterType<RoomFacilityService>().As<IRoomFacilityService>().InstancePerLifetimeScope();
             builder.RegisterType<RoomReservationService>().As<IRoomReservationService>().InstancePerLifetimeScope();
+            builder.RegisterType<RoomReservationFacilityService>().As<IRoomReservationFacilityService>().InstancePerLifetimeScope();
             builder.RegisterType<InvoiceService>().As<IInvoiceService>().InstancePerLifetimeScope();
             builder.RegisterType<ReservationService>().As<IReservationService>().InstancePerLifetimeScope();
             builder.RegisterType<StaffService>().As<IStaffService>().InstancePerLifetimeScope();
